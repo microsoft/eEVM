@@ -6,7 +6,7 @@ Enclave EVM (eEVM) is an open-source, standalone, embeddable, C++ implementation
 
 The main entry point is `evm::Processor::run()`. You will need to provide `evm::Processor` with an implementation of `evm::GlobalState` to handle all interactions with permanent state. The source includes `evm::SimpleGlobalState` as an example backed by `std::map`, but other instances will likely want an implementation which provides permanent storage - perhaps a wrapper to read/write data from the Ethereum blockchain.
 
-eEVM supports all opcodes from Ethereum's [Homestead release](http://ethdocs.org/en/latest/introduction/the-homestead-release.html), as listed in [opcode.h](evm/opcode.h). Note that this does not include more recent opcodes such as `RETURNDATACOPY` or `RETURNDATASIZE` from [EIP #211](https://github.com/ethereum/EIPs/pull/211).
+eEVM supports all opcodes from Ethereum's [Homestead release](http://ethdocs.org/en/latest/introduction/the-homestead-release.html), as listed in [opcode.h](include/opcode.h). Note that this does not include more recent opcodes such as `RETURNDATACOPY` or `RETURNDATASIZE` from [EIP #211](https://github.com/ethereum/EIPs/pull/211).
 
 The implementation ignores all gas costs - gas is not spent, tracked, or updated during execution, and execution will never throw an outofgas exception. However, it may still be necessary to pass a sensible initial gas value to `evm::Processor::run()` in case the bytecode calculates or verifies gas budgets itself.
 
