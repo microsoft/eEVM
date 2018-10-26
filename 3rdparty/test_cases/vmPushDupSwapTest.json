@@ -1,0 +1,3500 @@
+{
+    "dup1": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup1Filler.json",
+            "sourceHash": "5c50f1d532719763a55cf9d0b139ba25dd7880da2396e34d00a02909f6e9887a"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff80600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013877",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff80600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff80600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup10": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup10Filler.json",
+            "sourceHash": "c548d892360c5d1865085cf867419cb5e19c8735fb64ae6b25db98e40c42c355"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600a60096008600760066005600460036002600189600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01385c",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600a60096008600760066005600460036002600189600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x0a"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600a60096008600760066005600460036002600189600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup11": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup11Filler.json",
+            "sourceHash": "7ea60c44b64117b51e58532bb4c5eb961ee87e9bec9242de3c30cf37c207de62"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600b600a6009600860076006600560046003600260018a600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013859",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600b600a6009600860076006600560046003600260018a600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x0b"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600b600a6009600860076006600560046003600260018a600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup12": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup12Filler.json",
+            "sourceHash": "f5de21a63410cbf9a0f2196bd37aaca54a1b9ee86dfe11da3a18a73755b84f92"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600c600b600a6009600860076006600560046003600260018b600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013856",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600c600b600a6009600860076006600560046003600260018b600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x0c"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600c600b600a6009600860076006600560046003600260018b600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup13": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup13Filler.json",
+            "sourceHash": "56b1aed98403c0b57fef7e12a960e032fc0ea6eaeb55b7e4ee21e0f689399e1a"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600d600c600b600a6009600860076006600560046003600260018c600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013853",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600d600c600b600a6009600860076006600560046003600260018c600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x0d"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600d600c600b600a6009600860076006600560046003600260018c600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup14": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup14Filler.json",
+            "sourceHash": "fb943f5e652a9d648f6b9741d61afb019187d7706b1ae73f22660d059bbbebf0"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600e600d600c600b600a6009600860076006600560046003600260018d600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013850",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600e600d600c600b600a6009600860076006600560046003600260018d600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x0e"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600e600d600c600b600a6009600860076006600560046003600260018d600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup15": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup15Filler.json",
+            "sourceHash": "34ec18a9895db7eae07bd0bb2c9bb5495be93c8e77db034c6345b1e6b20aa393"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600f600e600d600c600b600a6009600860076006600560046003600260018e600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01384d",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600f600e600d600c600b600a6009600860076006600560046003600260018e600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x0f"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600f600e600d600c600b600a6009600860076006600560046003600260018e600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup16": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup16Filler.json",
+            "sourceHash": "8f0fbf6ef9e046eef699a8f4755c93bafcee5584f485612d32138830d6b67410"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6010600f600e600d600c600b600a6009600860076006600560046003600260018f600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01384a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6010600f600e600d600c600b600a6009600860076006600560046003600260018f600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x10"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6010600f600e600d600c600b600a6009600860076006600560046003600260018f600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup2": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup2Filler.json",
+            "sourceHash": "521ce2cca74c960f0df551b9b30225bbca8ed187d8c5ca8058337bd38500bddc"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6002600181600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013874",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6002600181600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x02"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6002600181600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup2error": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup2errorFiller.json",
+            "sourceHash": "79472b53f77d8f8135dd593c0bbb2882884b210dd5906a4a7128362d205620b6"
+        },
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff81600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff81600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup3": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup3Filler.json",
+            "sourceHash": "62a6a536955e810f4bf8ac53bab21c0a71ebe1d227a2c1b2ca852901635a5fb9"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60036002600182600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013871",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60036002600182600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x03"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60036002600182600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup4": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup4Filler.json",
+            "sourceHash": "1998598b8b04942e329f6940ab7667a410ec839d2140b03e2c85b7922034ffa8"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600460036002600183600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01386e",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600460036002600183600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x04"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600460036002600183600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup5": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup5Filler.json",
+            "sourceHash": "ab55fb58d6cc64ed99701b628b6f36682395ad0d6a25bf34c017b55503833c8f"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6005600460036002600184600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01386b",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6005600460036002600184600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x05"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6005600460036002600184600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup6": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup6Filler.json",
+            "sourceHash": "21466ad7a2f92bfaac4c622db922484067543ac3a336601298d60d1588af4caf"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60066005600460036002600185600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013868",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60066005600460036002600185600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x06"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60066005600460036002600185600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup7": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup7Filler.json",
+            "sourceHash": "07ba7ee6a8122276110c948c0b752aa64eb213791749eed8a5ab5f4b9d96821c"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600760066005600460036002600186600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013865",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600760066005600460036002600186600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x07"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600760066005600460036002600186600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup8": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup8Filler.json",
+            "sourceHash": "bcccc54a6369b4a65aabe60042ea0a3e94861fbe53bf2100f93fc303f991f1c7"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6008600760066005600460036002600187600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013862",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6008600760066005600460036002600187600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x08"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6008600760066005600460036002600187600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "dup9": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/dup9Filler.json",
+            "sourceHash": "ff227c8e0c59e02a5906cddb38ad9861be167015c65f9abcc8aede03dfc981a7"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60096008600760066005600460036002600188600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01385f",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60096008600760066005600460036002600188600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x09"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60096008600760066005600460036002600188600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push1": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push1Filler.json",
+            "sourceHash": "82d8c6030f1f5948833dc57e557b7b26b1e1546b32d90394ad1634ed8857175c"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60ff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60ff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60ff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push1_missingStack": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push1_missingStackFiller.json",
+            "sourceHash": "b43900c023fef0fe1669635aecae50b1882069c86acabf2229d57cd273632e20"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01869d",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push10": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push10Filler.json",
+            "sourceHash": "dad72d5f86f0a0c274ed2da8459ec7b8cd4b041b433a8d6c8cab19d8498d86cc"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6966778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6966778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x66778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6966778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push11": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push11Filler.json",
+            "sourceHash": "e8759342266e61c009db0d42faebdf51f33a37b9d81293e2f5c4bc9b3805bd63"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6a5566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6a5566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x5566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6a5566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push12": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push12Filler.json",
+            "sourceHash": "87d7a1d41e5c4fec3b5f37a6d2808b05ca26da9a9c221326b41f7619ce3df211"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6b445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6b445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6b445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push13": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push13Filler.json",
+            "sourceHash": "929faa368bfde6c825bcda5b68a00deba521a04d1a0d601e06563955d1e81e9d"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6c33445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6c33445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x33445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6c33445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push14": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push14Filler.json",
+            "sourceHash": "e29f6b20f1ac7746dbabadbc077015baf30b24d0aa5167c35b76a6111e9c3d76"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6d2233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6d2233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x2233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6d2233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push15": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push15Filler.json",
+            "sourceHash": "ad553767d4cd96eea1448672f0d80c8f2367dc7257615b9757fa4766a10f8112"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6e112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6e112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6e112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push16": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push16Filler.json",
+            "sourceHash": "dde9ef4c2c019931cc50aaa8d0df4a245e8a7ec23a30a80fb0523e71ae91f926"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6f10112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6f10112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x10112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6f10112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push17": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push17Filler.json",
+            "sourceHash": "e1ac09eecc191580d4ea3d21c5c9590bad3fa42f5b81023e9d5df3c4c3239dec"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x70ff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x70ff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x70ff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push18": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push18Filler.json",
+            "sourceHash": "ac71ec27c36a26ca97c2fc8b080d449ea28cf114e5ed01677652f82734b51258"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x71eeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x71eeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x71eeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push19": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push19Filler.json",
+            "sourceHash": "ffb38a9d171b05772d6c80e1054d015a68bde2148bc10bc4ca087eafce154c38"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x72ddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x72ddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x72ddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push2": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push2Filler.json",
+            "sourceHash": "a4af1aaec1139a5d23adc82622e640c10519f62bd8c0dd573957110d9defeb38"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x61eeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x61eeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x61eeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push20": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push20Filler.json",
+            "sourceHash": "57b7fd694e3270957ea3502ab2ff70765a7cb511dc7749ebed0b3d50bac492a7"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x73ccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x73ccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x73ccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push21": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push21Filler.json",
+            "sourceHash": "8d5ad46263b0acbf67d8bf9cbdcf396a2f71ab81ecdb699f441e8b2f2409ff8e"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x74bbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x74bbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xbbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x74bbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push22": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push22Filler.json",
+            "sourceHash": "0e1b7fdd9a74862754b57ea896caaa3e1a2e03e874f2a9ee0ecd42d1727f6781"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x75aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x75aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xaabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x75aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push23": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push23Filler.json",
+            "sourceHash": "1db3c4e4f89d6b6efffd17f116220e9da55560dd2d165bfa66c09ca1caa58511"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7699aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7699aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x99aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7699aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push24": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push24Filler.json",
+            "sourceHash": "398793dda7bc16245015dfd1f78b59a38d682f216f3811044d50a6c376d84597"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x8899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push25": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push25Filler.json",
+            "sourceHash": "ffec914c16621796a5e05fae825a013cfb243557d9cb93f22ba5919cefa428d5"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x78778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x78778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x78778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push26": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push26Filler.json",
+            "sourceHash": "fdc8b42717e3b3bf64f9d6b06dce02af39f3e21727ac5ab18ef69916f6a06f15"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7966778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7966778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x66778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7966778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push27": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push27Filler.json",
+            "sourceHash": "45b4e28b1ee7bd230453413bd252ce7b4f84ca449d9da32521fb442b21a68fe7"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7a5566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7a5566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x5566778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7a5566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push28": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push28Filler.json",
+            "sourceHash": "ce4b37d47d4fd1bed3aa1c3dd9344daed371bf9cd7a9d5035023ee1f169026ef"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7b445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7b445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7b445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push29": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push29Filler.json",
+            "sourceHash": "f13c75608443c49b816f08cbe00f2adc12edd41ac47f83b564069d1ca6def393"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7c33445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7c33445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x33445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7c33445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push3": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push3Filler.json",
+            "sourceHash": "5010fec1463a02ebb8ded2b0123d02bc4db76af90eaa4a186eec099346764722"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x62ddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x62ddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x62ddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push30": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push30Filler.json",
+            "sourceHash": "5376b03db86f9bf2b5b1d95fa1ef14d8081a0bc7de1af702084a8c344152c56d"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7d2233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7d2233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x2233445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7d2233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push31": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push31Filler.json",
+            "sourceHash": "3a28c61fddcd518c170c8c5f85779779914401ccedf641e28b75ec50027676f6"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7e112233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7e112233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x112233445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7e112233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push32": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push32Filler.json",
+            "sourceHash": "7a442961544e6f7710ecf8d60c37405f568a356c786130450176324050ba222a"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push32AndSuicide": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push32AndSuicideFiller.json",
+            "sourceHash": "f9e36cc4d29dd0cc94a00d7d34f65183653a799ca7887a0ab5d6ae6772da6814"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7fff10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01869d",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0xbbccddeeff00112233445566778899aabbccddee": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7fff10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push32FillUpInputWithZerosAtTheEnd": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push32FillUpInputWithZerosAtTheEndFiller.json",
+            "sourceHash": "54d45943d8b6d6266f05a68d467bd3538ffb833b83c8575e5c54a1672d013416"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7fff10112233445566778899aabbccddeeff00112233445566778899aabbccdd",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01869d",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7fff10112233445566778899aabbccddeeff00112233445566778899aabbccdd",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7fff10112233445566778899aabbccddeeff00112233445566778899aabbccdd",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push32Undefined": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push32UndefinedFiller.json",
+            "sourceHash": "788e4ba4ba92eac7a3903b04903efbe621aa81e7b397f01dcac9ff63df3488e9"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7f010203600055",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01869d",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f010203600055",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f010203600055",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push32Undefined2": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push32Undefined2Filler.json",
+            "sourceHash": "9186e1bee39e3991f8d93ef51f2f80ad6aefba8b34149df8cf9ef84537a06998"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7f0102030000000000000000000000000000000000000000000000000000000000600055",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f0102030000000000000000000000000000000000000000000000000000000000600055",
+                "nonce": "0x00",
+                "storage": {
+                    "0x00": "0x0102030000000000000000000000000000000000000000000000000000000000"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f0102030000000000000000000000000000000000000000000000000000000000600055",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push32Undefined3": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push32Undefined3Filler.json",
+            "sourceHash": "48102c890e5655665ac0cdab875748a264a00a7d6b835e2f0f0a338a90335a33"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7f",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01869d",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push33": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push33Filler.json",
+            "sourceHash": "35be78cde9dff16e88f780784f6ebcbb12320cfcc1a1f17cd667bf43c40b100b"
+        },
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60656107d26204a0c763026921f4640bc5588eb165372d0f1dca6e661ba1d901961c71670c55f7bc23038e3868056bc75e2d630fffff69021e19e0c9bab24000016a085d1c6e8050f0ea1c71bd6b0688be36543f3c36e638e37a6c03d41f73d55d0d482ae55555376dc76810d0fe03c91964d31c71c6f46e615dd0360c07d931663b14e38e38b16f2da3f99955a3adcf27ebb1caaaaaaa6e7014ccba6a8bb1ed35bd86bf065c71c71c2b7109491c5d4781b79c9009de6bfb8e38e38de8720414a0f6fdec81304d4c563e740bffffffffa573118427b3b4a05bc8a8a4de8459868000000000017406eb15e7331e727940d4ac54b7cdca1c71c71c71bd750567a91c9fefc96ebaa626a22f98c5e638e38e38e37a76032abd16c5b68006e15d5aa307e383f4e55555555555377701a6427bdc4f0d58eab5f48a3ec67f64e21c71c71c71c6f478080dd0a0c9b9ff2c2a0c740b06853a0a980ee38e38e38e38b17903c679cb5e8f2f9cb3b5d6652b0e7334f746faaaaaaaaaaaaa6e7a01b873815917ebb2bf3b890a1af495d6235bae3c71c71c71c71c2b7b07ae4cca96e1a55dfa49c85ad3c3e60e426b92fb8e38e38e38e38de87c036018bf074e292bcc7d6c8bea0f9699443046178bffffffffffffffa57d0e7d34c64a9c85d4460dbbca87196b61618a4bd2168000000000000000017e05b901f48a5b994d6572502bc4ea43140486666416aa1c71c71c71c71c71bd7f047889870c178fc477414ea231d70467a388fffe31b4e638e38e38e38e38e37a",
+            "data": "0x",
+            "gas": "0x20",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60656107d26204a0c763026921f4640bc5588eb165372d0f1dca6e661ba1d901961c71670c55f7bc23038e3868056bc75e2d630fffff69021e19e0c9bab24000016a085d1c6e8050f0ea1c71bd6b0688be36543f3c36e638e37a6c03d41f73d55d0d482ae55555376dc76810d0fe03c91964d31c71c6f46e615dd0360c07d931663b14e38e38b16f2da3f99955a3adcf27ebb1caaaaaaa6e7014ccba6a8bb1ed35bd86bf065c71c71c2b7109491c5d4781b79c9009de6bfb8e38e38de8720414a0f6fdec81304d4c563e740bffffffffa573118427b3b4a05bc8a8a4de8459868000000000017406eb15e7331e727940d4ac54b7cdca1c71c71c71bd750567a91c9fefc96ebaa626a22f98c5e638e38e38e37a76032abd16c5b68006e15d5aa307e383f4e55555555555377701a6427bdc4f0d58eab5f48a3ec67f64e21c71c71c71c6f478080dd0a0c9b9ff2c2a0c740b06853a0a980ee38e38e38e38b17903c679cb5e8f2f9cb3b5d6652b0e7334f746faaaaaaaaaaaaa6e7a01b873815917ebb2bf3b890a1af495d6235bae3c71c71c71c71c2b7b07ae4cca96e1a55dfa49c85ad3c3e60e426b92fb8e38e38e38e38de87c036018bf074e292bcc7d6c8bea0f9699443046178bffffffffffffffa57d0e7d34c64a9c85d4460dbbca87196b61618a4bd2168000000000000000017e05b901f48a5b994d6572502bc4ea43140486666416aa1c71c71c71c71c71bd7f047889870c178fc477414ea231d70467a388fffe31b4e638e38e38e38e38e37a",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push4": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push4Filler.json",
+            "sourceHash": "84f80f9e0192deb8524b7c37b9486daa49d258740e769f9ead6f0d36162a1276"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x63ccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x63ccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x63ccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push5": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push5Filler.json",
+            "sourceHash": "62cd5a06503b7e6f9f57af51851e41ec591f06b796561029b7fcb41378d53edf"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x64bbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x64bbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xbbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x64bbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push6": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push6Filler.json",
+            "sourceHash": "7b8b972cef8c0898aeaf178700f6c361a7801cb3a9c13746609f7d46be238a7b"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x65aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x65aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0xaabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x65aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push7": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push7Filler.json",
+            "sourceHash": "fb99831cc6329b6bf02fea082be5df9e87e465631eaf85ac1ad0ba32c6eb5003"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6699aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6699aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x99aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6699aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push8": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push8Filler.json",
+            "sourceHash": "1d14b38be4fe706abf27b86b1602c9f7d75bc71b4ef40197570a181f72582a15"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x678899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x678899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x8899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x678899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "push9": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/push9Filler.json",
+            "sourceHash": "280adb1426d110918b28a536b061168ffb7f6446a641b124486cb9f4b51050aa"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x68778899aabbccddeeff600355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01387a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x68778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x778899aabbccddeeff"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x68778899aabbccddeeff600355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap1": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap1Filler.json",
+            "sourceHash": "29fc822c4d64c743aad36a5f0c29d21cb591e5d137f6289641a22dad7bff866f"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff60039055",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013877",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff60039055",
+                "nonce": "0x00",
+                "storage": {
+                    "0x10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff": "0x03"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff60039055",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap10": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap10Filler.json",
+            "sourceHash": "bb8f850fdc3c977b6f8c6986e00788c809269d4693b64477edec801ec475dc20"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600a60096008600760066005600460036002600160039955",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01385c",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600a60096008600760066005600460036002600160039955",
+                "nonce": "0x00",
+                "storage": {
+                    "0x0a": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600a60096008600760066005600460036002600160039955",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap11": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap11Filler.json",
+            "sourceHash": "06e45e44a6519f926c56a387204354f3a5f415955af62de9cfd5463e8a43db58"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600b600a60096008600760066005600460036002600160039a55",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013859",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600b600a60096008600760066005600460036002600160039a55",
+                "nonce": "0x00",
+                "storage": {
+                    "0x0b": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600b600a60096008600760066005600460036002600160039a55",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap12": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap12Filler.json",
+            "sourceHash": "03b6cc7f8221bb6e4e1fe094339a75d08c88ab33122fc3f366bde981b1407c43"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600c600b600a60096008600760066005600460036002600160039b55",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013856",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600c600b600a60096008600760066005600460036002600160039b55",
+                "nonce": "0x00",
+                "storage": {
+                    "0x0c": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600c600b600a60096008600760066005600460036002600160039b55",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap13": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap13Filler.json",
+            "sourceHash": "e14d01456be584b96d8a55103ac98f45cd08a7435f04bbb8d98a77096f4e41e2"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600d600c600b600a60096008600760066005600460036002600160039c55",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013853",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600d600c600b600a60096008600760066005600460036002600160039c55",
+                "nonce": "0x00",
+                "storage": {
+                    "0x0d": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600d600c600b600a60096008600760066005600460036002600160039c55",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap14": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap14Filler.json",
+            "sourceHash": "08676ac51068f5ff3c8aeb2e2f5b308e40aadcbd7ccd5db793eeadfdab0ae370"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600e600d600c600b600a60096008600760066005600460036002600160039d55",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013850",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600e600d600c600b600a60096008600760066005600460036002600160039d55",
+                "nonce": "0x00",
+                "storage": {
+                    "0x0e": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600e600d600c600b600a60096008600760066005600460036002600160039d55",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap15": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap15Filler.json",
+            "sourceHash": "964c76016d316c63e68ae7b42cf2b588dbca68f5c37358affd394858203b4fcd"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600f600e600d600c600b600a60096008600760066005600460036002600160039e55",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01384d",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600f600e600d600c600b600a60096008600760066005600460036002600160039e55",
+                "nonce": "0x00",
+                "storage": {
+                    "0x0f": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600f600e600d600c600b600a60096008600760066005600460036002600160039e55",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap16": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap16Filler.json",
+            "sourceHash": "8ac8a7b3455db852f2ee586b27d488ab4ff93d2303b08d1ca19d4459ce256396"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6010600f600e600d600c600b600a60096008600760066005600460036002600160039f55",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01384a",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6010600f600e600d600c600b600a60096008600760066005600460036002600160039f55",
+                "nonce": "0x00",
+                "storage": {
+                    "0x10": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6010600f600e600d600c600b600a60096008600760066005600460036002600160039f55",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap2": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap2Filler.json",
+            "sourceHash": "009f128994c4f753d73601af613a8d26d535547e727d68185e5f55d07a83cdb4"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6002600160039155",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013874",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6002600160039155",
+                "nonce": "0x00",
+                "storage": {
+                    "0x02": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6002600160039155",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap2error": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap2errorFiller.json",
+            "sourceHash": "78c4f056e4dd1e00c9a1a9173b5015320f380731367b5151ee41eb19220ac425"
+        },
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff60039155",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x7f10112233445566778899aabbccddeeff00112233445566778899aabbccddeeff60039155",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap3": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap3Filler.json",
+            "sourceHash": "c1f951fb15cd34903be4c23bfb8beb11c2952371b7690bee3039a8278855128d"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60036002600160039255",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013871",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60036002600160039255",
+                "nonce": "0x00",
+                "storage": {
+                    "0x03": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60036002600160039255",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap4": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap4Filler.json",
+            "sourceHash": "46503a6a7fba75ae5317d1ba995439f81e6f2b4ff9e99f9ae6099a28ea062891"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600460036002600160039355",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01386e",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600460036002600160039355",
+                "nonce": "0x00",
+                "storage": {
+                    "0x04": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600460036002600160039355",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap5": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap5Filler.json",
+            "sourceHash": "6bfdf99bf4eac0ab55b3988c28ec0f77968304f399f9bf48a8fd5a6dc41c8113"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6005600460036002600160039455",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01386b",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6005600460036002600160039455",
+                "nonce": "0x00",
+                "storage": {
+                    "0x05": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6005600460036002600160039455",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap6": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap6Filler.json",
+            "sourceHash": "06587ddead5698f8c1b2495f4130e45311fff84c13f31f5ba32b01511a04db2c"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60066005600460036002600160039555",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013868",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60066005600460036002600160039555",
+                "nonce": "0x00",
+                "storage": {
+                    "0x06": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60066005600460036002600160039555",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap7": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap7Filler.json",
+            "sourceHash": "6aca01cb198b990dba0e580ed8160ff9fb1c35ec7b3f0331873ada9c5bc533cd"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600760066005600460036002600160039655",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013865",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600760066005600460036002600160039655",
+                "nonce": "0x00",
+                "storage": {
+                    "0x07": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600760066005600460036002600160039655",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap8": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap8Filler.json",
+            "sourceHash": "fb7a6f178b9b95226da3d845f5ca3b8348deb8e498f34046b4496bd944d166e5"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x6008600760066005600460036002600160039755",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x013862",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6008600760066005600460036002600160039755",
+                "nonce": "0x00",
+                "storage": {
+                    "0x08": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x6008600760066005600460036002600160039755",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swap9": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swap9Filler.json",
+            "sourceHash": "ea7fa1acad34817081e570556164c31dbe42ebc61f47113def3bed2c50a76e7a"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x60096008600760066005600460036002600160039855",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01385f",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60096008600760066005600460036002600160039855",
+                "nonce": "0x00",
+                "storage": {
+                    "0x09": "0x01"
+                }
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x60096008600760066005600460036002600160039855",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    },
+    "swapjump1": {
+        "_info": {
+            "comment": "",
+            "filledwith": "testeth 1.4.0.dev0-56+commit.71414ae3",
+            "lllcversion": "Version: 0.4.25-develop.2018.5.30+commit.0a1a8bfb.Linux.g++",
+            "source": "src/VMTestsFiller/vmPushDupSwapTest/swapjump1Filler.json",
+            "sourceHash": "e5376e665e52446bcf62919c1c3fd664a6e06a384c8696528740761070ec6024"
+        },
+        "callcreates": [],
+        "env": {
+            "currentCoinbase": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+            "currentDifficulty": "0x0100",
+            "currentGasLimit": "0x0f4240",
+            "currentNumber": "0x00",
+            "currentTimestamp": "0x01"
+        },
+        "exec": {
+            "address": "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6",
+            "caller": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "code": "0x600560026001600c575050005b9060016116575050005b035b0360005260016003611ff3",
+            "data": "0x",
+            "gas": "0x0186a0",
+            "gasPrice": "0x5af3107a4000",
+            "origin": "0xcd1722f3947def4cf144679da39c4c32bdc35681",
+            "value": "0x0de0b6b3a7640000"
+        },
+        "gas": "0x01867c",
+        "logs": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "out": "0x",
+        "post": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600560026001600c575050005b9060016116575050005b035b0360005260016003611ff3",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        },
+        "pre": {
+            "0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6": {
+                "balance": "0x152d02c7e14af6800000",
+                "code": "0x600560026001600c575050005b9060016116575050005b035b0360005260016003611ff3",
+                "nonce": "0x00",
+                "storage": {}
+            }
+        }
+    }
+}
