@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/vm.h"
+#include "../include/processor.h"
 
 #include "../include/bigint.h"
 #include "../include/exception.h"

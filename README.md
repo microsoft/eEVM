@@ -10,12 +10,12 @@ eEVM supports all opcodes from Ethereum's [Homestead release](http://ethdocs.org
 
 The implementation ignores all gas costs - gas is not spent, tracked, or updated during execution, and execution will never throw an outofgas exception. However, it may still be necessary to pass a sensible initial gas value to `evm::Processor::run()` in case the bytecode calculates or verifies gas budgets itself.
 
-So far, the code is not particularly optimized in any dimension.
+So far, the code is not particularly optimized in any dimension. In fact, it is in experimental state.
 
 ## Dependencies
 
 * CMake. Minimum version 3.10.
-* Boost. Minimum version 1.60.0. We currently use Boost multi-precision ints, so require Boost to be available on the local machine. This is a header-only dependency - Boost does not need to be installed. We may replace this with another wide int implementation in future.
+* Boost. Minimum version 1.60.0. We currently use Boost multi-precision ints, so require Boost to be available on the local machine. This is a header-only dependency - Boost does not need to be installed. We may replace this with another wide int implementation in the future.
 
 ## Build and Test
 

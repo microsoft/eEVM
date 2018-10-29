@@ -7,8 +7,9 @@
 
 namespace evm
 {
-  /* A block descriptor for compatibility with regular Ethereum.
-  In particular, this is used to parse cpp-ethereum test cases.*/
+  /** 
+   * An Ethereum block descriptor; in particular, this is used to parse cpp-ethereum test cases.
+   */
   struct Block
   {
     uint64_t number = 0, difficulty = 0, gas_limit = 0, timestamp = 0;

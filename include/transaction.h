@@ -51,6 +51,9 @@ namespace evm
     }
   };
 
+  /**
+   * Ethereum transaction
+   */
   struct Transaction
   {
     const Address origin;

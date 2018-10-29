@@ -6,8 +6,8 @@
 #include "../evm/simplestorage.h"
 #include "../include/disassembler.h"
 #include "../include/opcode.h"
+#include "../include/processor.h"
 #include "../include/util.h"
-#include "../include/vm.h"
 
 #include <doctest/doctest.h>
 #include <fstream>

@@ -29,7 +29,7 @@ namespace evm
   };
 
   /**
-   * Ethereum bytecode processor
+   * Ethereum bytecode processor. 
    */
   class Processor
   {
@@ -39,7 +39,7 @@ namespace evm
   public:
     Processor(GlobalState& gs);
     /**
-     * @brief The main entry point for the VM.
+     * @brief The main entry point for the EVM.
      *
      * Runs the callee's code in the caller's context. VM exceptions (ie,
      * evm::Exception) will be caught and returned in the result.

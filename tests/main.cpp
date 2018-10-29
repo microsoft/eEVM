@@ -5,8 +5,8 @@
 #include "../evm/simpleglobalstate.h"
 #include "../include/disassembler.h"
 #include "../include/opcode.h"
+#include "../include/processor.h"
 #include "../include/util.h"
-#include "../include/vm.h"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest/doctest.h>
