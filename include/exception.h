@@ -35,7 +35,7 @@ namespace evm
   };
 
   /**
-   * Exceptions of type UnexpectedState should not never be thrown under normal
+   * Exceptions of type UnexpectedState should never be thrown under normal
    * conditions. They should be impossible to reach for smart contracts.
    */
   class UnexpectedState : public std::exception
