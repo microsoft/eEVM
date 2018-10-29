@@ -11,6 +11,9 @@
 
 namespace evm
 {
+  /**
+   * An account and its storage
+   */
   struct AccountState
   {
     Account& acc;

@@ -41,7 +41,7 @@ add_library(evm STATIC
   evm/stack.cpp
   evm/transaction.cpp
   evm/util.cpp
-  evm/vm.cpp
+  evm/processor.cpp
   ${KECCAK_SOURCES}
 )
 target_include_directories(evm PRIVATE

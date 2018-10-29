@@ -6,7 +6,9 @@
 
 namespace evm
 {
-  // smart contract runtime execptions
+  /**
+   * A smart contract runtime execption
+   */ 
   class Exception : public std::exception
   {
   public:
@@ -32,8 +34,10 @@ namespace evm
     }
   };
 
-  /* exceptions of type UnexpectedState should not never be thrown under normal
-  conditions. They should be impossible to reach for smart contracts. */
+  /**
+   * Exceptions of type UnexpectedState should never be thrown under normal
+   * conditions. They should be impossible to reach for smart contracts.
+   */
   class UnexpectedState : public std::exception
   {
     const char* const msg;

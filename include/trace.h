@@ -48,6 +48,9 @@ namespace evm
     return os;
   }
 
+  /**
+   * Runtime trace of a smart contract (for debugging)
+   */
   struct Trace
   {
     std::vector<TraceEvent> events;

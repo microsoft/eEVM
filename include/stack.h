@@ -9,6 +9,9 @@
 
 namespace evm
 {
+  /**
+   * Stack used by Processor
+   */
   class Stack
   {
   private:
