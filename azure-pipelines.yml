@@ -23,5 +23,9 @@ steps:
   workingDirectory: build
 
 - script: 'make test'
-  displayName: Test
+  displayName: Quick test
+  workingDirectory: build
+
+- script: 'time TEST_DIR=../3rdparty/test_cases/ ./evm_tests -ns -d'
+  displayName: Full tests
   workingDirectory: build
