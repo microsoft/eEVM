@@ -7,6 +7,11 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 steps:
+- script: |
+   cd /tmp/ && wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz
+   cd /usr/local/include/ && tar -xf /tmp/boost_1_67_0.tar.gz
+  displayName: Get Boost 1.67
+
 - script: 'mkdir build'
   displayName: Make build dir
 
