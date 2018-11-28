@@ -10,7 +10,7 @@ The main entry point is `evm::Processor::run()`. You will need to provide `evm::
 
 eEVM supports all opcodes from Ethereum's [Homestead release](http://ethdocs.org/en/latest/introduction/the-homestead-release.html), as listed in [opcode.h](include/opcode.h). Note that this does not include more recent opcodes such as `RETURNDATACOPY` or `RETURNDATASIZE` from [EIP #211](https://github.com/ethereum/EIPs/pull/211).
 
-The implementation ignores all gas costs - gas is not spent, tracked, or updated during execution, and execution will never throw an outofgas exception. However, it may still be necessary to pass a sensible initial gas value to `evm::Processor::run()` in case the bytecode calculates or verifies gas budgets itself.
+The implementation ignores all gas costs - gas is not spent, tracked, or updated during execution, and execution will never throw an outofgas exception. However, it may still be necessary to pass a sensible initial gas value to `evm::Processor::run()` in case the bytecode calculates or verifies gas budgets itself. It also does not provide the precompiled contracts at addresses 1 to 8.
 
 So far, the code is not particularly optimized in any dimension. In fact, it is in experimental state.
 
@@ -28,10 +28,13 @@ We build and test eEVM on Linux and Windows on x86-64, but it should be function
 Build the static library and tests.
 
 ```bash
-mkdir build; cd build
-cmake -GNinja ..
-ninja
+mkdir build
+cd build
+cmake ..
+make
 ```
+
+It is also possible to build with Ninja or another generator of choice, and the code will compile with either GCC or Clang (other compilers are untested).
 
 Run the tests.
 
@@ -45,7 +48,8 @@ ctest -VV
 Open the Visual Studio 2017 developer command prompt. Create .sln and .vcxproj files and build the static library and tests as follows.
 
 ```cmd
-mkdir build; cd build
+mkdir build
+cd build
 cmake -DBoost_INCLUDE_DIR=<boost directory> ..
 msbuild ALL_BUILD.vcxproj
 ```
