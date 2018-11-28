@@ -1217,11 +1217,11 @@ namespace evm
       const auto offOut = ctxt->s.pop64();
       const auto sizeOut = ctxt->s.pop64();
 
-      if (addr >= 1 && addr <= 4)
+      if (addr >= 1 && addr <= 8)
       {
         // TODO: implement native extensions
         throw Exception(
-          ET::notImplemented, "Native extensions are not available.");
+          ET::notImplemented, "Precompiled contracts/native extensions are not implemented.");
       }
 
       decltype(auto) callee = gs.get(addr);
