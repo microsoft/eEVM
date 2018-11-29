@@ -29,7 +29,7 @@ namespace evm
   };
 
   /**
-   * Ethereum bytecode processor. 
+   * Ethereum bytecode processor.
    */
   class Processor
   {

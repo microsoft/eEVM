@@ -8,7 +8,7 @@ namespace evm
 {
   /**
    * A smart contract runtime execption
-   */ 
+   */
   class Exception : public std::exception
   {
   public:

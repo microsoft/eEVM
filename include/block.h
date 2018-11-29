@@ -7,8 +7,9 @@
 
 namespace evm
 {
-  /** 
-   * An Ethereum block descriptor; in particular, this is used to parse cpp-ethereum test cases.
+  /**
+   * An Ethereum block descriptor; in particular, this is used to parse
+   * cpp-ethereum test cases.
    */
   struct Block
   {
