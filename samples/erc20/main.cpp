@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 #include "evm/simpleglobalstate.h"
 #include "include/opcode.h"
 #include "include/processor.h"
