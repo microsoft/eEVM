@@ -85,3 +85,4 @@ endfunction()
 
 add_sample(hello_world)
 add_sample(sum)
+add_sample(erc20)
