@@ -8,7 +8,7 @@ They are compiled by the root CMakeLists.txt, and run from the command line.
 
 This sample creates a contract which returns "Hello world!" as a byte string.
 
-### Details
+#### Details
 
 - Generate some random Ethereum-compliant addresses. Real addresses should be derived from public-private key-pairs or from the contract generation method specified in the Yellow Paper, but here they are essentially arbitrary identifiers so are generated randomly.
 - Construct contract bytecode. Real smart contracts will generally be compiled from some higher-level language (such as Solidity), but this shows it is also possible to write by hand. When the contract is executed, it stores each byte of the string in EVM memory, then returns the stored memory range.
@@ -16,7 +16,7 @@ This sample creates a contract which returns "Hello world!" as a byte string.
 - Execute the bytecode. This requires creating a Transaction and a sending address, as all EVM execution is associated with a transaction.
 - Check and print the result. Execution may throw exceptions or halt unexpectedly, and these should be handled by checking `evm::ExitReason evm::ExecResult::er`. If it succeeds, any output (sent by `RETURN` opcodes in the top level code) will be in `evm::ExecResult::output`.
 
-### Expected output
+#### Expected output
 
 The compiled app can be run with no arguments:
 
@@ -29,7 +29,7 @@ Hello world!
 
 This sample creates a contract which sums a pair of arguments passed on the command line. The summation is done within the EVM, by the `ADD` op code.
 
-### Details
+#### Details
 
 In addition to the concepts from [hello_world](#hello_world), this sample:
 
@@ -37,7 +37,7 @@ In addition to the concepts from [hello_world](#hello_world), this sample:
 - Produces bytecode containing 256-bit immediates. Although the bytecode and each op code is a single byte, the complete code may contain larger values (such as the immediate for a `PUSH32` instruction) which must be serialized.
 - Produces verbose output. If the `-v` option is given, this sample will print the precise contract address and code contents.
 
-### Expected output
+#### Expected output
 
 The compiled app expects 2 arguments, which will be treated as hex-encoded 256-bit unsigned numbers (arguments which are too long will be truncated, invalid arguments will generally parse to 0):
 
@@ -58,7 +58,15 @@ This sample demonstrates an [ERC20](https://github.com/ethereum/EIPs/blob/master
 $ solc --evm-version homestead --combined-json bin,hashes --pretty-json --optimize ERC20.sol > ERC20_combined.json
 ```
 
-### Expected output
+#### Details
+
+- Parses a contract definition. The compiled output is read from a file, then [nlohmann::json](https://github.com/nlohmann/json) is used to extract the relevant fields from json.
+- Deploys contract from definition. This demonstrates basic ABI encoding of arguments. The "bin" field from the contract definition is the raw code for the constructor - it must be given a single argument then run to produce the actual contract state and code.
+- Calling functions on a deployed contract. The function selectors are retrieved from the "hashes" field of the contract definition, their ABI-encoded arguments appended, and the result is passed as input to an EVM transaction. All functions calls (totalSupply, balanceOf, transfer) are like this, using `run_and_check_result` to wrap the same underlying call to `evm::Processor::run`, which does the real execution.
+- Address storage. Addresses are individual identities, and may have associated balances or state in any number of contracts' storage - all of which is contained within `GlobalState`. Only the address must be retained and passed around.
+- State reporting. The contract (and entire network) state is embedded in `GlobalState`, but not in an easily readable form. Instead the state can be reconstructed by additional read-only transactions sent to the ERC20 contract, and those results converted to a human-readable representation of the returned values.
+
+#### Expected output
 
 The combined json file produced by json should be passed as the sole argument to the sample:
 
