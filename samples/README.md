@@ -50,3 +50,53 @@ $ ./sum C0C0 EDA
 0xC0C0 + 0xEDA = 0xCF9A
 ```
 
+## erc20
+
+This sample demonstrates an [ERC20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md) token contract compiled from [Solidity](https://solidity.readthedocs.io/en/v0.5.0/index.html). The contract source is in [ERC20.sol](erc20/ERC20.sol), with the compiled result in [ERC20_combined.json](erc20/ERC20_combined.json) produced by:
+
+```bash
+$ solc --evm-version homestead --combined-json bin,hashes --pretty-json --optimize ERC20.sol > ERC20_combined.json
+```
+
+### Expected output
+
+The combined json file produced by json should be passed as the sole argument to the sample:
+
+```bash
+$ ./erc20 ../samples/erc20/ERC20_combined.json
+-- Initial state --
+Total supply of tokens is: 1000
+User balances:
+  1000 owned by 0x7B6...7EF (original contract creator)
+  0 owned by 0x53D...3F0
+-------------------
+
+Transferring 333 from 0x7B6...7EF to 0x53D...3F0 (succeeded)
+Transferring 334 from 0x53D...3F0 to 0x7B6...7EF (failed)
+
+-- After one transaction --
+Total supply of tokens is: 1000
+User balances:
+  667 owned by 0x7B6...7EF (original contract creator)
+  333 owned by 0x53D...3F0
+---------------------------
+
+Transferring 12 from 0x53D...3F0 to 0x7B6...7EF (succeeded)
+Transferring 76 from 0x53D...3F0 to 0x7B6...7EF (succeeded)
+<...>
+Transferring 60 from 0x7B6...7EF to 0x53D...3F0 (succeeded)
+Transferring 83 from 0xB2B...733 to 0x8EE...584 (failed)
+
+-- Final state --
+Total supply of tokens is: 1000
+User balances:
+  391 owned by 0x7B6...7EF (original contract creator)
+  329 owned by 0x53D...3F0
+  160 owned by 0x223...3E7
+  3 owned by 0x8EE...584
+  16 owned by 0x590...CE7
+  22 owned by 0xA1D...A3A
+  79 owned by 0xB2B...733
+-----------------
+```
+
