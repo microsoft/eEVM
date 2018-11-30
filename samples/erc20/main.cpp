@@ -6,10 +6,11 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
-#include <set>
+#include <random>
+#include <sstream>
 #include <vector>
 
-using AddressSet = std::set<evm::Address>;
+using Addresses = std::vector<evm::Address>;
 
 struct Environment
 {
@@ -17,6 +18,36 @@ struct Environment
   const evm::Address& owner_address;
   const nlohmann::json& contract_definition;
 };
+
+size_t rand_range(size_t exclusive_upper_bound)
+{
+  std::random_device rand_device;
+  std::mt19937 generator(rand_device());
+  std::uniform_int_distribution<size_t> dist(0, exclusive_upper_bound - 1);
+
+  return dist(generator);
+}
+
+uint256_t get_random_uint256(size_t bytes = 32)
+{
+  std::vector<uint8_t> raw(bytes);
+  std::generate(raw.begin(), raw.end(), []() { return rand(); });
+  return from_big_endian(raw.begin(), raw.end());
+}
+
+evm::Address get_random_address()
+{
+  return get_random_uint256(20);
+}
+
+// Truncate 160-bit addresses to a more human-friendly length, retaining the
+// start and end for identification
+std::string short_name(const evm::Address& address)
+{
+  const auto full_hex = to_hex_str(address);
+  return full_hex.substr(0, 5) + std::string("...") +
+    full_hex.substr(full_hex.size() - 3);
+}
 
 std::vector<uint8_t> run_and_check_result(
   Environment& env,
@@ -50,18 +81,6 @@ std::vector<uint8_t> run_and_check_result(
   }
 
   return exec_result.output;
-}
-
-uint256_t get_random_uint256(size_t bytes = 32)
-{
-  std::vector<uint8_t> raw(bytes);
-  std::generate(raw.begin(), raw.end(), []() { return rand(); });
-  return from_big_endian(raw.begin(), raw.end());
-}
-
-evm::Address get_random_address()
-{
-  return get_random_uint256(20);
 }
 
 void append_argument(std::vector<uint8_t>& code, const uint256_t& arg)
@@ -151,9 +170,9 @@ bool transfer(
   append_argument(function_call, target_address);
   append_argument(function_call, amount);
 
-  std::cout << "Transferring " << to_hex_str(amount) << " from "
-            << to_hex_str(source_address) << " to "
-            << to_hex_str(target_address);
+  std::cout << "Transferring " << amount << " from "
+            << short_name(source_address) << " to "
+            << short_name(target_address);
 
   const auto output =
     run_and_check_result(env, source_address, contract_address, function_call);
@@ -171,31 +190,28 @@ bool transfer(
 }
 
 void run_random_transactions(
-  Environment& env, const evm::Address& contract_address, AddressSet& users)
+  Environment& env, const evm::Address& contract_address, Addresses& users)
 {
-  auto get_random_user = [&]() {
-    auto it = users.begin();
-    std::advance(it, rand() % (users.size() - 1));
-    return *it;
-  };
-
   constexpr auto transactions = 20;
   const auto total_supply = get_total_supply(env, contract_address);
   const auto transfer_max = (2 * total_supply) / transactions;
 
   for (auto i = 0; i < transactions; ++i)
   {
-    // Sometimes create a new user
-    if (rand() % users.size() == 0)
+    const auto from_index = rand_range(users.size());
+    auto to_index = rand_range(users.size());
+
+    // Occasionally create new users and transfer to them. Also avoids
+    // self-transfer
+    if (from_index == to_index)
     {
-      users.emplace(get_random_address());
+      to_index = users.size();
+      users.push_back(get_random_address());
     }
 
-    const auto from = get_random_user();
-    const auto to = get_random_user();
     const auto amount = get_random_uint256() % transfer_max;
 
-    transfer(env, contract_address, from, to, amount);
+    transfer(env, contract_address, users[from_index], users[to_index], amount);
   }
 }
 
@@ -203,7 +219,7 @@ void print_erc20_state(
   const std::string& heading,
   Environment& env,
   const evm::Address& contract_address,
-  const AddressSet& users)
+  const Addresses& users)
 {
   const auto total_supply = get_total_supply(env, contract_address);
 
@@ -217,13 +233,11 @@ void print_erc20_state(
   }
 
   std::cout << heading << std::endl;
-  std::cout << "Total supply of tokens is: " << to_hex_str(total_supply)
-            << std::endl;
+  std::cout << "Total supply of tokens is: " << total_supply << std::endl;
   std::cout << "User balances: " << std::endl;
   for (const auto& pair : balances)
   {
-    std::cout << "  " << to_hex_str(pair.second) << " owned by "
-              << to_hex_str(pair.first);
+    std::cout << "  " << pair.second << " owned by " << short_name(pair.first);
     if (pair.first == env.owner_address)
     {
       std::cout << " (original contract creator)";
@@ -239,22 +253,21 @@ int main(int argc, char** argv)
 
   if (argc < 2)
   {
-    std::cout << "1st arg should be path to contract definition file"
-              << std::endl;
+    std::cout << "Usage: " << argv[0] << " path_to_contract_file" << std::endl;
     return 1;
   }
 
-  const uint256_t total_supply = 0x1'000'000'000'000;
-  AddressSet users;
+  const uint256_t total_supply = 1000;
+  Addresses users;
 
   // Create an account at a random address, representing the 'owner' or user who
   // created the ERC20 contract (gets entire token supply initially)
   const auto owner_address = get_random_address();
-  users.insert(owner_address);
+  users.push_back(owner_address);
 
   // Create one other initial user
   const auto alice = get_random_address();
-  users.insert(alice);
+  users.push_back(alice);
 
   // Open the contract definition file
   const auto contract_path = argv[1];
@@ -305,7 +318,7 @@ int main(int argc, char** argv)
   std::cout << std::endl;
 
   // Create more users and run more transactions
-  // run_random_transactions(env, contract_address, users);
+  run_random_transactions(env, contract_address, users);
 
   // Report final state
   std::cout << std::endl;
