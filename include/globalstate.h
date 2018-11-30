@@ -41,7 +41,7 @@ namespace evm
      */
     virtual AccountState get(const Address& addr) = 0;
     virtual AccountState create(
-      const Address& addr, uint256_t balance, const Code& code) = 0;
+      const Address& addr, const uint256_t& balance, const Code& code) = 0;
 
     virtual size_t num_accounts() = 0;
 

@@ -55,9 +55,9 @@ namespace evm
     Keccak_HashFinal(&hi, output);
   }
 
-  std::string strip(std::string s);
-  std::vector<uint8_t> to_bytes(std::string s);
-  std::string to_hex_string(std::vector<uint8_t> bytes);
+  std::string strip(const std::string& s);
+  std::vector<uint8_t> to_bytes(const std::string& s);
+  std::string to_hex_string(const std::vector<uint8_t>& bytes);
 
   Address generate_address(const Address& sender, uint64_t nonce);
 

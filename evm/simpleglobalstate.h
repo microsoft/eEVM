@@ -28,7 +28,7 @@ namespace evm
 
     AccountState get(const Address& addr) override;
     AccountState create(
-      const Address& addr, uint256_t balance, const Code& code) override;
+      const Address& addr, const uint256_t& balance, const Code& code) override;
 
     size_t num_accounts() override;
 
