@@ -10,6 +10,10 @@
 #include <sstream>
 #include <vector>
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// Util typedefs and functions
+//
 using Addresses = std::vector<evm::Address>;
 
 struct Environment
@@ -39,6 +43,7 @@ evm::Address get_random_address()
 {
   return get_random_uint256(20);
 }
+///////////////////////////////////////////////////////////////////////////////
 
 // Truncate 160-bit addresses to a more human-friendly length, retaining the
 // start and end for identification
@@ -49,6 +54,7 @@ std::string short_name(const evm::Address& address)
     full_hex.substr(full_hex.size() - 3);
 }
 
+// Run input as an EVM transaction, check the result and return the output
 std::vector<uint8_t> run_and_check_result(
   Environment& env,
   const evm::Address& from,
@@ -83,6 +89,8 @@ std::vector<uint8_t> run_and_check_result(
   return exec_result.output;
 }
 
+// Modify code to append ABI-encoding of arg, suitable for passing to contract
+// execution
 void append_argument(std::vector<uint8_t>& code, const uint256_t& arg)
 {
   // To ABI encode a function call with a uint256_t (or Address) argument,
@@ -94,6 +102,8 @@ void append_argument(std::vector<uint8_t>& code, const uint256_t& arg)
   to_big_endian(arg, code.data() + pre_size);
 }
 
+// Deploy the ERC20 contract defined in env, with total_supply tokens. Return
+// the address the contract was deployed to
 evm::Address deploy_erc20_contract(
   Environment& env, const uint256_t total_supply)
 {
@@ -120,6 +130,7 @@ evm::Address deploy_erc20_contract(
   return contract.acc.address;
 }
 
+// Get the total token supply by calling totalSupply on the contract_address
 uint256_t get_total_supply(
   Environment& env, const evm::Address& contract_address)
 {
@@ -136,6 +147,8 @@ uint256_t get_total_supply(
   return from_big_endian(output.begin(), output.end());
 }
 
+// Get the current token balance of target_address by calling balanceOf on
+// contract_address
 uint256_t get_balance(
   Environment& env,
   const evm::Address& contract_address,
@@ -156,6 +169,8 @@ uint256_t get_balance(
   return from_big_endian(output.begin(), output.end());
 }
 
+// Transfer tokens from source_address to target_address by calling transfer on
+// contract_address
 bool transfer(
   Environment& env,
   const evm::Address& contract_address,
@@ -189,14 +204,15 @@ bool transfer(
   return success;
 }
 
+// Send N randomly generated token transfers. Some will be to new user addresses
+template <size_t N>
 void run_random_transactions(
   Environment& env, const evm::Address& contract_address, Addresses& users)
 {
-  constexpr auto transactions = 20;
   const auto total_supply = get_total_supply(env, contract_address);
-  const auto transfer_max = (2 * total_supply) / transactions;
+  const auto transfer_max = (2 * total_supply) / N;
 
-  for (auto i = 0; i < transactions; ++i)
+  for (size_t i = 0; i < N; ++i)
   {
     const auto from_index = rand_range(users.size());
     auto to_index = rand_range(users.size());
@@ -215,6 +231,8 @@ void run_random_transactions(
   }
 }
 
+// Print the total token supply and current token balance of each user, by
+// sending transactions to the given contract_address
 void print_erc20_state(
   const std::string& heading,
   Environment& env,
@@ -247,21 +265,28 @@ void print_erc20_state(
   std::cout << std::string(heading.size(), '-') << std::endl;
 }
 
+// erc20/main
+// - Parse args
+// - Parse ERC20 contract definition
+// - Deploy ERC20 contract
+// - Transfer ERC20 tokens
+// - Print summary of state
 int main(int argc, char** argv)
 {
   srand(time(nullptr));
 
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " path_to_contract_file" << std::endl;
+    std::cout << "Usage: " << argv[0] << " path/to/ERC20_combined.json"
+              << std::endl;
     return 1;
   }
 
   const uint256_t total_supply = 1000;
   Addresses users;
 
-  // Create an account at a random address, representing the 'owner' or user who
-  // created the ERC20 contract (gets entire token supply initially)
+  // Create an account at a random address, representing the 'owner' who created
+  // the ERC20 contract (gets entire token supply initially)
   const auto owner_address = get_random_address();
   users.push_back(owner_address);
 
@@ -295,8 +320,9 @@ int main(int argc, char** argv)
   std::cout << std::endl;
 
   // Run a successful transaction
-  const auto success =
-    transfer(env, contract_address, owner_address, alice, total_supply / 2);
+  const auto first_transfer_amount = total_supply / 3;
+  const auto success = transfer(
+    env, contract_address, owner_address, alice, first_transfer_amount);
   if (!success)
   {
     throw std::runtime_error("Expected transfer to succeed, but it failed");
@@ -304,8 +330,8 @@ int main(int argc, char** argv)
 
   // Trying to transfer more than is owned will fail (gracefully, returning
   // false from the solidity function)
-  const auto failure =
-    transfer(env, contract_address, owner_address, alice, total_supply * 2);
+  const auto failure = transfer(
+    env, contract_address, alice, owner_address, first_transfer_amount + 1);
   if (failure)
   {
     throw std::runtime_error("Expected transfer to fail, but it succeeded");
@@ -318,7 +344,7 @@ int main(int argc, char** argv)
   std::cout << std::endl;
 
   // Create more users and run more transactions
-  run_random_transactions(env, contract_address, users);
+  run_random_transactions<20>(env, contract_address, users);
 
   // Report final state
   std::cout << std::endl;
