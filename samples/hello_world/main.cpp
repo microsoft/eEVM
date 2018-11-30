@@ -50,26 +50,35 @@ int main(int argc, char** argv)
   const evm::Address to =
     from_big_endian(raw_address.begin(), raw_address.end());
 
-  // Deploy contract to global state
+  // Create global state
   evm::SimpleGlobalState gs;
+
+  // Create code
   const evm::Code code = create_hello_world_bytecode();
+
+  // Deploy contract to global state
   const evm::AccountState contract = gs.create(to, 0, code);
 
-  // Create processor state
+  // Create transaction
   evm::NullLogHandler ignore;
   evm::Transaction tx(sender, ignore);
+
+  // Create processor
   evm::Processor p(gs);
 
-  // Run transaction
+  // Execute code. All execution is associated with a transaction. This
+  // transaction is called by sender, executing the code in contract, with empty
+  // input (and no trace collection)
   const evm::ExecResult e = p.run(tx, sender, contract, {}, 0, nullptr);
 
+  // Check the response
   if (e.er != evm::ExitReason::returned)
   {
     std::cout << "Unexpected return code" << std::endl;
     return 2;
   }
 
-  // Create string from raw response data, print it
+  // Create string from response data, and print it
   const std::string response(reinterpret_cast<const char*>(e.output.data()));
   std::cout << response << std::endl;
 
