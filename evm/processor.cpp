@@ -1221,7 +1221,8 @@ namespace evm
       {
         // TODO: implement native extensions
         throw Exception(
-          ET::notImplemented, "Precompiled contracts/native extensions are not implemented.");
+          ET::notImplemented,
+          "Precompiled contracts/native extensions are not implemented.");
       }
 
       decltype(auto) callee = gs.get(addr);

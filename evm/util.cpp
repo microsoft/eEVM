@@ -11,7 +11,7 @@ using namespace std;
 
 namespace evm
 {
-  string strip(string s)
+  string strip(const string& s)
   {
     return (s.size() >= 2 && s[1] == 'x') ? s.substr(2) : s;
   }
@@ -22,9 +22,9 @@ namespace evm
     return strtoull(&s[0], nullptr, 16);
   }
 
-  vector<uint8_t> to_bytes(string s)
+  vector<uint8_t> to_bytes(const string& _s)
   {
-    s = evm::strip(s);
+    auto s = evm::strip(_s);
 
     const size_t byte_len = (s.size() + 1) / 2; // round up
     vector<uint8_t> v(byte_len);
@@ -45,7 +45,7 @@ namespace evm
     return v;
   }
 
-  string to_hex_string(vector<uint8_t> bytes)
+  string to_hex_string(const vector<uint8_t>& bytes)
   {
     stringstream ss;
 

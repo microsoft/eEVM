@@ -21,7 +21,8 @@ namespace evm
     Code code;
 
     Account() = default;
-    Account(const Address& address, const uint256_t& balance, Code code) :
+    Account(
+      const Address& address, const uint256_t& balance, const Code& code) :
       address(address),
       nonce(0),
       balance(balance),
@@ -32,7 +33,7 @@ namespace evm
       const Address& address,
       uint64_t nonce,
       const uint256_t& balance,
-      Code code) :
+      const Code& code) :
       address(address),
       nonce(nonce),
       balance(balance),

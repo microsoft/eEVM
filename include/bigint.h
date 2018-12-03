@@ -2,9 +2,9 @@
 // Licensed under the MIT License.
 
 #pragma once
+#include <boost/endian/conversion.hpp>
 #include <boost/functional/hash/hash.hpp>
 #include <boost/multiprecision/cpp_int.hpp>
-#include <boost/endian/conversion.hpp>
 #include <limits>
 #include <nlohmann/json.hpp>
 #include <sstream>
@@ -49,10 +49,11 @@ auto from_big_endian(const Iterator begin, const Iterator end)
   return v;
 }
 
-template<typename Iterator>
+template <typename Iterator>
 inline void to_big_endian(uint256_t v, Iterator out)
 {
-  // boost::multiprecision::export_bits() does not work here, because it doesn't support fixed width export.
+  // boost::multiprecision::export_bits() does not work here, because it doesn't
+  // support fixed width export.
   uint64_t* o = reinterpret_cast<uint64_t*>(&*out);
   constexpr uint64_t mask64 = 0xffffffff'ffffffff;
 

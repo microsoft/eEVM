@@ -25,7 +25,7 @@ namespace evm
   }
 
   AccountState SimpleGlobalState::create(
-    const Address& addr, uint256_t balance, Code code)
+    const Address& addr, const uint256_t& balance, const Code& code)
   {
     const auto acc = accounts.emplace(
       addr, std::make_pair(Account(addr, balance, code), SimpleStorage()));

@@ -70,3 +70,19 @@ add_test(
 if(NOT ENV{TEST_DIR}) 
   set_tests_properties(evm_tests PROPERTIES ENVIRONMENT TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/test_cases)
 endif()
+
+function(add_sample name)
+  add_executable(${name}
+    samples/${name}/main.cpp
+  )
+  target_include_directories(${name} PRIVATE
+    ${Boost_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
+    ${CMAKE_CURRENT_SOURCE_DIR}
+  )
+  target_link_libraries(${name} evm)
+endfunction()
+
+add_sample(hello_world)
+add_sample(sum)
+add_sample(erc20)
