@@ -7,17 +7,15 @@
 
 #include <iostream>
 
-std::vector<uint8_t> create_hello_world_bytecode()
+std::vector<uint8_t> create_bytecode(const std::string& s)
 {
-  std::string hw("Hello world!");
-
   std::vector<uint8_t> code;
   constexpr uint8_t mdest = 0x0;
-  const uint8_t rsize = hw.size() + 1;
+  const uint8_t rsize = s.size() + 1;
 
   // Store each byte in evm memory
   uint8_t mcurrent = mdest;
-  for (const char& c : hw)
+  for (const char& c : s)
   {
     code.push_back(evm::Opcode::PUSH1);
     code.push_back(c);
@@ -54,7 +52,8 @@ int main(int argc, char** argv)
   evm::SimpleGlobalState gs;
 
   // Create code
-  const evm::Code code = create_hello_world_bytecode();
+  std::string hello_world("Hello world!");
+  const evm::Code code = create_bytecode(hello_world);
 
   // Deploy contract to global state
   const evm::AccountState contract = gs.create(to, 0, code);
@@ -80,6 +79,13 @@ int main(int argc, char** argv)
 
   // Create string from response data, and print it
   const std::string response(reinterpret_cast<const char*>(e.output.data()));
+  if (response != hello_world)
+  {
+    throw std::runtime_error(
+      "Incorrect result.\n Expected: " + hello_world + "\n Actual: " + response);
+    return 3;
+  }
+
   std::cout << response << std::endl;
 
   return 0;

@@ -1,20 +1,20 @@
 # Samples
 
-These samples some basic examples of apps which uses eEVM. They are intended as an introduction; they do not test or document every opcode or feature. They do not demonstrate any expensive computations or cross-contract calls.
+These samples show some basic examples of apps which using eEVM. They are intended as an introduction; they do not test or document every opcode or feature. In particular they do not demonstrate any expensive computations or cross-contract calls.
 
 They are compiled by the root CMakeLists.txt, and run from the command line.
 
 ## hello_world
 
-This sample creates a contract which returns "Hello world!" as a byte string.
+This sample creates and calls a contract which returns the string "Hello world!".
 
 #### Details
 
-- Generate some random Ethereum-compliant addresses. Real addresses should be derived from public-private key-pairs or from the contract generation method specified in the Yellow Paper, but here they are essentially arbitrary identifiers so are generated randomly.
-- Construct contract bytecode. Real smart contracts will generally be compiled from some higher-level language (such as Solidity), but this shows it is also possible to write by hand. When the contract is executed, it stores each byte of the string in EVM memory, then returns the stored memory range.
-- Deploy the contract. To execute bytecode, it must be deployed to an address in the GlobalState.
-- Execute the bytecode. This requires creating a Transaction and a sending address, as all EVM execution is associated with a transaction.
-- Check and print the result. Execution may throw exceptions or halt unexpectedly, and these should be handled by checking `evm::ExitReason evm::ExecResult::er`. If it succeeds, any output (sent by `RETURN` opcodes in the top level code) will be in `evm::ExecResult::output`.
+- Generates some random Ethereum-compliant addresses. Real addresses should be derived from public-private key-pairs or from the contract generation method specified in the Yellow Paper, but here they are essentially arbitrary identifiers so can be random.
+- Constructs contract bytecode. Real smart contracts will generally be compiled from some higher-level language (such as [Solidity](https://solidity.readthedocs.io/en/v0.5.0/)), but this shows it is also possible to write by hand. When the contract is executed, it stores each byte of the string in EVM memory, then returns the stored memory range.
+- Deploys the contract. To execute bytecode, it must be deployed to an address in the GlobalState.
+- Executes the bytecode. This requires creating an `evm::Transaction` and a sending address, as all EVM execution is transactional.
+- Checks and prints the result. Execution may throw exceptions or halt unexpectedly, and these should be handled by checking `evm::ExitReason evm::ExecResult::er`. On success, any output (sent by `RETURN` opcodes in the top level code) will be in `evm::ExecResult::output`.
 
 #### Expected output
 
@@ -52,7 +52,7 @@ $ ./sum C0C0 EDA
 
 ## erc20
 
-This sample demonstrates an [ERC20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md) token contract compiled from [Solidity](https://solidity.readthedocs.io/en/v0.5.0/index.html). The contract source is in [ERC20.sol](erc20/ERC20.sol), with the compiled result in [ERC20_combined.json](erc20/ERC20_combined.json) produced by:
+This sample demonstrates an [ERC20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md) token contract compiled from [Solidity](https://solidity.readthedocs.io/en/v0.5.0/index.html). The contract is deployed, then multiple calls are made to transfer tokens between addresses. The contract source is in [ERC20.sol](erc20/ERC20.sol), with the compiled result in [ERC20_combined.json](erc20/ERC20_combined.json) produced by:
 
 ```bash
 $ solc --evm-version homestead --combined-json bin,hashes --pretty-json --optimize ERC20.sol > ERC20_combined.json
@@ -62,13 +62,13 @@ $ solc --evm-version homestead --combined-json bin,hashes --pretty-json --optimi
 
 - Parses a contract definition. The compiled output is read from a file, then [nlohmann::json](https://github.com/nlohmann/json) is used to extract the relevant fields from json.
 - Deploys contract from definition. This demonstrates basic ABI encoding of arguments. The "bin" field from the contract definition is the raw code for the constructor - it must be given a single argument then run to produce the actual contract state and code.
-- Calling functions on a deployed contract. The function selectors are retrieved from the "hashes" field of the contract definition, their ABI-encoded arguments appended, and the result is passed as input to an EVM transaction. All functions calls (totalSupply, balanceOf, transfer) are like this, using `run_and_check_result` to wrap the same underlying call to `evm::Processor::run`, which does the real execution.
-- Address storage. Addresses are individual identities, and may have associated balances or state in any number of contracts' storage - all of which is contained within `GlobalState`. Only the address must be retained and passed around.
+- Calls functions on a deployed contract. The function selectors are retrieved from the "hashes" field of the contract definition, their ABI-encoded arguments appended, and the result is passed as input to an EVM transaction. All function calls (totalSupply, balanceOf, transfer) are like this, and use `run_and_check_result` to wrap the execution in `evm::Processor::run`.
+- Address storage. Addresses are individual identities, and may have associated balances or state in any number of contracts' storage - all of which is contained within `GlobalState`. Only the address must be retained and passed.
 - State reporting. The contract (and entire network) state is embedded in `GlobalState`, but not in an easily readable form. Instead the state can be reconstructed by additional read-only transactions sent to the ERC20 contract, and those results converted to a human-readable representation of the returned values.
 
 #### Expected output
 
-The combined json file produced by json should be passed as the sole argument to the sample:
+The combined json file produced by solc should be passed as an argument:
 
 ```bash
 $ ./erc20 ../samples/erc20/ERC20_combined.json
