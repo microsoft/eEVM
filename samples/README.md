@@ -1,6 +1,6 @@
 # Samples
 
-These samples show some basic examples of apps which using eEVM. They are intended as an introduction; they do not test or document every opcode or feature. In particular they do not demonstrate any expensive computations or cross-contract calls.
+These samples show some basic examples of apps using eEVM. They are intended as an introduction; they do not test or document every opcode or feature. In particular they do not demonstrate any expensive computations or cross-contract calls.
 
 They are compiled by the root CMakeLists.txt, and run from the command line.
 
