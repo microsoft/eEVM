@@ -9,6 +9,7 @@
 #include <nlohmann/json.hpp>
 #include <sstream>
 #include <string>
+#include <msgpack.hpp>
 
 /* Boosts big integers behave (sort of) unexpected in the following sense.
 numeric_limits<int256_t>::max() == numeric_limits<uint256_t>::max() == (1 <<
@@ -90,3 +91,42 @@ namespace boost
     }
   } // namespace multiprecision
 } // namespace boost
+
+namespace msgpack
+{
+  MSGPACK_API_VERSION_NAMESPACE(MSGPACK_DEFAULT_API_NS)
+  {
+    namespace adaptor
+    {
+      // Place class template specialization here
+      template <>
+      struct convert<uint256_t>
+      {
+        msgpack::object const& operator()(
+          msgpack::object const& o, uint256_t& v) const
+        {
+          std::vector<uint8_t> vec =
+            o.via.array.ptr[0].as<std::vector<uint8_t>>();
+          v = from_big_endian(vec.cbegin(), vec.cend());
+
+          return o;
+        }
+      };
+
+      template <>
+      struct pack<uint256_t>
+      {
+        template <typename Stream>
+        packer<Stream>& operator()(
+          msgpack::packer<Stream>& o, uint256_t const& v) const
+        {
+          std::vector<uint8_t> big_end_val(0x20); // size of 256 bits in bytes
+          to_big_endian(v, big_end_val.begin());
+          o.pack_array(1);
+          o.pack(big_end_val);
+          return o;
+        }
+      };
+    }
+  }
+}

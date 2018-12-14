@@ -40,6 +40,8 @@ namespace evm
       code(code)
     {}
 
+    MSGPACK_DEFINE(address, nonce, balance, code);
+
     bool has_code() const;
     void set_code(Code&& code_);
 

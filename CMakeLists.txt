@@ -47,6 +47,7 @@ add_library(evm STATIC
 target_include_directories(evm PRIVATE
   ${Boost_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
+  ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/msgpack-c/include
 )
 
 add_executable(evm_tests
@@ -57,6 +58,7 @@ target_include_directories(evm_tests PRIVATE
   ${Boost_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/msgpack-c/include
 )
 target_compile_options(evm_tests PRIVATE ${COVERAGE_FLAGS})
 target_link_libraries(evm_tests evm ${PLATFORM_SPECIFIC_TEST_LIBS})
@@ -79,6 +81,7 @@ function(add_sample name)
     ${Boost_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/msgpack-c/include
   )
   target_link_libraries(${name} evm)
 endfunction()
