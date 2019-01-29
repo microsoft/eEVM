@@ -17,7 +17,6 @@ namespace evm
     virtual uint256_t load(const uint256_t& key) = 0;
     virtual bool exists(const uint256_t& key) = 0;
     virtual bool remove(const uint256_t& key) = 0;
-    virtual bool operator==(const Storage&) const = 0;
     virtual ~Storage() {}
   };
 } // namespace evm

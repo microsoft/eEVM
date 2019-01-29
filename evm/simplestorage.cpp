@@ -45,11 +45,6 @@ namespace evm
     return true;
   }
 
-  bool SimpleStorage::operator==(const Storage& that) const
-  {
-    return dynamic_cast<decltype(*this)&>(that) == *this;
-  }
-
   bool SimpleStorage::operator==(const SimpleStorage& that) const
   {
     return s == that.s;

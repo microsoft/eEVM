@@ -24,7 +24,6 @@ namespace evm
     uint256_t load(const uint256_t& key) override;
     bool exists(const uint256_t& key) override;
     bool remove(const uint256_t& key) override;
-    bool operator==(const Storage& that) const override;
 
     bool operator==(const SimpleStorage& that) const;
 
