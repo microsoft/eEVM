@@ -87,7 +87,7 @@ namespace evm
     Storage& st;
     const Address caller;
     const vector<uint8_t> input;
-    const uint64_t call_value;
+    const uint256_t call_value;
     const Program prog;
     ReturnHandler rh;
     HaltHandler hh;
@@ -97,7 +97,7 @@ namespace evm
       const Address& caller,
       AccountState as,
       vector<uint8_t>&& input,
-      uint64_t call_value,
+      const uint256_t& call_value,
       Program&& prog,
       ReturnHandler&& rh,
       HaltHandler&& hh,
@@ -175,7 +175,7 @@ namespace evm
       const Address& caller,
       AccountState callee,
       vector<uint8_t> input, // Take a copy here, then move it into context
-      uint64_t call_value)
+      const uint256_t& call_value)
     {
       // create the first context
       ExecResult result;
@@ -228,7 +228,7 @@ namespace evm
       AccountState as,
       vector<uint8_t>&& input,
       Program&& prog,
-      uint64_t call_value,
+      const uint256_t& call_value,
       Context::ReturnHandler&& rh,
       Context::HaltHandler&& hh,
       Context::ExceptionHandler&& eh)
@@ -1293,7 +1293,7 @@ namespace evm
     const Address& caller,
     AccountState callee,
     const vector<uint8_t>& input,
-    uint64_t call_value,
+    const uint256_t& call_value,
     Trace* tr)
   {
     return _Processor(gs, tx, tr).run(caller, callee, input, call_value);

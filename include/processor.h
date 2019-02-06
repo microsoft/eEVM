@@ -58,7 +58,7 @@ namespace evm
       const Address& caller,
       AccountState callee,
       const std::vector<uint8_t>& input,
-      uint64_t call_value,
+      const uint256_t& call_value,
       Trace* tr = nullptr);
   };
 } // namespace evm
