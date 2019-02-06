@@ -33,12 +33,18 @@ void run_test_case(
   const bool checkLogs,
   const bool disasm = true)
 {
-  auto test_dir = getenv("TEST_DIR");
-  REQUIRE(test_dir != nullptr);
+  constexpr auto env_var = "TEST_DIR";
+  auto test_dir = getenv(env_var);
   string testPath = fileName;
   if (test_dir)
   {
     testPath = string(test_dir) + "/" + fileName;
+  }
+  else
+  {
+    throw std::logic_error(
+      "Must set path to test cases in " + std::string(env_var) +
+      " environment variable");
   }
 
 #ifdef RECORD_TRACE
