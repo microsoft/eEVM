@@ -131,6 +131,30 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
   }
 }
 
+template <typename A, typename B>
+auto PRINT_CHECK(A&& a, B&& b)
+{
+  if (a != b)
+  {
+    std::cout << "FAILED: " << std::endl;
+    for (auto i : a)
+    {
+      std::cout << " " << std::hex << (int)i;
+    }
+    std::cout << std::endl;
+
+    for (auto i : b)
+    {
+      std::cout << " " << std::hex << (int)i;
+    }
+    std::cout << std::endl;
+  }
+  else
+  {
+    std::cout << "SUCCESS" << std::endl;
+  }
+}
+
 TEST_CASE("rlp" * doctest::test_suite("rlp"))
 {
   SUBCASE("constructors")
@@ -201,6 +225,49 @@ TEST_CASE("rlp" * doctest::test_suite("rlp"))
   {
     // Unimplemented
   }
+
+  SUBCASE("encode_test")
+  {
+    CHECK(rlp_test::encode(0x0) == rlp_test::ByteString{0x80});
+    CHECK(rlp_test::encode(0x1) == rlp_test::ByteString{0x1});
+    CHECK(rlp_test::encode(0x7f) == rlp_test::ByteString{0x7f});
+    CHECK(rlp_test::encode(0x80) == rlp_test::ByteString{0x81, 0x80});
+
+    CHECK(rlp_test::encode() == rlp_test::ByteString{0xc0});
+    CHECK(rlp_test::encode("") == rlp_test::ByteString{0x80});
+
+    CHECK(rlp_test::encode(0x0, 0x0) == rlp_test::ByteString{0xc2, 0x80, 0x80});
+    CHECK(
+      rlp_test::encode(0x1, 0x2, 0x3) ==
+      rlp_test::ByteString{0xc3, 0x1, 0x2, 0x3});
+
+    CHECK(rlp_test::encode("dog") == rlp_test::ByteString{0x83, 'd', 'o', 'g'});
+    CHECK(
+      rlp_test::encode("cat", "dog") ==
+      rlp_test::ByteString{0xc8, 0x83, 'c', 'a', 't', 0x83, 'd', 'o', 'g'});
+
+    CHECK(rlp_test::encode(1024) == rlp_test::ByteString{0x82, 0x04, 0x00});
+
+    CHECK(
+      rlp_test::encode(rlp_test::ByteString{0x0}) == rlp_test::ByteString{0x0});
+
+    CHECK(
+      rlp_test::encode(rlp_test::ByteString{0x0, 0x0}) ==
+      rlp_test::ByteString{0x82, 0x0, 0x0});
+
+    CHECK(
+      rlp_test::encode(std::make_tuple(0x0)) ==
+      rlp_test::ByteString{0xc1, 0x80});
+    CHECK(
+      rlp_test::encode(std::make_tuple(0x0, 0x0)) ==
+      rlp_test::ByteString{0xc2, 0x80, 0x80});
+    CHECK(
+      rlp_test::encode(std::make_tuple(std::make_tuple(0x0))) ==
+      rlp_test::ByteString{0xc2, 0xc1, 0x80});
+    // CHECK(
+    //   rlp_test::encode(std::make_tuple(0x0)) ==
+    //   rlp_test::ByteString{0xc1, 0x80});
+  }
 }
 
 TEST_CASE("addressGeneration" * doctest::test_suite("rlp"))
@@ -222,8 +289,9 @@ TEST_CASE("addressGeneration" * doctest::test_suite("rlp"))
 
 TEST_CASE("vmExecution" * doctest::test_suite("vm"))
 {
-  // harness.cpp runs more thorough tests from standard test cases. This is the
-  // simplest possible test of the API, independent of json parsing/test formats
+  // harness.cpp runs more thorough tests from standard test cases. This is
+  // the simplest possible test of the API, independent of json parsing/test
+  // formats
 
   SimpleGlobalState gs;
   NullLogHandler ignore;
