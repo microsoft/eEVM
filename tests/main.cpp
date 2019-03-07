@@ -264,9 +264,18 @@ TEST_CASE("rlp" * doctest::test_suite("rlp"))
     CHECK(
       rlp_test::encode(std::make_tuple(std::make_tuple(0x0))) ==
       rlp_test::ByteString{0xc2, 0xc1, 0x80});
-    // CHECK(
-    //   rlp_test::encode(std::make_tuple(0x0)) ==
-    //   rlp_test::ByteString{0xc1, 0x80});
+
+    const auto set_0 = std::make_tuple();
+    CHECK(rlp_test::encode(set_0) == rlp_test::ByteString{0xc0});
+
+    const auto set_1 = std::make_tuple(set_0);
+    CHECK(rlp_test::encode(set_1) == rlp_test::ByteString{0xc1, 0xc0});
+
+    const auto set_2 = std::make_tuple(set_0, set_1);
+    const auto set_3 = std::make_tuple(set_0, set_1, set_2);
+    CHECK(
+      rlp_test::encode(set_3) ==
+      rlp_test::ByteString{0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0});
   }
 }
 
