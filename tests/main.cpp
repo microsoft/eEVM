@@ -131,30 +131,6 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
   }
 }
 
-template <typename A, typename B>
-auto PRINT_CHECK(A&& a, B&& b)
-{
-  if (a != b)
-  {
-    std::cout << "FAILED: " << std::endl;
-    for (auto i : a)
-    {
-      std::cout << " " << std::hex << (int)i;
-    }
-    std::cout << std::endl;
-
-    for (auto i : b)
-    {
-      std::cout << " " << std::hex << (int)i;
-    }
-    std::cout << std::endl;
-  }
-  else
-  {
-    std::cout << "SUCCESS" << std::endl;
-  }
-}
-
 TEST_CASE("rlp" * doctest::test_suite("rlp"))
 {
   SUBCASE("encode")
