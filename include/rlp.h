@@ -66,6 +66,13 @@ namespace evm
       return bs;
     }
 
+    inline ByteString to_byte_string(const uint256_t& n)
+    {
+      ByteString bs;
+      boost::multiprecision::export_bits(n, std::back_inserter(bs), 8, true);
+      return bs;
+    }
+
     // RLP-encode a single, non-tuple argument. Convert it to a ByteString,
     // prefix with the encoded length.
     template <typename T>

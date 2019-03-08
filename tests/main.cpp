@@ -177,6 +177,9 @@ TEST_CASE("rlp" * doctest::test_suite("rlp"))
 
     CHECK(rlp::encode(1024) == rlp::ByteString{0x82, 0x04, 0x00});
 
+    const uint256_t a = 1024;
+    CHECK(rlp::encode(a) == rlp::ByteString{0x82, 0x04, 0x00});
+
     CHECK(rlp::encode(rlp::ByteString{0x0}) == rlp::ByteString{0x0});
 
     CHECK(
