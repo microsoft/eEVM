@@ -31,17 +31,17 @@ namespace evm
     template <typename... Ts>
     ByteString encode(Ts&&... ts);
 
-    inline ByteString to_bytes(const ByteString& bs)
+    inline ByteString to_byte_string(const ByteString& bs)
     {
       return bs;
     }
 
-    inline ByteString to_bytes(const std::string& s)
+    inline ByteString to_byte_string(const std::string& s)
     {
       return ByteString(s.begin(), s.end());
     }
 
-    inline ByteString to_bytes(uint64_t n)
+    inline ByteString to_byte_string(uint64_t n)
     {
       // "positive RLP integers must be represented in big endian binary form
       // with no leading zeroes"
@@ -71,7 +71,7 @@ namespace evm
     template <typename T>
     ByteString encode_single(const T& t)
     {
-      auto bytes = to_bytes(t);
+      auto bytes = to_byte_string(t);
       const auto length = bytes.size();
 
       // "For a single byte whose value is in the [0x00, 0x7f] range, that
@@ -97,7 +97,7 @@ namespace evm
       // followed by the string. For example, a length-1024 string would be
       // encoded as \xb9\x04\x00 followed by the string. The range of the
       // first byte is thus [0xb8, 0xbf]."
-      auto length_as_bytes = to_bytes(length);
+      auto length_as_bytes = to_byte_string(length);
       const uint8_t length_of_length = length_as_bytes.size();
 
       length_as_bytes.insert(length_as_bytes.begin(), 0xb7 + length_of_length);
@@ -171,7 +171,7 @@ namespace evm
       // length of the payload, followed by the concatenation of the RLP
       // encodings of the items. The range of the first byte is thus [0xf8,
       // 0xff]."
-      auto total_length_as_bytes = to_bytes(total_length);
+      auto total_length_as_bytes = to_byte_string(total_length);
       const uint8_t length_of_total_length = total_length_as_bytes.size();
 
       total_length_as_bytes.insert(

@@ -213,7 +213,7 @@ TEST_CASE("rlp" * doctest::test_suite("rlp"))
         66000),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
       "tempor incididunt ut labore et dolore magna aliqua");
-    const auto expected = rlp::to_bytes(
+    const auto expected = rlp::to_byte_string(
       "\xf8\xa5\xda\x8bHello world\x8dSaluton "
       "Mondo\xcd\xc8\xc1\x01\xc2\x02\x03\xc2\xc1\x04\x83\x01\x01\xd0\xb8zLorem "
       "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
