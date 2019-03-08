@@ -3,7 +3,7 @@
 
 #include "../include/util.h"
 
-#include "rlp.h"
+#include "../include/rlp.h"
 
 #include <iomanip>
 
@@ -59,31 +59,13 @@ namespace evm
 
   Address generate_address(const Address& sender, uint64_t nonce)
   {
-    // "positive RLP integers must be represented in big endian binary form with
-    // no leading zeroes"
+    const auto rlp_encoding = rlp::encode(sender, nonce);
+
     uint8_t buffer[32u];
-    to_big_endian(sender, buffer);
-    rlp::ByteString s{buffer + 12u, buffer + 32u};
-
-    rlp::ByteString n;
-    bool started = false;
-    for (size_t byte_index = 0; byte_index < 8; ++byte_index)
-    {
-      auto offset = (7 - byte_index) * 8;
-      static constexpr uint64_t BYTE_MASK = 0xff;
-      uint8_t nonce_byte = (nonce & (BYTE_MASK << offset)) >> offset;
-      if (started || nonce_byte != 0)
-      {
-        n.push_back(nonce_byte);
-        started = true;
-      }
-    }
-
-    rlp::Item it = rlp::Item::TList{s, n};
-
-    rlp::ByteString bs = rlp::encode(it);
-
-    Keccak_256(bs.data(), static_cast<unsigned int>(bs.size()), buffer);
+    Keccak_256(
+      rlp_encoding.data(),
+      static_cast<unsigned int>(rlp_encoding.size()),
+      buffer);
 
     return from_big_endian(buffer + 12u, buffer + 32u);
   }

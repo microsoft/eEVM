@@ -35,7 +35,6 @@ endif(RECORD_TRACE)
 add_library(evm STATIC
   evm/account.cpp
   evm/disassembler.cpp
-  evm/rlp.cpp
   evm/simpleglobalstate.cpp
   evm/simplestorage.cpp
   evm/stack.cpp
