@@ -18,7 +18,7 @@ steps:
   displayName: CMake
   workingDirectory: build
 
-- script: make
+- script: make VERBOSE=1
   displayName: Make
   workingDirectory: build
 
