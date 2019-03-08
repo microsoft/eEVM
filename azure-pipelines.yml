@@ -4,7 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'Ubuntu 16.04'
+
+## NB: CI will currently fail as the gcc version 16.04 does not have full C++17 support
+## Need to investigate using a custom Docker image
 
 steps:
 - script: |
