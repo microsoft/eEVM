@@ -183,31 +183,30 @@ namespace evm
       {};
     }
 
-    template <typename... Ts>
+    template <
+      typename... Ts,
+      typename = std::enable_if_t<!is_tuple<std::decay_t<Ts>...>::value>>
     auto encode_multiple(Ts&&... ts)
     {
-      return std::tuple_cat(std::make_tuple(encode(ts)...));
+      return std::make_tuple(encode(ts)...);
     }
 
     template <typename... Ts>
-    auto encode_multiple(std::tuple<Ts...>& tup)
+    auto encode_multiple(const std::tuple<Ts...>& tup)
     {
       return std::apply(
-        [](auto... entry) {
-          return std::tuple_cat(std::make_tuple(encode(entry)...));
-        },
-        tup);
+        [](auto&&... entry) { return std::make_tuple(encode(entry)...); }, tup);
     }
 
     template <typename... Ts>
     ByteString encode(Ts&&... ts)
     {
-      if constexpr (sizeof...(Ts) == 1 && !is_tuple<Ts...>::value)
+      if constexpr (sizeof...(Ts) == 1 && !is_tuple<std::decay_t<Ts>...>::value)
       {
-        return encode_single(std::forward<Ts...>(ts)...);
+        return encode_single(std::forward<Ts>(ts)...);
       }
 
-      const auto nested_terms = encode_multiple(ts...);
+      const auto nested_terms = encode_multiple(std::forward<Ts>(ts)...);
 
       // Get total length by summing size of each term in tuple
       const auto total_length = std::apply(

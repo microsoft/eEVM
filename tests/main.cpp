@@ -276,6 +276,23 @@ TEST_CASE("rlp" * doctest::test_suite("rlp"))
     CHECK(
       rlp_test::encode(set_3) ==
       rlp_test::ByteString{0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0});
+
+    const auto long_and_nested = std::make_tuple(
+      std::make_tuple("Hello world", "Saluton Mondo"),
+      std::make_tuple(
+        std::make_tuple(
+          std::make_tuple(1),
+          std::make_tuple(2, 3),
+          std::make_tuple(std::make_tuple(4))),
+        66000),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+      "tempor incididunt ut labore et dolore magna aliqua");
+    const auto expected = rlp_test::to_bytes(
+      "\xf8\xa5\xda\x8bHello world\x8dSaluton "
+      "Mondo\xcd\xc8\xc1\x01\xc2\x02\x03\xc2\xc1\x04\x83\x01\x01\xd0\xb8zLorem "
+      "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+      "tempor incididunt ut labore et dolore magna aliqua");
+    CHECK(rlp_test::encode(long_and_nested) == expected);
   }
 }
 
