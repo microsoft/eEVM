@@ -177,9 +177,6 @@ TEST_CASE("rlp" * doctest::test_suite("rlp"))
 
     CHECK(rlp::encode(1024) == rlp::ByteString{0x82, 0x04, 0x00});
 
-    const uint256_t a = 1024;
-    CHECK(rlp::encode(a) == rlp::ByteString{0x82, 0x04, 0x00});
-
     CHECK(rlp::encode(rlp::ByteString{0x0}) == rlp::ByteString{0x0});
 
     CHECK(
@@ -222,6 +219,19 @@ TEST_CASE("rlp" * doctest::test_suite("rlp"))
       "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
       "tempor incididunt ut labore et dolore magna aliqua");
     CHECK(rlp::encode(long_and_nested) == expected);
+  }
+
+  SUBCASE("uint256_t encode")
+  {
+    const uint256_t a = 1024;
+    CHECK(rlp::encode(a) == rlp::ByteString{0x82, 0x04, 0x00});
+
+    using namespace boost::multiprecision::literals;
+    const uint256_t b = 0x1234567890abcdefdeadbeefcafef00dbaaaad_cppui;
+    CHECK(rlp::encode(b) == rlp::ByteString{0x93, 0x12, 0x34, 0x56, 0x78,
+                                            0x90, 0xab, 0xcd, 0xef, 0xde,
+                                            0xad, 0xbe, 0xef, 0xca, 0xfe,
+                                            0xf0, 0x0d, 0xba, 0xaa, 0xad});
   }
 
   SUBCASE("decode")
