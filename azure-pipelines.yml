@@ -6,6 +6,9 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 
+## NB: CI will currently fail as the gcc version 16.04 does not have full C++17 support
+## Need to investigate using a custom Docker image
+
 steps:
 - script: |
    cd /tmp/ && wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz && tar -xf /tmp/boost_1_67_0.tar.gz
@@ -18,7 +21,7 @@ steps:
   displayName: CMake
   workingDirectory: build
 
-- script: make
+- script: make VERBOSE=1
   displayName: Make
   workingDirectory: build
 
