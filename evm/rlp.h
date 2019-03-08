@@ -92,6 +92,19 @@ namespace evm
   {
     using ByteString = std::vector<uint8_t>;
 
+    // Helper to detect tuples
+    namespace
+    {
+      template <typename... Ts>
+      struct is_tuple : std::false_type
+      {};
+
+      template <typename... Ts>
+      struct is_tuple<std::tuple<Ts...>> : std::true_type
+      {};
+    }
+
+    // Forward declaration to allow recursive calls.
     template <typename... Ts>
     ByteString encode(Ts&&... ts);
 
@@ -130,6 +143,8 @@ namespace evm
       return bs;
     }
 
+    // RLP-encode a single, non-tuple argument. Convert it to a ByteString,
+    // prefix with the encoded length.
     template <typename T>
     ByteString encode_single(const T& t)
     {
@@ -168,21 +183,8 @@ namespace evm
       return bytes;
     }
 
-    namespace
-    {
-      template <typename... Ts>
-      struct is_tuple : std::false_type
-      {};
-
-      template <typename... Ts>
-      struct is_tuple<std::tuple<Ts...>> : std::true_type
-      {};
-
-      template <typename... Ts>
-      struct is_tuple<std::tuple<Ts...>&> : std::true_type
-      {};
-    }
-
+    // RLP-encode a list of arguments. Encode each separately, and return a
+    // tuple of the results.
     template <
       typename... Ts,
       typename = std::enable_if_t<!is_tuple<std::decay_t<Ts>...>::value>>
@@ -191,6 +193,9 @@ namespace evm
       return std::make_tuple(encode(ts)...);
     }
 
+    // RLP-encode a tuple argument. Treat this as a list of multiple of
+    // arguments - encode each separately, and return a tuple of the results.
+    // This allows nested heterogeneous lists to be represented as tuples.
     template <typename... Ts>
     auto encode_multiple(const std::tuple<Ts...>& tup)
     {
@@ -198,6 +203,9 @@ namespace evm
         [](auto&&... entry) { return std::make_tuple(encode(entry)...); }, tup);
     }
 
+    // Main encode function. Either forwards to encode_single, or calls
+    // encode_multiple then prepends list-length encoding to concatenated
+    // results.
     template <typename... Ts>
     ByteString encode(Ts&&... ts)
     {
