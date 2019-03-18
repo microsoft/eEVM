@@ -51,7 +51,7 @@ namespace evm
       for (size_t byte_index = 0; byte_index < sizeof(n); ++byte_index)
       {
         const uint64_t offset = (7 - byte_index) * 8;
-        const uint64_t mask = 0xff << offset;
+        const uint64_t mask = (uint64_t)0xff << offset;
 
         const uint8_t current_byte = (mask & n) >> offset;
 
