@@ -13,7 +13,7 @@ namespace evm
    */
   struct Storage
   {
-    virtual void store(uint256_t key, uint256_t value) = 0;
+    virtual void store(const uint256_t& key, const uint256_t& value) = 0;
     virtual uint256_t load(const uint256_t& key) = 0;
     virtual bool exists(const uint256_t& key) = 0;
     virtual bool remove(const uint256_t& key) = 0;
