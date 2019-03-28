@@ -20,7 +20,7 @@ namespace evm
     SimpleStorage() = default;
     SimpleStorage(const nlohmann::json& j);
 
-    void store(uint256_t key, uint256_t value) override;
+    void store(const uint256_t& key, const uint256_t& value) override;
     uint256_t load(const uint256_t& key) override;
     bool exists(const uint256_t& key) override;
     bool remove(const uint256_t& key) override;

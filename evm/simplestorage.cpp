@@ -18,7 +18,7 @@ namespace evm
         /* value */ std::forward_as_tuple(from_hex_str(it.value())));
   }
 
-  void SimpleStorage::store(uint256_t key, uint256_t value)
+  void SimpleStorage::store(const uint256_t& key, const uint256_t& value)
   {
     s[key] = value;
   }
