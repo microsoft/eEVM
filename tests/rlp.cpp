@@ -82,5 +82,11 @@ TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
 
 TEST_CASE("decode" * doctest::test_suite("rlp"))
 {
-  // Unimplemented
+  CHECK(rlp::decode<size_t>(rlp::ByteString{0x80}) == 0x0);
+  CHECK(rlp::decode<size_t>(rlp::ByteString{0x1}) == 0x1);
+  CHECK(rlp::decode<size_t>(rlp::ByteString{0x7f}) == 0x7f);
+  CHECK(rlp::decode<size_t>(rlp::ByteString{0x81, 0x80}) == 0x80);
+
+  // CHECK(rlp::encode() == rlp::ByteString{0xc0});
+  // CHECK(rlp::encode("") == rlp::ByteString{0x80});
 }

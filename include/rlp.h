@@ -6,6 +6,7 @@
 #include "bigint.h"
 
 #include <cstdint>
+#include <stdexcept>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -28,6 +29,10 @@ namespace evm
       struct is_tuple<std::tuple<Ts...>> : std::true_type
       {};
     }
+
+    //
+    // Encoding
+    //
 
     // Forward declaration to allow recursive calls.
     template <typename... Ts>
@@ -190,6 +195,76 @@ namespace evm
         total_length_as_bytes.begin(),
         total_length_as_bytes.end());
       return flattened;
+    }
+
+    //
+    // Decoding
+    //
+    class decode_error : public std::logic_error
+    {
+      using logic_error::logic_error;
+    };
+
+    template <typename T>
+    T from_bytes(const uint8_t*& data, size_t& size);
+
+    template <>
+    inline uint64_t from_bytes<uint64_t>(const uint8_t*& data, size_t& size)
+    {
+      if (size > 8)
+      {
+        throw decode_error(
+          "Trying to decode number: " + std::to_string(size) +
+          " is too many bytes for uint64_t");
+      }
+
+      uint64_t result = 0;
+
+      while (size > 0)
+      {
+        result <<= 8u;
+        result |= *data;
+        data++;
+        size--;
+      }
+
+      return result;
+    }
+
+    template <typename T>
+    T decode_single(const uint8_t*& data, size_t& size)
+    {
+      if (size == 0)
+      {
+        throw decode_error("Trying to decode value: got empty data");
+      }
+
+      if (data[0] <= 0x7f)
+      {
+        return from_bytes<T>(data, size);
+      }
+
+      if (data[0] <= 0xb7)
+      {
+        size_t result_size = data[0] - 0x80;
+        data++;
+        size--;
+
+        size -= result_size;
+
+        return from_bytes<T>(data, result_size);
+      }
+
+      throw decode_error("Unimplemented");
+    }
+
+    template <typename T>
+    T decode(const ByteString& bytes)
+    {
+      const uint8_t* data = bytes.data();
+      size_t size = bytes.size();
+
+      return decode_single<T>(data, size);
     }
   }
 } // namespace evm
