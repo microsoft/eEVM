@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "bigint.h"
+
 #include <cstdint>
 #include <string>
 #include <tuple>
