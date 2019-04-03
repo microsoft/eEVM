@@ -130,17 +130,26 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
       rlp::ByteString{0xc2, 0xc1, 0x80}) ==
     std::make_tuple(std::make_tuple(std::make_tuple(0x0))));
 
-  /*
-  const auto set_0 = std::make_tuple();
-  CHECK(rlp::encode(set_0) == rlp::ByteString{0xc0});
-
-  const auto set_1 = std::make_tuple(set_0);
-  CHECK(rlp::encode(set_1) == rlp::ByteString{0xc1, 0xc0});
-
-  const auto set_2 = std::make_tuple(set_0, set_1);
-  const auto set_3 = std::make_tuple(set_0, set_1, set_2);
   CHECK(
-    rlp::encode(set_3) ==
-    rlp::ByteString{0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0});
-  */
+    rlp::decode_single<
+      std::tuple<size_t, size_t, size_t, size_t, size_t, size_t>>(
+      rlp::ByteString{0xc6, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6}) ==
+    std::make_tuple(0x1, 0x2, 0x3, 0x4, 0x5, 0x6));
+
+  auto set_0 = std::make_tuple();
+  CHECK(rlp::decode_single<decltype(set_0)>(rlp::ByteString{0xc0}) == set_0);
+
+  auto set_1 = std::make_tuple(set_0);
+  CHECK(
+    rlp::decode_single<decltype(set_1)>(rlp::ByteString{0xc1, 0xc0}) == set_1);
+
+  auto set_2 = std::make_tuple(set_0, set_1);
+  CHECK(
+    rlp::decode_single<decltype(set_2)>(
+      rlp::ByteString{0xc3, 0xc0, 0xc1, 0xc0}) == set_2);
+
+  auto set_3 = std::make_tuple(set_0, set_1, set_2);
+  CHECK(
+    rlp::decode_single<decltype(set_3)>(rlp::ByteString{
+      0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0}) == set_3);
 }

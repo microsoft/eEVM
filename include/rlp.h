@@ -350,9 +350,23 @@ namespace evm
 
     template <typename... Ts>
     std::tuple<Ts...> decode_tuple(
-      const uint8_t*& data, size_t& size, const std::tuple<Ts...>&)
+      const uint8_t*& data, size_t& size, const std::tuple<Ts...>&);
+
+    template <>
+    inline std::tuple<> decode_tuple(
+      const uint8_t*& data, size_t& size, const std::tuple<>&)
     {
-      return std::tuple_cat(decode<Ts>(data, size)...);
+      return std::make_tuple();
+    }
+
+    template <typename T, typename... Ts>
+    inline std::tuple<T, Ts...> decode_tuple(
+      const uint8_t*& data, size_t& size, const std::tuple<T, Ts...>&)
+    {
+      const auto first = decode<T>(data, size);
+
+      return std::tuple_cat(
+        first, decode_tuple<Ts...>(data, size, std::tuple<Ts...>{}));
     }
 
     template <typename T>
