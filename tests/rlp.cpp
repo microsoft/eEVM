@@ -87,21 +87,26 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x7f}) == 0x7f);
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x81, 0x80}) == 0x80);
 
+  CHECK(rlp::decode<>(rlp::ByteString{0xc0}) == std::make_tuple());
   /*
   CHECK(rlp::encode() == rlp::ByteString{0xc0});
   CHECK(rlp::encode("") == rlp::ByteString{0x80});
-
-  CHECK(rlp::encode(0x0, 0x0) == rlp::ByteString{0xc2, 0x80, 0x80});
-  CHECK(rlp::encode(0x1, 0x2, 0x3) == rlp::ByteString{0xc3, 0x1, 0x2, 0x3});
   */
 
   CHECK(
-    rlp::decode_single<std::string>(rlp::ByteString{0x83, 'd', 'o', 'g'}) ==
-    "dog");
-  // using SS = std::tuple<std::string, std::string>;
-  // CHECK(
-  // rlp::decode<SS>(rlp::ByteString{
-  // 0xc8, 0x83, 'c', 'a', 't', 0x83, 'd', 'o', 'g'}) == SS{"cat", "dog"});
+    rlp::decode<size_t, size_t>(rlp::ByteString{0xc2, 0x80, 0x80}) ==
+    std::make_tuple(0x0, 0x0));
+  CHECK(
+    rlp::decode<size_t, size_t, size_t>(rlp::ByteString{0xc3, 0x1, 0x2, 0x3}) ==
+    std::make_tuple(0x1, 0x2, 0x3));
+
+  const rlp::ByteString dog{0x83, 'd', 'o', 'g'};
+  CHECK(rlp::decode_single<std::string>(dog) == "dog");
+  CHECK(rlp::decode<std::string>(dog) == std::make_tuple("dog"));
+
+  // const rlp::ByteString cat_dog{0xc8, 0x83, 'c', 'a', 't', 0x83, 'd', 'o',
+  // 'g'}; using SS = std::tuple<std::string, std::string>;
+  // CHECK(rlp::decode<SS>(cat_dog) == SS{"cat", "dog"});
 
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x82, 0x04, 0x00}) == 1024);
 
