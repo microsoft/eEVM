@@ -248,8 +248,7 @@ namespace evm
     }
 
     template <>
-    inline ByteString from_bytes<ByteString>(
-      const uint8_t*& data, size_t& size)
+    inline ByteString from_bytes<ByteString>(const uint8_t*& data, size_t& size)
     {
       ByteString result(size);
 
@@ -267,6 +266,13 @@ namespace evm
     {
       Single,
       Multiple,
+    };
+
+    struct DataSegment
+    {
+      Arity arity;
+      const uint8_t* data;
+      size_t length;
     };
 
     inline std::pair<Arity, size_t> decode_length(
@@ -338,41 +344,65 @@ namespace evm
       return {Arity::Multiple, content_length};
     }
 
-    // template <typename... Ts>
-    // ByteString encode(Ts&&... ts)
-    // {
-    //   if constexpr (sizeof...(Ts) == 1 && !is_tuple<std::decay_t<Ts>...>::value)
-    //   {
-    //     return encode_single(std::forward<Ts>(ts)...);
-    //   }
+    std::vector<DataSegment> decompose(const ByteString& bytes)
+    {
+      std::vector<DataSegment> result;
 
-    //   const auto nested_terms = encode_multiple(std::forward<Ts>(ts)...);
+      const uint8_t* data = bytes.data();
+      size_t total_size = bytes.size();
 
-    template <typename T>
-    T decode(const ByteString& bytes)
+      auto [arity, contained_size] = decode_length(data, total_size);
+
+      if (arity == Arity::Single)
+      {
+        result.push_back({arity, data, contained_size});
+      }
+      else
+      {
+        while (contained_size > 0)
+        {
+          auto [next_arity, next_size] = decode_length(data, contained_size);
+          result.push_back({next_arity, data, next_size});
+          data += next_size;
+          contained_size -= next_size;
+        }
+      }
+
+      return result;
+    }
+
+    template <typename... Ts>
+    std::tuple<Ts...> decode(const ByteString& bytes)
     {
       const uint8_t* data = bytes.data();
       size_t total_size = bytes.size();
 
       auto [arity, contained_size] = decode_length(data, total_size);
 
-      if constexpr (!is_tuple<std::decay_t<T>>::value)
+      if constexpr (sizeof...(Ts) == 1 && !is_tuple<std::decay_t<Ts>...>::value)
       {
         if (arity != Arity::Single)
         {
           throw decode_error("Expected single item, but data encodes a list");
         }
 
-        return from_bytes<T>(data, contained_size);
+        return std::make_tuple(from_bytes<Ts...>(data, contained_size));
       }
 
       if (arity != Arity::Multiple)
       {
-        throw decode_error("Expected list item, but data encodes a single item");
+        throw decode_error(
+          "Expected list item, but data encodes a single item");
       }
 
-
       throw decode_error("Unimplemented");
+    }
+
+    template <typename T>
+    T decode_single(const ByteString& bytes)
+    {
+      const std::tuple<T> tup = decode<T>(bytes);
+      return std::get<0>(tup);
     }
   }
 } // namespace evm
