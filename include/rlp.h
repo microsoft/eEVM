@@ -348,10 +348,13 @@ namespace evm
       return {Arity::Multiple, content_length};
     }
 
+    // General template for decoding a tuple. Type inferred from of third
+    // parameter (an unused tag)
     template <typename... Ts>
     std::tuple<Ts...> decode_tuple(
       const uint8_t*& data, size_t& size, const std::tuple<Ts...>&);
 
+    // Specialisation for decoding empty tuples
     template <>
     inline std::tuple<> decode_tuple(
       const uint8_t*& data, size_t& size, const std::tuple<>&)
@@ -359,6 +362,8 @@ namespace evm
       return std::make_tuple();
     }
 
+    // Specialisation for recursively decoding tuples, ensuring the first item
+    // is read before the others
     template <typename T, typename... Ts>
     inline std::tuple<T, Ts...> decode_tuple(
       const uint8_t*& data, size_t& size, const std::tuple<T, Ts...>&)
@@ -369,6 +374,9 @@ namespace evm
         first, decode_tuple<Ts...>(data, size, std::tuple<Ts...>{}));
     }
 
+    // Type helper for decoding single item, forwarding to either decode_tuple
+    // (to unwrap the types contained in a tuple) or directly to the main
+    // decode function
     template <typename T>
     auto decode_item(const uint8_t*& data, size_t& size)
     {
@@ -382,6 +390,9 @@ namespace evm
       }
     }
 
+    // Type helper for decoding single item, forwarding to either decode_tuple
+    // (to unwrap the types contained in a tuple) or directly to the main
+    // decode function
     template <typename T, typename... Ts>
     std::tuple<T, Ts...> decode_multiple(const uint8_t*& data, size_t& size)
     {
@@ -397,6 +408,8 @@ namespace evm
       }
     }
 
+    // Main decode function. Reads initial length, then either converts a single
+    // item from remaining bytes or forwards to decode_multiple
     template <typename... Ts>
     std::tuple<Ts...> decode(const uint8_t*& data, size_t& size)
     {
@@ -435,6 +448,8 @@ namespace evm
       }
     }
 
+    // Helper. Takes ByteString and forwards to contained data+size to main
+    // decode function
     template <typename... Ts>
     std::tuple<Ts...> decode(const ByteString& bytes)
     {
@@ -443,6 +458,8 @@ namespace evm
       return decode<Ts...>(data, size);
     }
 
+    // Helper. Unwraps tuple in case where there is a single top-level decoded
+    // value
     template <typename T>
     T decode_single(const ByteString& bytes)
     {
