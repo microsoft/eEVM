@@ -231,6 +231,97 @@ namespace evm
       return result;
     }
 
+    template <>
+    inline std::string from_bytes<std::string>(
+      const uint8_t*& data, size_t& size)
+    {
+      std::string result(size, '\0');
+
+      for (auto i = 0u; i < size; ++i)
+      {
+        result[i] = *data++;
+      }
+
+      size = 0u;
+
+      return result;
+    }
+
+    enum class Rank
+    {
+      Single,
+      List,
+    };
+
+    inline std::pair<Rank, size_t> decode_length(
+      const uint8_t*& data, size_t& size)
+    {
+      if (size == 0)
+      {
+        throw decode_error("Trying to decode length: got empty data");
+      }
+
+      // First byte IS the data
+      if (data[0] <= 0x7f)
+      {
+        return {Rank::Single, 1};
+      }
+
+      // First byte is length information - consume it now
+      const size_t length = data[0];
+      data++;
+      size--;
+
+      // Data is a single item, with length encoded in first bytes
+      if (length <= 0xb7)
+      {
+        return {Rank::Single, length - 0x80};
+      }
+
+      // Data is a single item, with length encoded in next bytes
+      if (length <= 0xbf)
+      {
+        size_t length_of_length = length - 0xb7;
+
+        if (size < length_of_length)
+        {
+          throw decode_error(
+            "Length of next element should be encoded in " +
+            std::to_string(length_of_length) + " bytes, but only " +
+            std::to_string(size) + " remain");
+        }
+
+        size -= length_of_length;
+
+        // This should advance data and decrement length_of_length to 0
+        const size_t content_length =
+          from_bytes<size_t>(data, length_of_length);
+        return {Rank::Single, content_length};
+      }
+
+      // Data encodes a list, with total content-length encoded in first byte
+      if (length <= 0xf7)
+      {
+        return {Rank::List, length - 0xc0};
+      }
+
+      // Data encodes a list, with total content-length encoded in next bytes
+      size_t length_of_length = length - 0xf7;
+
+      if (size < length_of_length)
+      {
+        throw decode_error(
+          "Length of next list should be encoded in " +
+          std::to_string(length_of_length) + " bytes, but only " +
+          std::to_string(size) + " remain");
+      }
+
+      size -= length_of_length;
+
+      const size_t content_length = from_bytes<size_t>(data, length_of_length);
+      return {Rank::List, content_length};
+    }
+
     template <typename T>
     T decode_single(const uint8_t*& data, size_t& size)
     {

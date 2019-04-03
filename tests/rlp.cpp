@@ -87,6 +87,48 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
   CHECK(rlp::decode<size_t>(rlp::ByteString{0x7f}) == 0x7f);
   CHECK(rlp::decode<size_t>(rlp::ByteString{0x81, 0x80}) == 0x80);
 
-  // CHECK(rlp::encode() == rlp::ByteString{0xc0});
-  // CHECK(rlp::encode("") == rlp::ByteString{0x80});
+  /*
+  CHECK(rlp::encode() == rlp::ByteString{0xc0});
+  CHECK(rlp::encode("") == rlp::ByteString{0x80});
+
+  CHECK(rlp::encode(0x0, 0x0) == rlp::ByteString{0xc2, 0x80, 0x80});
+  CHECK(rlp::encode(0x1, 0x2, 0x3) == rlp::ByteString{0xc3, 0x1, 0x2, 0x3});
+  */
+
+  CHECK(
+    rlp::decode<std::string>(rlp::ByteString{0x83, 'd', 'o', 'g'}) == "dog");
+
+  /*
+  CHECK(
+    rlp::encode("cat", "dog") ==
+    rlp::ByteString{0xc8, 0x83, 'c', 'a', 't', 0x83, 'd', 'o', 'g'});
+
+  CHECK(rlp::encode(1024) == rlp::ByteString{0x82, 0x04, 0x00});
+
+  CHECK(rlp::encode(rlp::ByteString{0x0}) == rlp::ByteString{0x0});
+
+  CHECK(
+    rlp::encode(rlp::ByteString{0x0, 0x0}) == rlp::ByteString{0x82, 0x0,
+  0x0});
+
+  CHECK(rlp::encode(std::make_tuple(0x0)) == rlp::ByteString{0xc1, 0x80});
+  CHECK(
+    rlp::encode(std::make_tuple(0x0, 0x0)) ==
+    rlp::ByteString{0xc2, 0x80, 0x80});
+  CHECK(
+    rlp::encode(std::make_tuple(std::make_tuple(0x0))) ==
+    rlp::ByteString{0xc2, 0xc1, 0x80});
+
+  const auto set_0 = std::make_tuple();
+  CHECK(rlp::encode(set_0) == rlp::ByteString{0xc0});
+
+  const auto set_1 = std::make_tuple(set_0);
+  CHECK(rlp::encode(set_1) == rlp::ByteString{0xc1, 0xc0});
+
+  const auto set_2 = std::make_tuple(set_0, set_1);
+  const auto set_3 = std::make_tuple(set_0, set_1, set_2);
+  CHECK(
+    rlp::encode(set_3) ==
+    rlp::ByteString{0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0});
+*/
 }
