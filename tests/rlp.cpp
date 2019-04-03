@@ -88,10 +88,7 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x81, 0x80}) == 0x80);
 
   CHECK(rlp::decode<>(rlp::ByteString{0xc0}) == std::make_tuple());
-  /*
-  CHECK(rlp::encode() == rlp::ByteString{0xc0});
-  CHECK(rlp::encode("") == rlp::ByteString{0x80});
-  */
+  CHECK(rlp::decode<std::string>(rlp::ByteString{0x80}) == std::make_tuple(""));
 
   CHECK(
     rlp::decode<size_t, size_t>(rlp::ByteString{0xc2, 0x80, 0x80}) ==
@@ -104,9 +101,10 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
   CHECK(rlp::decode_single<std::string>(dog) == "dog");
   CHECK(rlp::decode<std::string>(dog) == std::make_tuple("dog"));
 
-  // const rlp::ByteString cat_dog{0xc8, 0x83, 'c', 'a', 't', 0x83, 'd', 'o',
-  // 'g'}; using SS = std::tuple<std::string, std::string>;
-  // CHECK(rlp::decode<SS>(cat_dog) == SS{"cat", "dog"});
+  const rlp::ByteString cat_dog{0xc8, 0x83, 'c', 'a', 't', 0x83, 'd', 'o', 'g'};
+  CHECK(
+    rlp::decode<std::string, std::string>(cat_dog) ==
+    std::make_tuple("cat", "dog"));
 
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x82, 0x04, 0x00}) == 1024);
 
@@ -118,15 +116,17 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
     rlp::decode_single<rlp::ByteString>(rlp::ByteString{0x82, 0x0, 0x0}) ==
     rlp::ByteString{0x0, 0x0});
 
-  /*
-  CHECK(rlp::encode(std::make_tuple(0x0)) == rlp::ByteString{0xc1, 0x80});
   CHECK(
-    rlp::encode(std::make_tuple(0x0, 0x0)) ==
-    rlp::ByteString{0xc2, 0x80, 0x80});
-  CHECK(
-    rlp::encode(std::make_tuple(std::make_tuple(0x0))) ==
-    rlp::ByteString{0xc2, 0xc1, 0x80});
+    rlp::decode<std::tuple<size_t>>(rlp::ByteString{0xc1, 0x80}) ==
+    std::make_tuple(std::make_tuple(0x0)));
+  // CHECK(
+  //   rlp::decode<std::tuple<size_t, size_t>>(
+  //     rlp::ByteString{0xc2, 0x80, 0x80}) == std::make_tuple(0x0, 0x0));
+  // CHECK(
+  //   rlp::decode<std::tuple<std::tuple<size_t>>>(rlp::ByteString{
+  //     0xc2, 0xc1, 0x80}) == std::make_tuple(std::make_tuple(0x0)));
 
+  /*
   const auto set_0 = std::make_tuple();
   CHECK(rlp::encode(set_0) == rlp::ByteString{0xc0});
 

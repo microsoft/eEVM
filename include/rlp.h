@@ -348,10 +348,30 @@ namespace evm
       return {Arity::Multiple, content_length};
     }
 
+    template <typename... Ts>
+    std::tuple<Ts...> decode_tuple(
+      const uint8_t*& data, size_t& size, const std::tuple<Ts...>&)
+    {
+      return decode<Ts...>(data, size);
+    }
+
+    template <typename T>
+    auto decode_first(const uint8_t*& data, size_t& size)
+    {
+      if constexpr (is_tuple<std::decay_t<T>>::value)
+      {
+        return decode_tuple(data, size, T{});
+      }
+      else
+      {
+        return decode<T>(data, size);
+      }
+    }
+
     template <typename T, typename... Ts>
     std::tuple<T, Ts...> decode_multiple(const uint8_t*& data, size_t& size)
     {
-      const auto first = decode<T>(data, size);
+      const auto first = decode_first<T>(data, size);
 
       if constexpr (sizeof...(Ts) == 0)
       {
