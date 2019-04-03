@@ -247,13 +247,29 @@ namespace evm
       return result;
     }
 
-    enum class Rank
+    template <>
+    inline ByteString from_bytes<ByteString>(
+      const uint8_t*& data, size_t& size)
+    {
+      ByteString result(size);
+
+      for (auto i = 0u; i < size; ++i)
+      {
+        result[i] = *data++;
+      }
+
+      size = 0u;
+
+      return result;
+    }
+
+    enum class Arity
     {
       Single,
-      List,
+      Multiple,
     };
 
-    inline std::pair<Rank, size_t> decode_length(
+    inline std::pair<Arity, size_t> decode_length(
       const uint8_t*& data, size_t& size)
     {
       if (size == 0)
@@ -264,7 +280,7 @@ namespace evm
       // First byte IS the data
       if (data[0] <= 0x7f)
       {
-        return {Rank::Single, 1};
+        return {Arity::Single, 1};
       }
 
       // First byte is length information - consume it now
@@ -275,7 +291,7 @@ namespace evm
       // Data is a single item, with length encoded in first bytes
       if (length <= 0xb7)
       {
-        return {Rank::Single, length - 0x80};
+        return {Arity::Single, length - 0x80};
       }
 
       // Data is a single item, with length encoded in next bytes
@@ -296,13 +312,13 @@ namespace evm
         // This should advance data and decrement length_of_length to 0
         const size_t content_length =
           from_bytes<size_t>(data, length_of_length);
-        return {Rank::Single, content_length};
+        return {Arity::Single, content_length};
       }
 
       // Data encodes a list, with total content-length encoded in first byte
       if (length <= 0xf7)
       {
-        return {Rank::List, length - 0xc0};
+        return {Arity::Multiple, length - 0xc0};
       }
 
       // Data encodes a list, with total content-length encoded in next bytes
@@ -319,43 +335,44 @@ namespace evm
       size -= length_of_length;
 
       const size_t content_length = from_bytes<size_t>(data, length_of_length);
-      return {Rank::List, content_length};
+      return {Arity::Multiple, content_length};
     }
 
-    template <typename T>
-    T decode_single(const uint8_t*& data, size_t& size)
-    {
-      if (size == 0)
-      {
-        throw decode_error("Trying to decode value: got empty data");
-      }
+    // template <typename... Ts>
+    // ByteString encode(Ts&&... ts)
+    // {
+    //   if constexpr (sizeof...(Ts) == 1 && !is_tuple<std::decay_t<Ts>...>::value)
+    //   {
+    //     return encode_single(std::forward<Ts>(ts)...);
+    //   }
 
-      if (data[0] <= 0x7f)
-      {
-        return from_bytes<T>(data, size);
-      }
-
-      if (data[0] <= 0xb7)
-      {
-        size_t result_size = data[0] - 0x80;
-        data++;
-        size--;
-
-        size -= result_size;
-
-        return from_bytes<T>(data, result_size);
-      }
-
-      throw decode_error("Unimplemented");
-    }
+    //   const auto nested_terms = encode_multiple(std::forward<Ts>(ts)...);
 
     template <typename T>
     T decode(const ByteString& bytes)
     {
       const uint8_t* data = bytes.data();
-      size_t size = bytes.size();
+      size_t total_size = bytes.size();
 
-      return decode_single<T>(data, size);
+      auto [arity, contained_size] = decode_length(data, total_size);
+
+      if constexpr (!is_tuple<std::decay_t<T>>::value)
+      {
+        if (arity != Arity::Single)
+        {
+          throw decode_error("Expected single item, but data encodes a list");
+        }
+
+        return from_bytes<T>(data, contained_size);
+      }
+
+      if (arity != Arity::Multiple)
+      {
+        throw decode_error("Expected list item, but data encodes a single item");
+      }
+
+
+      throw decode_error("Unimplemented");
     }
   }
 } // namespace evm
