@@ -352,11 +352,11 @@ namespace evm
     std::tuple<Ts...> decode_tuple(
       const uint8_t*& data, size_t& size, const std::tuple<Ts...>&)
     {
-      return decode<Ts...>(data, size);
+      return std::tuple_cat(decode<Ts>(data, size)...);
     }
 
     template <typename T>
-    auto decode_first(const uint8_t*& data, size_t& size)
+    auto decode_item(const uint8_t*& data, size_t& size)
     {
       if constexpr (is_tuple<std::decay_t<T>>::value)
       {
@@ -371,7 +371,7 @@ namespace evm
     template <typename T, typename... Ts>
     std::tuple<T, Ts...> decode_multiple(const uint8_t*& data, size_t& size)
     {
-      const auto first = decode_first<T>(data, size);
+      const auto first = decode_item<T>(data, size);
 
       if constexpr (sizeof...(Ts) == 0)
       {

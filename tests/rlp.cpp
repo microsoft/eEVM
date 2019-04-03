@@ -67,7 +67,7 @@ TEST_CASE("encode" * doctest::test_suite("rlp"))
   CHECK(rlp::encode(long_and_nested) == expected);
 }
 
-TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
+TEST_CASE("uint256_t encode" * doctest::test_suite("rlp"))
 {
   const uint256_t a = 1024;
   CHECK(rlp::encode(a) == rlp::ByteString{0x82, 0x04, 0x00});
@@ -82,6 +82,9 @@ TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
 
 TEST_CASE("decode" * doctest::test_suite("rlp"))
 {
+  // NB: Return value of decode is wrapped in a tuple. If requesting a single
+  // top-level value, this layer can be popped for you by calling decode_single
+  CHECK(rlp::decode<size_t>(rlp::ByteString{0x80}) == std::make_tuple(0x0));
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x80}) == 0x0);
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x1}) == 0x1);
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x7f}) == 0x7f);
@@ -119,12 +122,13 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
   CHECK(
     rlp::decode<std::tuple<size_t>>(rlp::ByteString{0xc1, 0x80}) ==
     std::make_tuple(std::make_tuple(0x0)));
-  // CHECK(
-  //   rlp::decode<std::tuple<size_t, size_t>>(
-  //     rlp::ByteString{0xc2, 0x80, 0x80}) == std::make_tuple(0x0, 0x0));
-  // CHECK(
-  //   rlp::decode<std::tuple<std::tuple<size_t>>>(rlp::ByteString{
-  //     0xc2, 0xc1, 0x80}) == std::make_tuple(std::make_tuple(0x0)));
+  CHECK(
+    rlp::decode<std::tuple<size_t, size_t>>(rlp::ByteString{
+      0xc2, 0x80, 0x80}) == std::make_tuple(std::make_tuple(0x0, 0x0)));
+  CHECK(
+    rlp::decode<std::tuple<std::tuple<size_t>>>(
+      rlp::ByteString{0xc2, 0xc1, 0x80}) ==
+    std::make_tuple(std::make_tuple(std::make_tuple(0x0))));
 
   /*
   const auto set_0 = std::make_tuple();
