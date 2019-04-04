@@ -9,7 +9,7 @@ jobs:
 
       - run:
           name: Install cmake
-          command: sudo apt install cmake
+          command: apt install cmake
 
       - run:
           name: Download boost
