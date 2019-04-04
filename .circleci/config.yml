@@ -2,15 +2,15 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: buildpack-deps:18.04-scm
 
     steps:
       - checkout
 
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: Download boost
+          command: cd /tmp/ && wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz && tar -xf /tmp/boost_1_67_0.tar.gz
 
       - run:
-          name: Print the Current Time
-          command: date
+          name: Make build directory
+          command: mkdir build
