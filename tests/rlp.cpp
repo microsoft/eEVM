@@ -243,7 +243,7 @@ TEST_CASE("transaction" * doctest::test_suite("rlp"))
   uint256_t r = 0x0;
   uint256_t s = 0x0;
 
-  const auto tx_hash =
+  const auto tx_rlp =
     rlp::encode(nonce, gas_price, gas_limit, to, value, data, v, r, s);
 
   // Expected result produced from web3.js
@@ -251,5 +251,5 @@ TEST_CASE("transaction" * doctest::test_suite("rlp"))
     "0xe6058609184e72a0008303000094ab2fccb0c5f0499278801ce41f4bccca39676f2d8080"
     "1c8080");
 
-  REQUIRE(tx_hash == expected);
+  REQUIRE(tx_rlp == expected);
 }
