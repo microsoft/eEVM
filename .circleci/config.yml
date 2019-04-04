@@ -2,14 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: buildpack-deps:18.04-scm
+            - image: rikorose/gcc-cmake:7
 
     steps:
       - checkout
-
-      - run:
-          name: Install cmake
-          command: apt install cmake
 
       - run:
           name: Download boost
