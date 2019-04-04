@@ -236,6 +236,12 @@ namespace evm
     }
 
     template <>
+    inline int from_bytes<int>(const uint8_t*& data, size_t& size)
+    {
+      return (int)from_bytes<size_t>(data, size);
+    }
+
+    template <>
     inline std::string from_bytes<std::string>(
       const uint8_t*& data, size_t& size)
     {

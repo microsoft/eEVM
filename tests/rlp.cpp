@@ -3,6 +3,23 @@
 #include <doctest/doctest.h>
 
 using namespace evm;
+using namespace std::string_literals;
+
+const auto large_input_decoded = std::make_tuple(
+  std::make_tuple("Hello world"s, "Saluton Mondo"s),
+  std::make_tuple(
+    std::make_tuple(
+      std::make_tuple(1),
+      std::make_tuple(2, 3),
+      std::make_tuple(std::make_tuple(4))),
+    66000),
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+  "tempor incididunt ut labore et dolore magna aliqua"s);
+const auto large_input_encoded = rlp::to_byte_string(
+  "\xf8\xa5\xda\x8bHello world\x8dSaluton "
+  "Mondo\xcd\xc8\xc1\x01\xc2\x02\x03\xc2\xc1\x04\x83\x01\x01\xd0\xb8zLorem "
+  "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+  "tempor incididunt ut labore et dolore magna aliqua");
 
 TEST_CASE("encode" * doctest::test_suite("rlp"))
 {
@@ -49,22 +66,7 @@ TEST_CASE("encode" * doctest::test_suite("rlp"))
     rlp::encode(set_3) ==
     rlp::ByteString{0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0});
 
-  const auto long_and_nested = std::make_tuple(
-    std::make_tuple("Hello world", "Saluton Mondo"),
-    std::make_tuple(
-      std::make_tuple(
-        std::make_tuple(1),
-        std::make_tuple(2, 3),
-        std::make_tuple(std::make_tuple(4))),
-      66000),
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-    "tempor incididunt ut labore et dolore magna aliqua");
-  const auto expected = rlp::to_byte_string(
-    "\xf8\xa5\xda\x8bHello world\x8dSaluton "
-    "Mondo\xcd\xc8\xc1\x01\xc2\x02\x03\xc2\xc1\x04\x83\x01\x01\xd0\xb8zLorem "
-    "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-    "tempor incididunt ut labore et dolore magna aliqua");
-  CHECK(rlp::encode(long_and_nested) == expected);
+  CHECK(rlp::encode(large_input_decoded) == large_input_encoded);
 }
 
 TEST_CASE("uint256_t encode" * doctest::test_suite("rlp"))
@@ -152,4 +154,53 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
   CHECK(
     rlp::decode_single<decltype(set_3)>(rlp::ByteString{
       0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0}) == set_3);
+
+  CHECK(
+    rlp::decode<decltype(large_input_decoded)>(large_input_encoded) ==
+    std::make_tuple(large_input_decoded));
 }
+
+struct UserType
+{
+  size_t a;
+  char b;
+  bool c;
+  size_t d[3];
+};
+
+bool operator==(const UserType& l, const UserType& r)
+{
+  return l.a == r.a && l.b == r.b && l.c == r.c && l.d[0] == r.d[0] &&
+    l.d[1] == r.d[1] && l.d[2] == r.d[2];
+}
+
+// TEST_CASE("user types" * doctest::test_suite("rlp"))
+// {
+//   // User types should be converted to ByteString before being passed to RLP,
+//   // and will only be decoded as far as ByteStrings
+
+//   UserType s{42, '!', true, {11, 1001, 100001}};
+
+//   uint8_t* start = (uint8_t*)&s;
+//   rlp::ByteString bs(start, start + sizeof(s));
+
+//   const rlp::ByteString encoded = rlp::encode(
+//     "Other data",
+//     std::make_tuple("Awkward", std::make_tuple("Data")),
+//     bs,
+//     "And something afterwards");
+
+//   // Decode side currently needs to know structure of entire contents, though
+//   it
+//   // can ignore types and leave everything it doesn't care about as
+//   ByteString const auto tup = rlp::decode<
+//     rlp::ByteString,
+//     std::tuple<rlp::ByteString, std::tuple<rlp::ByteString>>,
+//     rlp::ByteString,
+//     rlp::ByteString>(encoded);
+
+//   const auto target = std::get<2>(tup);
+//   const UserType* result = (const UserType*)target.data();
+
+//   REQUIRE(s == *result);
+// }
