@@ -8,6 +8,10 @@ jobs:
       - checkout
 
       - run:
+          name: Install cmake
+          command: sudo apt install cmake
+
+      - run:
           name: Download boost
           command: cd /tmp/ && wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz && tar -xf /tmp/boost_1_67_0.tar.gz
 
