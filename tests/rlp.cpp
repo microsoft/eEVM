@@ -69,19 +69,6 @@ TEST_CASE("encode" * doctest::test_suite("rlp"))
   CHECK(rlp::encode(large_input_decoded) == large_input_encoded);
 }
 
-TEST_CASE("uint256_t encode" * doctest::test_suite("rlp"))
-{
-  const uint256_t a = 1024;
-  CHECK(rlp::encode(a) == rlp::ByteString{0x82, 0x04, 0x00});
-
-  using namespace boost::multiprecision::literals;
-  const uint256_t b = 0x1234567890abcdefdeadbeefcafef00dbaaaad_cppui;
-  CHECK(rlp::encode(b) == rlp::ByteString{0x93, 0x12, 0x34, 0x56, 0x78,
-                                          0x90, 0xab, 0xcd, 0xef, 0xde,
-                                          0xad, 0xbe, 0xef, 0xca, 0xfe,
-                                          0xf0, 0x0d, 0xba, 0xaa, 0xad});
-}
-
 TEST_CASE("decode" * doctest::test_suite("rlp"))
 {
   // NB: Return value of decode is wrapped in a tuple. If requesting a single
@@ -158,6 +145,34 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
   CHECK(
     rlp::decode<decltype(large_input_decoded)>(large_input_encoded) ==
     std::make_tuple(large_input_decoded));
+}
+
+TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
+{
+  uint256_t small_decoded = 1024;
+  auto small_encoded = rlp::ByteString{0x82, 0x04, 0x00};
+
+  using namespace boost::multiprecision::literals;
+  uint256_t large_decoded = 0x1234567890abcdefdeadbeefcafef00dbaaaad_cppui;
+  auto large_encoded =
+    rlp::ByteString{0x93, 0x12, 0x34, 0x56, 0x78, 0x90, 0xab, 0xcd, 0xef, 0xde,
+                    0xad, 0xbe, 0xef, 0xca, 0xfe, 0xf0, 0x0d, 0xba, 0xaa, 0xad};
+
+  SUBCASE("encode")
+  {
+    CHECK(rlp::encode(small_decoded) == small_encoded);
+    CHECK(rlp::encode(large_decoded) == large_encoded);
+  }
+
+  SUBCASE("decode")
+  {
+    CHECK(
+      rlp::decode_single<decltype(small_decoded)>(small_encoded) ==
+      small_decoded);
+    CHECK(
+      rlp::decode_single<decltype(large_decoded)>(large_encoded) ==
+      large_decoded);
+  }
 }
 
 struct UserType

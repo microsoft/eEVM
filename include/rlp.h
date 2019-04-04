@@ -272,6 +272,18 @@ namespace evm
       return result;
     }
 
+    template <>
+    inline uint256_t from_bytes<uint256_t>(const uint8_t*& data, size_t& size)
+    {
+      uint256_t result;
+      boost::multiprecision::import_bits(
+        result, data, data + size, std::numeric_limits<uint8_t>::digits, true);
+      data += size;
+      size = 0u;
+
+      return result;
+    }
+
     enum class Arity
     {
       Single,
