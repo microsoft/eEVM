@@ -45,18 +45,6 @@ namespace evm
     return v;
   }
 
-  string to_hex_string(const vector<uint8_t>& bytes)
-  {
-    stringstream ss;
-
-    ss << "0x" << hex;
-    for (int b : bytes)
-    {
-      ss << setfill('0') << setw(2) << b;
-    }
-    return ss.str();
-  }
-
   Address generate_address(const Address& sender, uint64_t nonce)
   {
     const auto rlp_encoding = rlp::encode(sender, nonce);
