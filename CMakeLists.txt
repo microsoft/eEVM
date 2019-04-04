@@ -51,6 +51,7 @@ target_include_directories(evm PRIVATE
 add_executable(evm_tests
   tests/main.cpp
   tests/harness.cpp
+  tests/rlp.cpp
 )
 target_include_directories(evm_tests PRIVATE
   ${Boost_INCLUDE_DIR}

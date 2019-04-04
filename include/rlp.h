@@ -3,7 +3,10 @@
 
 #pragma once
 
+#include "bigint.h"
+
 #include <cstdint>
+#include <stdexcept>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -26,6 +29,10 @@ namespace evm
       struct is_tuple<std::tuple<Ts...>> : std::true_type
       {};
     }
+
+    //
+    // Encoding
+    //
 
     // Forward declaration to allow recursive calls.
     template <typename... Ts>
@@ -69,7 +76,14 @@ namespace evm
     inline ByteString to_byte_string(const uint256_t& n)
     {
       ByteString bs;
-      boost::multiprecision::export_bits(n, std::back_inserter(bs), 8, true);
+
+      // Need to special-case 0 to return an empty list, not a list containing
+      // a single 0 byte
+      if (n != 0)
+      {
+        boost::multiprecision::export_bits(n, std::back_inserter(bs), 8, true);
+      }
+
       return bs;
     }
 
@@ -188,6 +202,305 @@ namespace evm
         total_length_as_bytes.begin(),
         total_length_as_bytes.end());
       return flattened;
+    }
+
+    //
+    // Decoding
+    //
+    class decode_error : public std::logic_error
+    {
+      using logic_error::logic_error;
+    };
+
+    // Forward declaration to allow recursive calls.
+    template <typename... Ts>
+    std::tuple<Ts...> decode(const uint8_t*&, size_t&);
+
+    template <typename T>
+    T from_bytes(const uint8_t*& data, size_t& size);
+
+    template <>
+    inline uint64_t from_bytes<uint64_t>(const uint8_t*& data, size_t& size)
+    {
+      if (size > 8)
+      {
+        throw decode_error(
+          "Trying to decode number: " + std::to_string(size) +
+          " is too many bytes for uint64_t");
+      }
+
+      uint64_t result = 0;
+
+      while (size > 0)
+      {
+        result <<= 8u;
+        result |= *data;
+        data++;
+        size--;
+      }
+
+      return result;
+    }
+
+    template <>
+    inline int from_bytes<int>(const uint8_t*& data, size_t& size)
+    {
+      return (int)from_bytes<size_t>(data, size);
+    }
+
+    template <>
+    inline std::string from_bytes<std::string>(
+      const uint8_t*& data, size_t& size)
+    {
+      std::string result(size, '\0');
+
+      for (auto i = 0u; i < size; ++i)
+      {
+        result[i] = *data++;
+      }
+
+      size = 0u;
+
+      return result;
+    }
+
+    template <>
+    inline ByteString from_bytes<ByteString>(const uint8_t*& data, size_t& size)
+    {
+      ByteString result(size);
+
+      for (auto i = 0u; i < size; ++i)
+      {
+        result[i] = *data++;
+      }
+
+      size = 0u;
+
+      return result;
+    }
+
+    template <>
+    inline uint256_t from_bytes<uint256_t>(const uint8_t*& data, size_t& size)
+    {
+      uint256_t result = 0u;
+
+      if (size > 0)
+      {
+        boost::multiprecision::import_bits(
+          result,
+          data,
+          data + size,
+          std::numeric_limits<uint8_t>::digits,
+          true);
+      }
+
+      data += size;
+      size = 0u;
+
+      return result;
+    }
+
+    enum class Arity
+    {
+      Single,
+      Multiple,
+    };
+
+    struct DataSegment
+    {
+      Arity arity;
+      const uint8_t* data;
+      size_t length;
+    };
+
+    inline std::pair<Arity, size_t> decode_length(
+      const uint8_t*& data, size_t& size)
+    {
+      if (size == 0)
+      {
+        throw decode_error("Trying to decode length: got empty data");
+      }
+
+      // First byte IS the data
+      if (data[0] <= 0x7f)
+      {
+        return {Arity::Single, 1};
+      }
+
+      // First byte is length information - consume it now
+      const size_t length = data[0];
+      data++;
+      size--;
+
+      // Data is a single item, with length encoded in first bytes
+      if (length <= 0xb7)
+      {
+        return {Arity::Single, length - 0x80};
+      }
+
+      // Data is a single item, with length encoded in next bytes
+      if (length <= 0xbf)
+      {
+        size_t length_of_length = length - 0xb7;
+
+        if (size < length_of_length)
+        {
+          throw decode_error(
+            "Length of next element should be encoded in " +
+            std::to_string(length_of_length) + " bytes, but only " +
+            std::to_string(size) + " remain");
+        }
+
+        size -= length_of_length;
+
+        // This should advance data and decrement length_of_length to 0
+        const size_t content_length =
+          from_bytes<size_t>(data, length_of_length);
+        return {Arity::Single, content_length};
+      }
+
+      // Data encodes a list, with total content-length encoded in first byte
+      if (length <= 0xf7)
+      {
+        return {Arity::Multiple, length - 0xc0};
+      }
+
+      // Data encodes a list, with total content-length encoded in next bytes
+      size_t length_of_length = length - 0xf7;
+
+      if (size < length_of_length)
+      {
+        throw decode_error(
+          "Length of next list should be encoded in " +
+          std::to_string(length_of_length) + " bytes, but only " +
+          std::to_string(size) + " remain");
+      }
+
+      size -= length_of_length;
+
+      const size_t content_length = from_bytes<size_t>(data, length_of_length);
+      return {Arity::Multiple, content_length};
+    }
+
+    // General template for decoding a tuple. Type inferred from of third
+    // parameter (an unused tag)
+    template <typename... Ts>
+    std::tuple<Ts...> decode_tuple(
+      const uint8_t*& data, size_t& size, std::tuple<Ts...>);
+
+    // Specialisation for decoding empty tuples
+    template <>
+    inline std::tuple<> decode_tuple(
+      const uint8_t*& data, size_t& size, std::tuple<>)
+    {
+      return std::make_tuple();
+    }
+
+    // Specialisation for recursively decoding tuples, ensuring the first item
+    // is read before the others
+    template <typename T, typename... Ts>
+    inline std::tuple<T, Ts...> decode_tuple(
+      const uint8_t*& data, size_t& size, std::tuple<T, Ts...>)
+    {
+      const auto first = decode<T>(data, size);
+
+      return std::tuple_cat(
+        first, decode_tuple<Ts...>(data, size, std::tuple<Ts...>{}));
+    }
+
+    // Type helper for decoding single item, forwarding to either decode_tuple
+    // (to unwrap the types contained in a tuple) or directly to the main
+    // decode function
+    template <typename T>
+    auto decode_item(const uint8_t*& data, size_t& size)
+    {
+      if constexpr (is_tuple<std::decay_t<T>>::value)
+      {
+        return std::make_tuple(decode_tuple(data, size, T{}));
+      }
+      else
+      {
+        return decode<T>(data, size);
+      }
+    }
+
+    // Type helper for decoding single item, forwarding to either decode_tuple
+    // (to unwrap the types contained in a tuple) or directly to the main
+    // decode function
+    template <typename T, typename... Ts>
+    std::tuple<T, Ts...> decode_multiple(const uint8_t*& data, size_t& size)
+    {
+      const auto first = decode_item<T>(data, size);
+
+      if constexpr (sizeof...(Ts) == 0)
+      {
+        return first;
+      }
+      else
+      {
+        return std::tuple_cat(first, decode_multiple<Ts...>(data, size));
+      }
+    }
+
+    // Main decode function. Reads initial length, then either converts a single
+    // item from remaining bytes or forwards to decode_multiple
+    template <typename... Ts>
+    std::tuple<Ts...> decode(const uint8_t*& data, size_t& size)
+    {
+      auto [arity, contained_length] = decode_length(data, size);
+
+      if constexpr (sizeof...(Ts) == 1 && !is_tuple<std::decay_t<Ts>...>::value)
+      {
+        if (arity != Arity::Single)
+        {
+          throw decode_error("Expected single item, but data encodes a list");
+        }
+
+        return std::make_tuple(from_bytes<Ts...>(data, contained_length));
+      }
+
+      if (arity != Arity::Multiple)
+      {
+        throw decode_error(
+          "Expected list item, but data encodes a single item");
+      }
+
+      if constexpr (sizeof...(Ts) == 0)
+      {
+        if (contained_length != 0)
+        {
+          throw decode_error(
+            "Expected empty list, but data contains " +
+            std::to_string(contained_length) + " remaining bytes");
+        }
+
+        return std::make_tuple();
+      }
+      else
+      {
+        return decode_multiple<Ts...>(data, contained_length);
+      }
+    }
+
+    // Helper. Takes ByteString and forwards to contained data+size to main
+    // decode function
+    template <typename... Ts>
+    std::tuple<Ts...> decode(const ByteString& bytes)
+    {
+      const uint8_t* data = bytes.data();
+      size_t size = bytes.size();
+      return decode<Ts...>(data, size);
+    }
+
+    // Helper. Unwraps tuple in case where there is a single top-level decoded
+    // value
+    template <typename T>
+    T decode_single(const ByteString& bytes)
+    {
+      const uint8_t* data = bytes.data();
+      size_t size = bytes.size();
+      const std::tuple<T> tup = decode<T>(data, size);
+      return std::get<0>(tup);
     }
   }
 } // namespace evm

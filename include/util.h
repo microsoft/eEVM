@@ -57,7 +57,27 @@ namespace evm
 
   std::string strip(const std::string& s);
   std::vector<uint8_t> to_bytes(const std::string& s);
-  std::string to_hex_string(const std::vector<uint8_t>& bytes);
+
+  template <typename Iterator>
+  std::string to_hex_string(Iterator begin, Iterator end)
+  {
+    std::stringstream ss;
+
+    ss << "0x" << std::hex;
+    while (begin != end)
+    {
+      ss << std::setfill('0') << std::setw(2) << (int)*begin;
+      begin++;
+    }
+
+    return ss.str();
+  }
+
+  template <typename T>
+  std::string to_hex_string(const T& bytes)
+  {
+    return to_hex_string(bytes.begin(), bytes.end());
+  }
 
   Address generate_address(const Address& sender, uint64_t nonce);
 
