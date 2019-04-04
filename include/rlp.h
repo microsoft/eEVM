@@ -76,7 +76,14 @@ namespace evm
     inline ByteString to_byte_string(const uint256_t& n)
     {
       ByteString bs;
-      boost::multiprecision::export_bits(n, std::back_inserter(bs), 8, true);
+
+      // Need to special-case 0 to return an empty list, not a list containing
+      // a single 0 byte
+      if (n != 0)
+      {
+        boost::multiprecision::export_bits(n, std::back_inserter(bs), 8, true);
+      }
+
       return bs;
     }
 
@@ -275,9 +282,18 @@ namespace evm
     template <>
     inline uint256_t from_bytes<uint256_t>(const uint8_t*& data, size_t& size)
     {
-      uint256_t result;
-      boost::multiprecision::import_bits(
-        result, data, data + size, std::numeric_limits<uint8_t>::digits, true);
+      uint256_t result = 0u;
+
+      if (size > 0)
+      {
+        boost::multiprecision::import_bits(
+          result,
+          data,
+          data + size,
+          std::numeric_limits<uint8_t>::digits,
+          true);
+      }
+
       data += size;
       size = 0u;
 

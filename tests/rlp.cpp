@@ -1,5 +1,7 @@
 #include "../include/rlp.h"
 
+#include "../include/util.h"
+
 #include <doctest/doctest.h>
 
 using namespace evm;
@@ -149,6 +151,9 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
 
 TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
 {
+  uint256_t zero_decoded = 0x0;
+  auto zero_encoded = rlp::ByteString{0x80};
+
   uint256_t small_decoded = 1024;
   auto small_encoded = rlp::ByteString{0x82, 0x04, 0x00};
 
@@ -160,12 +165,15 @@ TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
 
   SUBCASE("encode")
   {
+    CHECK(rlp::encode(zero_decoded) == zero_encoded);
     CHECK(rlp::encode(small_decoded) == small_encoded);
     CHECK(rlp::encode(large_decoded) == large_encoded);
   }
 
   SUBCASE("decode")
   {
+    CHECK(
+      rlp::decode_single<decltype(zero_decoded)>(zero_encoded) == zero_decoded);
     CHECK(
       rlp::decode_single<decltype(small_decoded)>(small_encoded) ==
       small_decoded);
@@ -219,4 +227,29 @@ TEST_CASE("user types" * doctest::test_suite("rlp"))
   const UserType* result = (const UserType*)target.data();
 
   REQUIRE(s == *result);
+}
+
+TEST_CASE("transaction" * doctest::test_suite("rlp"))
+{
+  using namespace boost::multiprecision::literals;
+  uint256_t nonce = 0x5;
+  uint256_t gas_price = 0x09184e72a000_cppui;
+  uint256_t gas_limit = 0x30000_cppui;
+  uint256_t to = 0xab2fcCB0c5F0499278801CE41F4bcCCA39676f2D_cppui;
+  uint256_t value = 0x0;
+  rlp::ByteString data = {};
+
+  uint256_t v = 0x1c;
+  uint256_t r = 0x0;
+  uint256_t s = 0x0;
+
+  const auto tx_hash =
+    rlp::encode(nonce, gas_price, gas_limit, to, value, data, v, r, s);
+
+  // Expected result produced from web3.js
+  const auto expected = to_bytes(
+    "0xe6058609184e72a0008303000094ab2fccb0c5f0499278801ce41f4bccca39676f2d8080"
+    "1c8080");
+
+  REQUIRE(tx_hash == expected);
 }
