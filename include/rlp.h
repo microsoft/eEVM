@@ -352,12 +352,12 @@ namespace evm
     // parameter (an unused tag)
     template <typename... Ts>
     std::tuple<Ts...> decode_tuple(
-      const uint8_t*& data, size_t& size, const std::tuple<Ts...>&);
+      const uint8_t*& data, size_t& size, std::tuple<Ts...>);
 
     // Specialisation for decoding empty tuples
     template <>
     inline std::tuple<> decode_tuple(
-      const uint8_t*& data, size_t& size, const std::tuple<>&)
+      const uint8_t*& data, size_t& size, std::tuple<>)
     {
       return std::make_tuple();
     }
@@ -366,7 +366,7 @@ namespace evm
     // is read before the others
     template <typename T, typename... Ts>
     inline std::tuple<T, Ts...> decode_tuple(
-      const uint8_t*& data, size_t& size, const std::tuple<T, Ts...>&)
+      const uint8_t*& data, size_t& size, std::tuple<T, Ts...>)
     {
       const auto first = decode<T>(data, size);
 
