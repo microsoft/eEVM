@@ -388,7 +388,7 @@ namespace evm
     {
       if constexpr (is_tuple<std::decay_t<T>>::value)
       {
-        return decode_tuple(data, size, T{});
+        return std::make_tuple(decode_tuple(data, size, T{}));
       }
       else
       {

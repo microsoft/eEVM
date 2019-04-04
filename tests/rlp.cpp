@@ -174,33 +174,34 @@ bool operator==(const UserType& l, const UserType& r)
     l.d[1] == r.d[1] && l.d[2] == r.d[2];
 }
 
-// TEST_CASE("user types" * doctest::test_suite("rlp"))
-// {
-//   // User types should be converted to ByteString before being passed to RLP,
-//   // and will only be decoded as far as ByteStrings
+TEST_CASE("user types" * doctest::test_suite("rlp"))
+{
+  // User types should be converted to ByteString before being passed to RLP,
+  // and will only be decoded as far as ByteStrings
 
-//   UserType s{42, '!', true, {11, 1001, 100001}};
+  UserType s{42, '!', true, {11, 1001, 100001}};
 
-//   uint8_t* start = (uint8_t*)&s;
-//   rlp::ByteString bs(start, start + sizeof(s));
+  uint8_t* start = (uint8_t*)&s;
+  rlp::ByteString bs(start, start + sizeof(s));
 
-//   const rlp::ByteString encoded = rlp::encode(
-//     "Other data",
-//     std::make_tuple("Awkward", std::make_tuple("Data")),
-//     bs,
-//     "And something afterwards");
+  const auto original = std::make_tuple(
+    "Other data"s,
+    std::make_tuple("Awkward"s, std::make_tuple("Data"s)),
+    bs,
+    "And something afterwards"s);
 
-//   // Decode side currently needs to know structure of entire contents, though
-//   it
-//   // can ignore types and leave everything it doesn't care about as
-//   ByteString const auto tup = rlp::decode<
-//     rlp::ByteString,
-//     std::tuple<rlp::ByteString, std::tuple<rlp::ByteString>>,
-//     rlp::ByteString,
-//     rlp::ByteString>(encoded);
+  const rlp::ByteString encoded = rlp::encode(
+    std::get<0>(original),
+    std::get<1>(original),
+    std::get<2>(original),
+    std::get<3>(original));
 
-//   const auto target = std::get<2>(tup);
-//   const UserType* result = (const UserType*)target.data();
+  // Decode side currently needs to structure of entire contents.
+  // TODO: When decoding to a ByteString, we can ignore the contents
+  const auto tup = rlp::decode_single<decltype(original)>(encoded);
 
-//   REQUIRE(s == *result);
-// }
+  const auto target = std::get<2>(tup);
+  const UserType* result = (const UserType*)target.data();
+
+  REQUIRE(s == *result);
+}
