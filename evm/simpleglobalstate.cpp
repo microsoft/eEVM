@@ -44,7 +44,7 @@ namespace evm
     return currentBlock;
   }
 
-  uint256_t SimpleGlobalState::get_block_hash(uint64_t idx)
+  uint256_t SimpleGlobalState::get_block_hash(uint8_t offset)
   {
     return 0u;
   }

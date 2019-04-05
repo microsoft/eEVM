@@ -33,7 +33,7 @@ namespace evm
     size_t num_accounts() override;
 
     virtual const Block& get_current_block() override;
-    virtual uint256_t get_block_hash(uint64_t idx) override;
+    virtual uint256_t get_block_hash(uint8_t offset) override;
 
     /**
      * For tests which require some initial state, allow manual insertion of
