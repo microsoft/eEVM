@@ -1103,7 +1103,7 @@ namespace evm
       if (i >= 256)
         ctxt->s.push(0);
       else
-        ctxt->s.push(gs.get_block_hash(i));
+        ctxt->s.push(gs.get_block_hash(i % 256));
     }
 
     void number()

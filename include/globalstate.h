@@ -46,6 +46,6 @@ namespace evm
     virtual size_t num_accounts() = 0;
 
     virtual const Block& get_current_block() = 0;
-    virtual uint256_t get_block_hash(uint64_t idx) = 0;
+    virtual uint256_t get_block_hash(uint8_t offset) = 0;
   };
 } // namespace evm
