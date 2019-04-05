@@ -1140,7 +1140,7 @@ namespace evm
 
     void gaslimit()
     {
-      ctxt->s.push(tx.gas_limit);
+      ctxt->s.push(gs.get_current_block().gas_limit);
     }
 
     void sha3()
