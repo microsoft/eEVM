@@ -1,0 +1,40 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: dockbuild/ubuntu1804-gcc7:latest
+
+    steps:
+      - checkout
+
+      - run:
+          name: Download boost
+          command: cd /tmp/ && curl -OL https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz && tar -xf /tmp/boost_1_67_0.tar.gz
+
+      - run:
+          name: Make build directory
+          command: mkdir build
+
+      - run:
+          name: CMake
+          command: 'cmake ..'
+          working_directory: build
+          environment:
+              BOOST_ROOT: '/tmp/boost_1_67_0/'
+
+      - run:
+          name: Make
+          command: make VERBOSE=1
+          working_directory: build
+
+      - run:
+          name: Quick test
+          command: make test
+          working_directory: build
+
+      - run:
+          name: Full tests
+          command: 'time ./evm_tests -ns -d'
+          working_directory: build
+          environment:
+              TEST_DIR: '../3rdparty/test_cases/'
