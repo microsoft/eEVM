@@ -29,6 +29,59 @@ TEST_CASE("util" * doctest::test_suite("util"))
     REQUIRE(to_bytes("0xabc") == vector<uint8_t>{0xa, 0xbc});
     REQUIRE(to_bytes("0xabcd") == vector<uint8_t>{0xab, 0xcd});
   }
+
+  SUBCASE("keccak_256")
+  {
+    const std::string empty;
+    REQUIRE(
+      to_hex_string(keccak_256(empty)) ==
+      "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
+
+    REQUIRE(
+      to_hex_string(keccak_256(empty, 5)) ==
+      "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
+
+    const std::string s = "Hello world";
+    REQUIRE(
+      to_hex_string(keccak_256(s)) ==
+      "0xed6c11b0b5b808960df26f5bfc471d04c1995b0ffd2055925ad1be28d6baadfd");
+
+    REQUIRE(
+      to_hex_string(keccak_256(s, 1)) ==
+      "0x06f5a9ffe20e0fda47399119d5f89e6ea5aa7442fdbc973c365ef4ad993cde12");
+
+    REQUIRE(
+      to_hex_string(keccak_256(s, 6)) ==
+      "0x8452c9b9140222b08593a26daa782707297be9f7b3e8281d7b4974769f19afd0");
+  }
+
+  SUBCASE("to_checksum_address")
+  {
+    const Address t0 =
+      from_hex_str("0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed");
+    REQUIRE(
+      to_checksum_address(t0) == "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed");
+
+    const Address t1 =
+      from_hex_str("0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359");
+    REQUIRE(
+      to_checksum_address(t1) == "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359");
+
+    const Address t2 =
+      from_hex_str("0xDBF03B407C01E7CD3CBEA99509D93F8DDDC8C6FB");
+    REQUIRE(
+      to_checksum_address(t2) == "0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB");
+
+    const Address t3 =
+      from_hex_str("0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb");
+    REQUIRE(
+      to_checksum_address(t3) == "0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb");
+
+    REQUIRE(is_checksum_address("0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed"));
+    REQUIRE(is_checksum_address("0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"));
+    REQUIRE(is_checksum_address("0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB"));
+    REQUIRE(is_checksum_address("0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb"));
+  }
 }
 
 TEST_CASE("byteExport" * doctest::test_suite("primitive"))
