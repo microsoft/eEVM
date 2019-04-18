@@ -38,7 +38,7 @@ namespace evm
     assign_const(x, std::move(t));
   }
 
-  inline void Keccak_256(
+  inline void keccak_256(
     const unsigned char* input,
     unsigned int inputByteLen,
     unsigned char* output)
@@ -53,6 +53,21 @@ namespace evm
     Keccak_HashUpdate(
       &hi, input, inputByteLen * std::numeric_limits<unsigned char>::digits);
     Keccak_HashFinal(&hi, output);
+  }
+
+  inline std::array<uint8_t, 32u> keccak_256(
+    const unsigned char* begin, size_t byte_len)
+  {
+    std::array<uint8_t, 32u> h;
+    keccak_256(begin, byte_len, h.data());
+    return h;
+  }
+
+  inline std::array<uint8_t, 32u> keccak_256(
+    const std::string& s, size_t skip = 0)
+  {
+    skip = std::min(skip, s.size());
+    return keccak_256((const unsigned char*)s.data() + skip, s.size() - skip);
   }
 
   std::string strip(const std::string& s);
@@ -77,6 +92,37 @@ namespace evm
   std::string to_hex_string(const T& bytes)
   {
     return to_hex_string(bytes.begin(), bytes.end());
+  }
+
+  inline std::string to_checksum_address(const Address& a)
+  {
+    auto s = to_lower_hex_str(a);
+
+    // Start at index 2 to skip the "0x" prefix
+    const auto h = keccak_256(s, 2);
+
+    std::cout << s << std::endl;
+    std::cout << to_hex_string(h) << std::endl;
+
+    for (size_t i = 0; i < s.size() - 2; ++i)
+    {
+      auto& c = s[i + 2];
+      if (c >= 'a' && c <= 'f')
+      {
+        if (h[i / 2] & (i % 2 == 0 ? 0x80 : 0x08))
+        {
+          c = std::toupper(c);
+        }
+      }
+    }
+
+    return s;
+  }
+
+  inline bool is_checksum_address(const std::string& s)
+  {
+    const auto cs = to_checksum_address(from_hex_str(s));
+    return cs == s;
   }
 
   Address generate_address(const Address& sender, uint64_t nonce);
