@@ -88,7 +88,7 @@ namespace boost
   {
     inline void to_json(nlohmann::json& j, const uint256_t& v)
     {
-      j = to_hex_str(v);
+      j = to_lower_hex_str(v);
     }
 
     inline void from_json(const nlohmann::json& j, uint256_t& v)
