@@ -48,15 +48,6 @@ evm::Address get_random_address()
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-// Truncate 160-bit addresses to a more human-friendly length, retaining the
-// start and end for identification
-std::string short_name(const evm::Address& address)
-{
-  const auto full_hex = to_hex_str(address);
-  return full_hex.substr(0, 5) + std::string("...") +
-    full_hex.substr(full_hex.size() - 3);
-}
-
 // Run input as an EVM transaction, check the result and return the output
 std::vector<uint8_t> run_and_check_result(
   Environment& env,
@@ -189,8 +180,8 @@ bool transfer(
   append_argument(function_call, amount);
 
   std::cout << "Transferring " << amount << " from "
-            << short_name(source_address) << " to "
-            << short_name(target_address);
+            << evm::to_checksum_address(source_address) << " to "
+            << evm::to_checksum_address(target_address);
 
   const auto output =
     run_and_check_result(env, source_address, contract_address, function_call);
@@ -258,7 +249,7 @@ void print_erc20_state(
   std::cout << "User balances: " << std::endl;
   for (const auto& pair : balances)
   {
-    std::cout << "  " << pair.second << " owned by " << short_name(pair.first);
+    std::cout << "  " << pair.second << " owned by " << evm::to_checksum_address(pair.first);
     if (pair.first == env.owner_address)
     {
       std::cout << " (original contract creator)";

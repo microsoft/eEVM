@@ -155,11 +155,11 @@ int main(int argc, char** argv)
 
   const uint256_t result = from_big_endian(e.output.begin(), e.output.end());
 
-  std::cout << to_hex_str(arg_a);
+  std::cout << to_lower_hex_str(arg_a);
   std::cout << " + ";
-  std::cout << to_hex_str(arg_b);
+  std::cout << to_lower_hex_str(arg_b);
   std::cout << " = ";
-  std::cout << to_hex_str(result);
+  std::cout << to_lower_hex_str(result);
   std::cout << std::endl;
 
   if (verbose)

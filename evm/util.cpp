@@ -50,7 +50,7 @@ namespace evm
     const auto rlp_encoding = rlp::encode(sender, nonce);
 
     uint8_t buffer[32u];
-    Keccak_256(
+    keccak_256(
       rlp_encoding.data(),
       static_cast<unsigned int>(rlp_encoding.size()),
       buffer);

@@ -39,6 +39,13 @@ inline auto to_hex_str(const uint256_t& v)
   return ss.str();
 }
 
+inline auto to_lower_hex_str(const uint256_t& v)
+{
+  auto s = to_hex_str(v);
+  std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+  return s;
+}
+
 template <typename Iterator>
 auto from_big_endian(const Iterator begin, const Iterator end)
 {

@@ -1150,7 +1150,7 @@ namespace evm
       prepare_mem_access(offset, size);
 
       uint8_t h[32];
-      Keccak_256(ctxt->mem.data() + offset, static_cast<unsigned int>(size), h);
+      keccak_256(ctxt->mem.data() + offset, static_cast<unsigned int>(size), h);
       ctxt->s.push(from_big_endian(h, h + sizeof(h)));
     }
 
