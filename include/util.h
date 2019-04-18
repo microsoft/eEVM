@@ -101,9 +101,6 @@ namespace evm
     // Start at index 2 to skip the "0x" prefix
     const auto h = keccak_256(s, 2);
 
-    std::cout << s << std::endl;
-    std::cout << to_hex_string(h) << std::endl;
-
     for (size_t i = 0; i < s.size() - 2; ++i)
     {
       auto& c = s[i + 2];
