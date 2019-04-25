@@ -16,14 +16,14 @@ namespace evm
   void to_json(nlohmann::json& j, const LogEntry& log)
   {
     j["address"] = log.address;
-    j["data"] = log.data;
+    j["data"] = to_hex_string(log.data);
     j["topics"] = log.topics;
   }
 
   void from_json(const nlohmann::json& j, LogEntry& log)
   {
     assign_j_const(log.address, j["address"]);
-    assign_j_const(log.data, j["data"]);
+    assign_j_const(log.data, to_bytes(j["data"]));
     assign_j_const(log.topics, j["topics"]);
   }
 } // namespace evm
