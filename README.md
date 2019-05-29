@@ -2,7 +2,7 @@
 
 Enclave EVM (eEVM) is an open-source, standalone, embeddable, C++ implementation of the Ethereum Virtual Machine. It was originally built to run within a [TEE](https://en.wikipedia.org/wiki/Trusted_execution_environment) (ie, SGX enclave) on top of the [Open Enclave SDK](https://openenclave.io/sdk/), for use with Microsoft's [Confidential Consortium Blockchain Framework](https://github.com/Azure/coco-framework).
 
-[![CircleCI](https://circleci.com/gh/Microsoft/eEVM.svg?style=svg)](https://circleci.com/gh/Microsoft/eEVM)
+[![CircleCI](https://circleci.com/gh/microsoft/eEVM.svg?style=svg&circle-token=b2b713983d1fe737e7c12e30dc935beb7323e80e)](https://circleci.com/gh/microsoft/eEVM)
 
 ## Description
 
