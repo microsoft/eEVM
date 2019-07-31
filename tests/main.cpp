@@ -38,7 +38,7 @@ TEST_CASE("util" * doctest::test_suite("util"))
       "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
 
     REQUIRE(
-      to_hex_string(keccak_256(empty, 5)) ==
+      to_hex_string(keccak_256_skip(5, empty)) ==
       "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
 
     const std::string s = "Hello world";
@@ -47,11 +47,11 @@ TEST_CASE("util" * doctest::test_suite("util"))
       "0xed6c11b0b5b808960df26f5bfc471d04c1995b0ffd2055925ad1be28d6baadfd");
 
     REQUIRE(
-      to_hex_string(keccak_256(s, 1)) ==
+      to_hex_string(keccak_256_skip(1, s)) ==
       "0x06f5a9ffe20e0fda47399119d5f89e6ea5aa7442fdbc973c365ef4ad993cde12");
 
     REQUIRE(
-      to_hex_string(keccak_256(s, 6)) ==
+      to_hex_string(keccak_256_skip(6, s)) ==
       "0x8452c9b9140222b08593a26daa782707297be9f7b3e8281d7b4974769f19afd0");
   }
 
