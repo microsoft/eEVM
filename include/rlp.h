@@ -72,6 +72,22 @@ namespace evm
       return combined;
     }
 
+    template <typename T>
+    ByteString to_byte_string(const std::vector<T>& v)
+    {
+      ByteString combined;
+
+      for (const auto& e : v)
+      {
+        const auto next = encode(e);
+        combined.insert(combined.end(), next.begin(), next.end());
+      }
+
+      prefix_multiple_length(combined.size(), combined);
+
+      return combined;
+    }
+
     inline ByteString to_byte_string(uint64_t n)
     {
       // "positive RLP integers must be represented in big endian binary form
@@ -336,7 +352,7 @@ namespace evm
         std::copy(data, data + size, result.begin());
 
         data = data + size;
-        size = 0;
+        size = 0u;
 
         return result;
       }
@@ -354,6 +370,27 @@ namespace evm
         {
           result[i] = std::get<0>(decode<T>(data, size));
         }
+
+        size = 0u;
+
+        return result;
+      }
+    };
+
+    template <typename T>
+    struct from_bytes<std::vector<T>>
+    {
+      std::vector<T> operator()(const uint8_t*& data, size_t& size)
+      {
+        auto contained_length = decode_length(data, size).second;
+
+        std::vector<T> result;
+        while (contained_length > 0)
+        {
+          result.push_back(std::get<0>(decode<T>(data, contained_length)));
+        }
+
+        size = 0u;
 
         return result;
       }
@@ -545,6 +582,7 @@ namespace evm
           throw decode_error("Expected single item, but data encodes a list");
         }
 
+        size -= contained_length;
         return std::make_tuple(from_bytes<Ts...>{}(data, contained_length));
       }
 
@@ -567,6 +605,7 @@ namespace evm
       }
       else
       {
+        size -= contained_length;
         return decode_multiple<Ts...>(data, contained_length);
       }
     }

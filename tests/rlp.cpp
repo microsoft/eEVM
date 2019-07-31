@@ -197,28 +197,65 @@ TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
   }
 }
 
-// TEST_CASE("nested" * doctest::test_suite("rlp"))
-// {
-//   {
-//     std::array<std::string, 3> a;
-//     a[0] = "Hello";
-//     a[1] = "Hello world";
-//     a[2] = "Saluton mondo";
+TEST_CASE("nested" * doctest::test_suite("rlp"))
+{
+  {
+    using T = std::array<std::string, 3>;
+    {
+      T empty{};
+      const auto encoded = rlp::encode(empty);
+      CHECK(rlp::decode_single<decltype(empty)>(encoded) == empty);
+    }
 
-//     const auto encoded = rlp::encode(a);
-//     CHECK(rlp::decode_single<decltype(a)>(encoded) == a);
-//   }
+    {
+      T a;
+      a[0] = "Hello";
+      a[1] = "Hello world";
+      a[2] = "Saluton mondo";
+      const auto encoded = rlp::encode(a);
+      CHECK(rlp::decode_single<decltype(a)>(encoded) == a);
+    }
+  }
 
-//   {
-//     std::vector<std::string> v;
-//     v.push_back("Hello");
-//     v.push_back("Hello world");
-//     v.push_back("Saluton mondo");
+  {
+    using T = std::vector<std::string>;
+    {
+      T empty{};
+      const auto encoded = rlp::encode(empty);
+      CHECK(rlp::decode_single<decltype(empty)>(encoded) == empty);
+    }
 
-//     const auto encoded = rlp::encode(v);
-//     CHECK(rlp::decode_single<decltype(v)>(encoded) == v);
-//   }
-// }
+    {
+      T v;
+      v.push_back("Hello");
+      v.push_back("Hello world");
+      v.push_back("Saluton mondo");
+      const auto encoded = rlp::encode(v);
+      CHECK(rlp::decode_single<decltype(v)>(encoded) == v);
+    }
+  }
+
+  {
+    using L0 = std::vector<std::string>;
+    using L1 = std::array<L0, 2>;
+    using L2 = std::vector<L1>;
+    using L3 = std::array<L2, 4>;
+    {
+      L3 empty{};
+      const auto encoded = rlp::encode(empty);
+      CHECK(rlp::decode_single<decltype(empty)>(encoded) == empty);
+    }
+
+    {
+      L3 nest{L2{L1{L0{"a", "b"}, L0{"cd", "efghi", "jkl"}}, L1{}},
+              L2{},
+              L2{L1{L0{"mnopqr", "s"}}},
+              L2{L1{L0{"t"}, L0{"uv"}}, L1{L0{"wx"}, L0{"yz"}}}};
+      const auto encoded = rlp::encode(nest);
+      CHECK(rlp::decode_single<decltype(nest)>(encoded) == nest);
+    }
+  }
+}
 
 struct UserType
 {
