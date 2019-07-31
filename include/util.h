@@ -55,19 +55,36 @@ namespace evm
     Keccak_HashFinal(&hi, output);
   }
 
-  inline std::array<uint8_t, 32u> keccak_256(
-    const unsigned char* begin, size_t byte_len)
+  using KeccakHash = std::array<uint8_t, 32u>;
+
+  inline KeccakHash keccak_256(const uint8_t* begin, size_t byte_len)
   {
-    std::array<uint8_t, 32u> h;
+    KeccakHash h;
     keccak_256(begin, byte_len, h.data());
     return h;
   }
 
-  inline std::array<uint8_t, 32u> keccak_256(
-    const std::string& s, size_t skip = 0)
+  inline KeccakHash keccak_256(const std::string& s)
   {
-    skip = std::min(skip, s.size());
-    return keccak_256((const unsigned char*)s.data() + skip, s.size() - skip);
+    return keccak_256((const uint8_t*)s.data(), s.size());
+  }
+
+  inline KeccakHash keccak_256(const std::vector<uint8_t>& v)
+  {
+    return keccak_256(v.data(), v.size());
+  }
+
+  template <size_t N>
+  inline KeccakHash keccak_256(const std::array<uint8_t, N>& a)
+  {
+    return keccak_256(a.data(), N);
+  }
+
+  template <typename T>
+  inline KeccakHash keccak_256_skip(size_t skip, const T& t)
+  {
+    skip = std::min(skip, t.size());
+    return keccak_256((const uint8_t*)t.data() + skip, t.size() - skip);
   }
 
   std::string strip(const std::string& s);
@@ -99,7 +116,7 @@ namespace evm
     auto s = to_lower_hex_str(a);
 
     // Start at index 2 to skip the "0x" prefix
-    const auto h = keccak_256(s, 2);
+    const auto h = keccak_256_skip(2, s);
 
     for (size_t i = 0; i < s.size() - 2; ++i)
     {

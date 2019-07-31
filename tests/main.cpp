@@ -32,27 +32,55 @@ TEST_CASE("util" * doctest::test_suite("util"))
 
   SUBCASE("keccak_256")
   {
-    const std::string empty;
-    REQUIRE(
-      to_hex_string(keccak_256(empty)) ==
-      "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
+    constexpr auto empty_hash =
+      "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470";
+    constexpr auto hello_world_hash =
+      "0xed6c11b0b5b808960df26f5bfc471d04c1995b0ffd2055925ad1be28d6baadfd";
+    constexpr auto ello_world_hash =
+      "0x06f5a9ffe20e0fda47399119d5f89e6ea5aa7442fdbc973c365ef4ad993cde12";
+    constexpr auto world_hash =
+      "0x8452c9b9140222b08593a26daa782707297be9f7b3e8281d7b4974769f19afd0";
 
-    REQUIRE(
-      to_hex_string(keccak_256(empty, 5)) ==
-      "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
+    {
+      INFO("std::string");
 
-    const std::string s = "Hello world";
-    REQUIRE(
-      to_hex_string(keccak_256(s)) ==
-      "0xed6c11b0b5b808960df26f5bfc471d04c1995b0ffd2055925ad1be28d6baadfd");
+      const std::string empty;
+      REQUIRE(to_hex_string(keccak_256(empty)) == empty_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(5, empty)) == empty_hash);
 
-    REQUIRE(
-      to_hex_string(keccak_256(s, 1)) ==
-      "0x06f5a9ffe20e0fda47399119d5f89e6ea5aa7442fdbc973c365ef4ad993cde12");
+      const std::string s = "Hello world";
+      REQUIRE(to_hex_string(keccak_256(s)) == hello_world_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(1, s)) == ello_world_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(6, s)) == world_hash);
+    }
 
-    REQUIRE(
-      to_hex_string(keccak_256(s, 6)) ==
-      "0x8452c9b9140222b08593a26daa782707297be9f7b3e8281d7b4974769f19afd0");
+    {
+      INFO("std::vector");
+
+      const std::vector<uint8_t> empty;
+      REQUIRE(to_hex_string(keccak_256(empty)) == empty_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(5, empty)) == empty_hash);
+
+      const std::vector<uint8_t> v{
+        'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'};
+      REQUIRE(to_hex_string(keccak_256(v)) == hello_world_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(1, v)) == ello_world_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(6, v)) == world_hash);
+    }
+
+    {
+      INFO("std::array");
+
+      const std::array<uint8_t, 0> empty;
+      REQUIRE(to_hex_string(keccak_256(empty)) == empty_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(5, empty)) == empty_hash);
+
+      const std::array<uint8_t, 11> a{
+        'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'};
+      REQUIRE(to_hex_string(keccak_256(a)) == hello_world_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(1, a)) == ello_world_hash);
+      REQUIRE(to_hex_string(keccak_256_skip(6, a)) == world_hash);
+    }
   }
 
   SUBCASE("to_checksum_address")
