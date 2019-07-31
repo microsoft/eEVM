@@ -149,6 +149,20 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
     std::make_tuple(large_input_decoded));
 }
 
+TEST_CASE("arrays" * doctest::test_suite("rlp"))
+{
+  {
+    std::array<uint8_t, 100> a;
+    for (size_t i; i < a.size(); ++i)
+    {
+      a[i] = i * i;
+    }
+
+    const auto encoded = rlp::encode(a);
+    CHECK(rlp::decode_single<decltype(a)>(encoded) == a);
+  }
+}
+
 TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
 {
   uint256_t zero_decoded = 0x0;
@@ -182,6 +196,29 @@ TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
       large_decoded);
   }
 }
+
+// TEST_CASE("nested" * doctest::test_suite("rlp"))
+// {
+//   {
+//     std::array<std::string, 3> a;
+//     a[0] = "Hello";
+//     a[1] = "Hello world";
+//     a[2] = "Saluton mondo";
+
+//     const auto encoded = rlp::encode(a);
+//     CHECK(rlp::decode_single<decltype(a)>(encoded) == a);
+//   }
+
+//   {
+//     std::vector<std::string> v;
+//     v.push_back("Hello");
+//     v.push_back("Hello world");
+//     v.push_back("Saluton mondo");
+
+//     const auto encoded = rlp::encode(v);
+//     CHECK(rlp::decode_single<decltype(v)>(encoded) == v);
+//   }
+// }
 
 struct UserType
 {
