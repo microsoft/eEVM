@@ -11,10 +11,10 @@ const auto large_input_decoded = std::make_tuple(
   std::make_tuple("Hello world"s, "Saluton Mondo"s),
   std::make_tuple(
     std::make_tuple(
-      std::make_tuple(1),
-      std::make_tuple(2, 3),
-      std::make_tuple(std::make_tuple(4))),
-    66000),
+      std::make_tuple(1u),
+      std::make_tuple(2u, 3u),
+      std::make_tuple(std::make_tuple(4u))),
+    66000u),
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
   "tempor incididunt ut labore et dolore magna aliqua"s);
 const auto large_input_encoded = rlp::to_byte_string(
@@ -149,6 +149,20 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
     std::make_tuple(large_input_decoded));
 }
 
+TEST_CASE("arrays" * doctest::test_suite("rlp"))
+{
+  {
+    std::array<uint8_t, 100> a;
+    for (size_t i; i < a.size(); ++i)
+    {
+      a[i] = i * i;
+    }
+
+    const auto encoded = rlp::encode(a);
+    CHECK(rlp::decode_single<decltype(a)>(encoded) == a);
+  }
+}
+
 TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
 {
   uint256_t zero_decoded = 0x0;
@@ -180,6 +194,87 @@ TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
     CHECK(
       rlp::decode_single<decltype(large_decoded)>(large_encoded) ==
       large_decoded);
+  }
+}
+
+TEST_CASE_TEMPLATE(
+  "integral" * doctest::test_suite("rlp"),
+  T,
+  uint8_t,
+  uint16_t,
+  uint32_t,
+  uint64_t)
+{
+  using TVec = std::vector<T>;
+  TVec v{0,
+         1,
+         std::numeric_limits<T>::max(),
+         std::numeric_limits<T>::max() / 2,
+         std::numeric_limits<T>::max() / 3};
+  for (auto n : v)
+  {
+    auto encoded = rlp::encode(n);
+    CHECK(rlp::decode_single<T>(encoded) == n);
+  }
+}
+
+TEST_CASE("nested" * doctest::test_suite("rlp"))
+{
+  {
+    using T = std::array<std::string, 3>;
+    {
+      T empty{};
+      const auto encoded = rlp::encode(empty);
+      CHECK(rlp::decode_single<decltype(empty)>(encoded) == empty);
+    }
+
+    {
+      T a;
+      a[0] = "Hello";
+      a[1] = "Hello world";
+      a[2] = "Saluton mondo";
+      const auto encoded = rlp::encode(a);
+      CHECK(rlp::decode_single<decltype(a)>(encoded) == a);
+    }
+  }
+
+  {
+    using T = std::vector<std::string>;
+    {
+      T empty{};
+      const auto encoded = rlp::encode(empty);
+      CHECK(rlp::decode_single<decltype(empty)>(encoded) == empty);
+    }
+
+    {
+      T v;
+      v.push_back("Hello");
+      v.push_back("Hello world");
+      v.push_back("Saluton mondo");
+      const auto encoded = rlp::encode(v);
+      CHECK(rlp::decode_single<decltype(v)>(encoded) == v);
+    }
+  }
+
+  {
+    using L0 = std::vector<std::string>;
+    using L1 = std::array<L0, 2>;
+    using L2 = std::vector<L1>;
+    using L3 = std::array<L2, 4>;
+    {
+      L3 empty{};
+      const auto encoded = rlp::encode(empty);
+      CHECK(rlp::decode_single<decltype(empty)>(encoded) == empty);
+    }
+
+    {
+      L3 nest{L2{L1{L0{"a", "b"}, L0{"cd", "efghi", "jkl"}}, L1{}},
+              L2{},
+              L2{L1{L0{"mnopqr", "s"}}},
+              L2{L1{L0{"t"}, L0{"uv"}}, L1{L0{"wx"}, L0{"yz"}}}};
+      const auto encoded = rlp::encode(nest);
+      CHECK(rlp::decode_single<decltype(nest)>(encoded) == nest);
+    }
   }
 }
 

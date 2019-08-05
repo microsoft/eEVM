@@ -38,6 +38,8 @@ namespace evm
     template <typename... Ts>
     ByteString encode(Ts&&... ts);
 
+    void prefix_multiple_length(size_t total_length, ByteString& bs);
+
     inline ByteString to_byte_string(const ByteString& bs)
     {
       return bs;
@@ -46,6 +48,44 @@ namespace evm
     inline ByteString to_byte_string(const std::string& s)
     {
       return ByteString(s.begin(), s.end());
+    }
+
+    template <size_t N>
+    ByteString to_byte_string(const std::array<uint8_t, N>& a)
+    {
+      return ByteString(a.begin(), a.end());
+    }
+
+    template <typename T, size_t N>
+    ByteString to_byte_string(const std::array<T, N>& a)
+    {
+      ByteString combined;
+
+      for (const auto& e : a)
+      {
+        const auto next = encode(e);
+        combined.insert(combined.end(), next.begin(), next.end());
+      }
+
+      prefix_multiple_length(combined.size(), combined);
+
+      return combined;
+    }
+
+    template <typename T>
+    ByteString to_byte_string(const std::vector<T>& v)
+    {
+      ByteString combined;
+
+      for (const auto& e : v)
+      {
+        const auto next = encode(e);
+        combined.insert(combined.end(), next.begin(), next.end());
+      }
+
+      prefix_multiple_length(combined.size(), combined);
+
+      return combined;
     }
 
     inline ByteString to_byte_string(uint64_t n)
@@ -85,6 +125,36 @@ namespace evm
       }
 
       return bs;
+    }
+
+    inline void prefix_multiple_length(size_t total_length, ByteString& bs)
+    {
+      // "If the total payload of a list (i.e. the combined length of all its
+      // items being RLP encoded) is 0-55 bytes long, the RLP encoding
+      // consists of a single byte with value 0xc0 plus the length of the list
+      // followed by the concatenation of the RLP encodings of the items. The
+      // range of the first byte is thus [0xc0, 0xf7]."
+      // NB: This _should_ say '0xc0 plus the length of the concatenation of
+      // RLP encoding of the items'
+      if (total_length <= 55)
+      {
+        bs.insert(bs.begin(), 0xc0 + total_length);
+        return;
+      }
+
+      // "If the total payload of a list is more than 55 bytes long, the RLP
+      // encoding consists of a single byte with value 0xf7 plus the length in
+      // bytes of the length of the payload in binary form, followed by the
+      // length of the payload, followed by the concatenation of the RLP
+      // encodings of the items. The range of the first byte is thus [0xf8,
+      // 0xff]."
+      auto total_length_as_bytes = to_byte_string(total_length);
+      const uint8_t length_of_total_length = total_length_as_bytes.size();
+
+      total_length_as_bytes.insert(
+        total_length_as_bytes.begin(), 0xf7 + length_of_total_length);
+      bs.insert(
+        bs.begin(), total_length_as_bytes.begin(), total_length_as_bytes.end());
     }
 
     // RLP-encode a single, non-tuple argument. Convert it to a ByteString,
@@ -173,132 +243,13 @@ namespace evm
         },
         nested_terms);
 
-      // "If the total payload of a list (i.e. the combined length of all its
-      // items being RLP encoded) is 0-55 bytes long, the RLP encoding
-      // consists of a single byte with value 0xc0 plus the length of the list
-      // followed by the concatenation of the RLP encodings of the items. The
-      // range of the first byte is thus [0xc0, 0xf7]."
-      // NB: This _should_ say '0xc0 plus the length of the concatenation of
-      // RLP encoding of the items'
-      if (total_length <= 55)
-      {
-        flattened.insert(flattened.begin(), 0xc0 + total_length);
-        return flattened;
-      }
-
-      // "If the total payload of a list is more than 55 bytes long, the RLP
-      // encoding consists of a single byte with value 0xf7 plus the length in
-      // bytes of the length of the payload in binary form, followed by the
-      // length of the payload, followed by the concatenation of the RLP
-      // encodings of the items. The range of the first byte is thus [0xf8,
-      // 0xff]."
-      auto total_length_as_bytes = to_byte_string(total_length);
-      const uint8_t length_of_total_length = total_length_as_bytes.size();
-
-      total_length_as_bytes.insert(
-        total_length_as_bytes.begin(), 0xf7 + length_of_total_length);
-      flattened.insert(
-        flattened.begin(),
-        total_length_as_bytes.begin(),
-        total_length_as_bytes.end());
+      prefix_multiple_length(total_length, flattened);
       return flattened;
     }
 
     //
     // Decoding
     //
-    class decode_error : public std::logic_error
-    {
-      using logic_error::logic_error;
-    };
-
-    // Forward declaration to allow recursive calls.
-    template <typename... Ts>
-    std::tuple<Ts...> decode(const uint8_t*&, size_t&);
-
-    template <typename T>
-    T from_bytes(const uint8_t*& data, size_t& size);
-
-    template <>
-    inline uint64_t from_bytes<uint64_t>(const uint8_t*& data, size_t& size)
-    {
-      if (size > 8)
-      {
-        throw decode_error(
-          "Trying to decode number: " + std::to_string(size) +
-          " is too many bytes for uint64_t");
-      }
-
-      uint64_t result = 0;
-
-      while (size > 0)
-      {
-        result <<= 8u;
-        result |= *data;
-        data++;
-        size--;
-      }
-
-      return result;
-    }
-
-    template <>
-    inline int from_bytes<int>(const uint8_t*& data, size_t& size)
-    {
-      return (int)from_bytes<size_t>(data, size);
-    }
-
-    template <>
-    inline std::string from_bytes<std::string>(
-      const uint8_t*& data, size_t& size)
-    {
-      std::string result(size, '\0');
-
-      for (auto i = 0u; i < size; ++i)
-      {
-        result[i] = *data++;
-      }
-
-      size = 0u;
-
-      return result;
-    }
-
-    template <>
-    inline ByteString from_bytes<ByteString>(const uint8_t*& data, size_t& size)
-    {
-      ByteString result(size);
-
-      for (auto i = 0u; i < size; ++i)
-      {
-        result[i] = *data++;
-      }
-
-      size = 0u;
-
-      return result;
-    }
-
-    template <>
-    inline uint256_t from_bytes<uint256_t>(const uint8_t*& data, size_t& size)
-    {
-      uint256_t result = 0u;
-
-      if (size > 0)
-      {
-        boost::multiprecision::import_bits(
-          result,
-          data,
-          data + size,
-          std::numeric_limits<uint8_t>::digits,
-          true);
-      }
-
-      data += size;
-      size = 0u;
-
-      return result;
-    }
 
     enum class Arity
     {
@@ -311,6 +262,178 @@ namespace evm
       Arity arity;
       const uint8_t* data;
       size_t length;
+    };
+
+    class decode_error : public std::logic_error
+    {
+      using logic_error::logic_error;
+    };
+
+    // Forward declaration to allow recursive calls.
+    template <typename... Ts>
+    std::tuple<Ts...> decode(const uint8_t*&, size_t&);
+
+    inline std::pair<Arity, size_t> decode_length(
+      const uint8_t*& data, size_t& size);
+
+    template <typename T>
+    struct from_bytes;
+
+    template <>
+    struct from_bytes<size_t>
+    {
+      size_t operator()(const uint8_t*& data, size_t& size)
+      {
+        if (size > 8)
+        {
+          throw decode_error(
+            "Trying to decode number: " + std::to_string(size) +
+            " is too many bytes for uint64_t");
+        }
+
+        size_t result = 0;
+
+        while (size > 0)
+        {
+          result <<= 8u;
+          result |= *data;
+          data++;
+          size--;
+        }
+
+        return result;
+      }
+    };
+
+    template <typename T>
+    struct from_bytes
+    {
+      std::enable_if_t<std::is_integral_v<T> && std::is_unsigned_v<T>, T>
+      operator()(const uint8_t*& data, size_t& size)
+      {
+        return (T)from_bytes<size_t>{}(data, size);
+      }
+    };
+
+    template <>
+    struct from_bytes<std::string>
+    {
+      std::string operator()(const uint8_t*& data, size_t& size)
+      {
+        std::string result(size, '\0');
+
+        for (auto i = 0u; i < size; ++i)
+        {
+          result[i] = *data++;
+        }
+
+        size = 0u;
+
+        return result;
+      }
+    };
+
+    template <size_t N>
+    struct from_bytes<std::array<uint8_t, N>>
+    {
+      std::array<uint8_t, N> operator()(const uint8_t*& data, size_t& size)
+      {
+        if (size != N)
+        {
+          throw decode_error(
+            "Trying to decode " + std::to_string(N) +
+            " byte array, but given " + std::to_string(size) +
+            " bytes to decode");
+        }
+
+        std::array<uint8_t, N> result;
+        std::copy(data, data + size, result.begin());
+
+        data = data + size;
+        size = 0u;
+
+        return result;
+      }
+    };
+
+    template <typename T, size_t N>
+    struct from_bytes<std::array<T, N>>
+    {
+      std::array<T, N> operator()(const uint8_t*& data, size_t& size)
+      {
+        decode_length(data, size);
+
+        std::array<T, N> result;
+        for (auto i = 0u; i < N; ++i)
+        {
+          result[i] = std::get<0>(decode<T>(data, size));
+        }
+
+        size = 0u;
+
+        return result;
+      }
+    };
+
+    template <typename T>
+    struct from_bytes<std::vector<T>>
+    {
+      std::vector<T> operator()(const uint8_t*& data, size_t& size)
+      {
+        auto contained_length = decode_length(data, size).second;
+
+        std::vector<T> result;
+        while (contained_length > 0)
+        {
+          result.push_back(std::get<0>(decode<T>(data, contained_length)));
+        }
+
+        size = 0u;
+
+        return result;
+      }
+    };
+
+    template <>
+    struct from_bytes<ByteString>
+    {
+      ByteString operator()(const uint8_t*& data, size_t& size)
+      {
+        ByteString result(size);
+
+        for (auto i = 0u; i < size; ++i)
+        {
+          result[i] = *data++;
+        }
+
+        size = 0u;
+
+        return result;
+      }
+    };
+
+    template <>
+    struct from_bytes<uint256_t>
+    {
+      uint256_t operator()(const uint8_t*& data, size_t& size)
+      {
+        uint256_t result = 0u;
+
+        if (size > 0)
+        {
+          boost::multiprecision::import_bits(
+            result,
+            data,
+            data + size,
+            std::numeric_limits<uint8_t>::digits,
+            true);
+        }
+
+        data += size;
+        size = 0u;
+
+        return result;
+      }
     };
 
     inline std::pair<Arity, size_t> decode_length(
@@ -355,7 +478,7 @@ namespace evm
 
         // This should advance data and decrement length_of_length to 0
         const size_t content_length =
-          from_bytes<size_t>(data, length_of_length);
+          from_bytes<size_t>{}(data, length_of_length);
         return {Arity::Single, content_length};
       }
 
@@ -378,7 +501,8 @@ namespace evm
 
       size -= length_of_length;
 
-      const size_t content_length = from_bytes<size_t>(data, length_of_length);
+      const size_t content_length =
+        from_bytes<size_t>{}(data, length_of_length);
       return {Arity::Multiple, content_length};
     }
 
@@ -456,7 +580,8 @@ namespace evm
           throw decode_error("Expected single item, but data encodes a list");
         }
 
-        return std::make_tuple(from_bytes<Ts...>(data, contained_length));
+        size -= contained_length;
+        return std::make_tuple(from_bytes<Ts...>{}(data, contained_length));
       }
 
       if (arity != Arity::Multiple)
@@ -478,6 +603,7 @@ namespace evm
       }
       else
       {
+        size -= contained_length;
         return decode_multiple<Ts...>(data, contained_length);
       }
     }
