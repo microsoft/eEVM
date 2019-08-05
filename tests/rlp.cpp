@@ -11,10 +11,10 @@ const auto large_input_decoded = std::make_tuple(
   std::make_tuple("Hello world"s, "Saluton Mondo"s),
   std::make_tuple(
     std::make_tuple(
-      std::make_tuple(1),
-      std::make_tuple(2, 3),
-      std::make_tuple(std::make_tuple(4))),
-    66000),
+      std::make_tuple(1u),
+      std::make_tuple(2u, 3u),
+      std::make_tuple(std::make_tuple(4u))),
+    66000u),
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
   "tempor incididunt ut labore et dolore magna aliqua"s);
 const auto large_input_encoded = rlp::to_byte_string(
@@ -194,6 +194,27 @@ TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
     CHECK(
       rlp::decode_single<decltype(large_decoded)>(large_encoded) ==
       large_decoded);
+  }
+}
+
+TEST_CASE_TEMPLATE(
+  "integral" * doctest::test_suite("rlp"),
+  T,
+  uint8_t,
+  uint16_t,
+  uint32_t,
+  uint64_t)
+{
+  using TVec = std::vector<T>;
+  TVec v{0,
+         1,
+         std::numeric_limits<T>::max(),
+         std::numeric_limits<T>::max() / 2,
+         std::numeric_limits<T>::max() / 3};
+  for (auto n : v)
+  {
+    auto encoded = rlp::encode(n);
+    CHECK(rlp::decode_single<T>(encoded) == n);
   }
 }
 

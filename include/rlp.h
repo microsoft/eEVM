@@ -277,15 +277,12 @@ namespace evm
       const uint8_t*& data, size_t& size);
 
     template <typename T>
-    struct from_bytes
-    {
-      T operator()(const uint8_t*& data, size_t& size);
-    };
+    struct from_bytes;
 
     template <>
-    struct from_bytes<uint64_t>
+    struct from_bytes<size_t>
     {
-      uint64_t operator()(const uint8_t*& data, size_t& size)
+      size_t operator()(const uint8_t*& data, size_t& size)
       {
         if (size > 8)
         {
@@ -294,7 +291,7 @@ namespace evm
             " is too many bytes for uint64_t");
         }
 
-        uint64_t result = 0;
+        size_t result = 0;
 
         while (size > 0)
         {
@@ -308,12 +305,13 @@ namespace evm
       }
     };
 
-    template <>
-    struct from_bytes<int>
+    template <typename T>
+    struct from_bytes
     {
-      int operator()(const uint8_t*& data, size_t& size)
+      std::enable_if_t<std::is_integral_v<T> && std::is_unsigned_v<T>, T>
+      operator()(const uint8_t*& data, size_t& size)
       {
-        return (int)from_bytes<size_t>{}(data, size);
+        return (T)from_bytes<size_t>{}(data, size);
       }
     };
 
