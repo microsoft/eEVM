@@ -11,8 +11,18 @@
 #include <doctest/doctest.h>
 #include <vector>
 
+#include <nlohmann/json.hpp>
+
 using namespace std;
 using namespace evm;
+
+TEST_CASE("from_json, to_json tests")
+{
+  Account a1;
+  nlohmann::json j = a1;
+  Account a2 = j.get<Account>();
+  CHECK(a1 == a2);
+}
 
 TEST_CASE("util" * doctest::test_suite("util"))
 {

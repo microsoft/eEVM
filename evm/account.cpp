@@ -57,15 +57,19 @@ namespace evm
   {
     j["address"] = a.address;
     j["balance"] = a.balance;
-    j["nonce"] = a.nonce;
-    j["code"] = a.code;
+    j["nonce"] = std::to_string(a.nonce);
+    j["code"] = to_hex_string(a.code.begin(), a.code.end());
   }
 
   void from_json(const nlohmann::json& j, Account& a)
   {
-    assign_j(a.address, j["address"]);
-    assign_j(a.balance, j["balance"]);
-    assign_j(a.nonce, j["nonce"]);
-    assign_j(a.code, j["code"]);
+    if (j.find("address") != j.end())
+      assign_j(a.address, j["address"]);
+    if (j.find("balance") != j.end())
+      assign_j(a.balance, j["balance"]);
+    if (j.find("nonce") != j.end())
+      assign_j(a.nonce, to_uint64(j["nonce"]));
+    if (j.find("code") != j.end())
+      assign_j(a.code, to_bytes(j["code"]));
   }
 } // namespace evm
