@@ -19,12 +19,10 @@ using namespace nlohmann;
 
 pair<Account, SimpleStorage> parseAccount(json::const_iterator& it)
 {
-  auto j = it.value();
-  return {{from_hex_str(it.key()),
-           to_uint64(j["nonce"]),
-           j["balance"].get<uint256_t>(),
-           to_bytes(j["code"])},
-          j["storage"]};
+  auto storage = it.value()["storage"];
+  auto account = it.value().get<Account>();
+  account.address = from_hex_str(it.key());
+  return {account, storage};
 }
 
 void run_test_case(
