@@ -111,6 +111,13 @@ namespace evm
     return to_hex_string(bytes.begin(), bytes.end());
   }
 
+  inline std::string to_hex_string(uint64_t v)
+  {
+    std::stringstream ss;
+    ss << "0x" << std::hex << std::setfill('0') << std::setw(2) << v;
+    return ss.str();
+  }
+
   inline std::string to_checksum_address(const Address& a)
   {
     auto s = to_lower_hex_str(a);
@@ -142,4 +149,5 @@ namespace evm
   Address generate_address(const Address& sender, uint64_t nonce);
 
   uint64_t to_uint64(const nlohmann::json& j);
+  uint64_t to_uint64(const std::string& s);
 } // namespace evm

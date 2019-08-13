@@ -57,8 +57,8 @@ namespace evm
   {
     j["address"] = a.address;
     j["balance"] = a.balance;
-    j["nonce"] = std::to_string(a.nonce);
-    j["code"] = to_hex_string(a.code.begin(), a.code.end());
+    j["nonce"] = to_hex_string(a.nonce);
+    j["code"] = to_hex_string(a.code);
   }
 
   void from_json(const nlohmann::json& j, Account& a)
