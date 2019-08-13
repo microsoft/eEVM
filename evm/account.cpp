@@ -55,7 +55,7 @@ namespace evm
 
   void to_json(nlohmann::json& j, const Account& a)
   {
-    j["address"] = a.address;
+    j["address"] = address_to_hex_string(a.address);
     j["balance"] = a.balance;
     j["nonce"] = to_hex_string(a.nonce);
     j["code"] = to_hex_string(a.code);
