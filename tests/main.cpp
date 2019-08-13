@@ -10,18 +10,52 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest/doctest.h>
 #include <vector>
-
+#include <iostream>
+#include <fstream>
 #include <nlohmann/json.hpp>
+
+#include "../include/bigint.h"
 
 using namespace std;
 using namespace evm;
 
-TEST_CASE("from_json, to_json tests")
+TEST_CASE("from_json/to_json are mutually inverse")
 {
-  Account a1;
-  nlohmann::json j = a1;
-  Account a2 = j.get<Account>();
-  CHECK(a1 == a2);
+  SUBCASE("Using default Account objects")
+  {
+    Account a1;
+    nlohmann::json j = a1;
+    Account a2 = j.get<Account>();
+    REQUIRE(a1 == a2);
+  }
+  SUBCASE("Using non-default values for Account")
+  {
+    Account a1;
+    a1.address = from_hex_str("0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6");
+    a1.nonce = to_uint64(string("0x66"));
+    nlohmann::json j = a1;
+    Account a2 = j;
+    REQUIRE(a1 == a2);
+  }
+  SUBCASE("Using JSON file as a source for Account")
+  {
+    constexpr auto env_var = "TEST_DIR";
+    auto test_dir = getenv(env_var);
+    if (test_dir) {
+      auto test_path = string(test_dir) + "/vmTests.json";
+      const auto j = nlohmann::json::parse(std::ifstream(test_path));
+      const auto it = j["suicide"]["pre"].begin();
+      Account a1 = (*it).get<Account>();
+      a1.address = from_hex_str(it.key());
+      nlohmann::json j2 = a1;
+      REQUIRE(*it == j2);
+    }
+    else {
+      throw std::logic_error(
+	"Must set path to test cases in " + std::string(env_var) +
+	" environment variable");
+    }
+  }
 }
 
 TEST_CASE("util" * doctest::test_suite("util"))
