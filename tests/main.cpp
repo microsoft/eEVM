@@ -64,10 +64,9 @@ TEST_CASE("from_json/to_json are mutually inverse")
   {
     auto test_path = string(test_dir) + "/accountFull.json";
     const auto j = nlohmann::json::parse(std::ifstream(test_path));
-    const auto rec = *j.begin();
-    Account a1 = rec.get<Account>();
+    Account a1 = j.get<Account>();
     nlohmann::json j2 = a1;
-    REQUIRE(rec == j2);
+    REQUIRE(j == j2);
   }
 }
 

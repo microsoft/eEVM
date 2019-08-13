@@ -118,6 +118,15 @@ namespace evm
     return ss.str();
   }
 
+  inline auto address_to_hex_string(const Address& v)
+  {
+    std::stringstream ss;
+    ss << "0x" << std::hex << std::setw(40) << std::setfill('0') << v;
+    auto s = ss.str();
+    std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+    return s;
+  }
+
   inline std::string to_checksum_address(const Address& a)
   {
     auto s = to_lower_hex_str(a);
