@@ -21,6 +21,13 @@ using namespace evm;
 
 TEST_CASE("from_json/to_json are mutually inverse")
 {
+  constexpr auto env_var = "TEST_DIR";
+  auto test_dir = getenv(env_var);
+  if (!test_dir) {
+    throw std::logic_error(
+      "Must set path to test cases in " + std::string(env_var) +
+      " environment variable");
+  }
   SUBCASE("Using default Account objects")
   {
     Account a1;
@@ -37,24 +44,30 @@ TEST_CASE("from_json/to_json are mutually inverse")
     Account a2 = j;
     REQUIRE(a1 == a2);
   }
-  SUBCASE("Using JSON file as a source for Account")
+  SUBCASE("Using partially defined JSON as a source for Account")
   {
-    constexpr auto env_var = "TEST_DIR";
-    auto test_dir = getenv(env_var);
-    if (test_dir) {
-      auto test_path = string(test_dir) + "/vmTests.json";
-      const auto j = nlohmann::json::parse(std::ifstream(test_path));
-      const auto it = j["suicide"]["pre"].begin();
-      Account a1 = (*it).get<Account>();
-      a1.address = from_hex_str(it.key());
-      nlohmann::json j2 = a1;
-      REQUIRE(*it == j2);
-    }
-    else {
-      throw std::logic_error(
-	"Must set path to test cases in " + std::string(env_var) +
-	" environment variable");
-    }
+    auto test_path = string(test_dir) + "/vmTests.json";
+    const auto j = nlohmann::json::parse(std::ifstream(test_path));
+    const auto rec = *j["suicide"]["pre"].begin();
+    Account a1 = rec.get<Account>();
+    nlohmann::json j2 = a1;
+    if (rec.find("balance") != rec.end())
+      CHECK(a1.balance == from_hex_str(j2["balance"]));
+    if (rec.find("code") != rec.end())
+      CHECK(a1.code == to_bytes(j2["code"]));
+    if (rec.find("nonce") != rec.end())
+      CHECK(a1.nonce == to_uint64(j2["nonce"]));
+    if (rec.find("address") != rec.end())
+      CHECK(a1.address == from_hex_str(j2["address"]));
+  }
+  SUBCASE("Using fully defined JSON as a source for Account")
+  {
+    auto test_path = string(test_dir) + "/accountFull.json";
+    const auto j = nlohmann::json::parse(std::ifstream(test_path));
+    const auto rec = *j.begin();
+    Account a1 = rec.get<Account>();
+    nlohmann::json j2 = a1;
+    REQUIRE(rec == j2);
   }
 }
 
