@@ -114,7 +114,7 @@ namespace evm
   inline std::string to_hex_string(uint64_t v)
   {
     std::stringstream ss;
-    ss << "0x" << std::hex << std::setfill('0') << std::setw(2) << v;
+    ss << "0x" << std::hex << v;
     return ss.str();
   }
 
