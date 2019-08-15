@@ -18,12 +18,12 @@ namespace evm
 
   uint64_t to_uint64(const std::string& s)
   {
-    return strtoull(&s[0], nullptr, 16);
+    return strtoull(s.c_str(), nullptr, 16);
   }
 
   uint64_t to_uint64(const nlohmann::json& j)
   {
-    return to_uint64(string(j));
+    return to_uint64(j.get<std::string>());
   }
 
   vector<uint8_t> to_bytes(const string& _s)

@@ -4,6 +4,7 @@
 #pragma once
 
 #include "../include/globalstate.h"
+#include "simpleaccount.h"
 #include "simplestorage.h"
 
 namespace evm
@@ -13,11 +14,13 @@ namespace evm
    */
   class SimpleGlobalState : public GlobalState
   {
+  public:
+    using StateEntry = std::pair<SimpleAccount, SimpleStorage>;
+
   private:
     Block currentBlock;
 
-  protected:
-    std::map<uint256_t, std::pair<Account, SimpleStorage>> accounts;
+    std::map<Address, StateEntry> accounts;
 
   public:
     SimpleGlobalState() = default;
@@ -39,6 +42,6 @@ namespace evm
      * For tests which require some initial state, allow manual insertion of
      * pre-constructed accounts
      */
-    void insert(std::pair<Account, SimpleStorage> p);
+    void insert(const StateEntry& e);
   };
 } // namespace evm

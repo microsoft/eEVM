@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+#include "../evm/simpleaccount.h"
 #include "../evm/simpleglobalstate.h"
 #include "../evm/simplestorage.h"
 #include "../include/disassembler.h"
@@ -17,11 +18,11 @@ using namespace std;
 using namespace evm;
 using namespace nlohmann;
 
-pair<Account, SimpleStorage> parseAccount(json::const_iterator& it)
+SimpleGlobalState::StateEntry parseAccount(json::const_iterator& it)
 {
   auto storage = it.value()["storage"];
-  auto account = it.value().get<Account>();
-  account.address = from_hex_str(it.key());
+  auto account = it.value().get<SimpleAccount>();
+  account.set_address(from_hex_str(it.key()));
   return {account, storage};
 }
 
@@ -132,8 +133,8 @@ void run_test_case(
       for (auto it = post.value().cbegin(); it != post.value().cend(); it++)
       {
         const auto expected = parseAccount(it);
-        const auto actual = gs.get(expected.first.address);
-        CHECK(actual.acc == expected.first);
+        const auto actual = gs.get(expected.first.get_address());
+        CHECK(expected.first == actual.acc);
 
         decltype(auto) st = dynamic_cast<SimpleStorage&>(actual.st);
         CHECK(st == expected.second);

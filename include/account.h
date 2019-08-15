@@ -2,56 +2,35 @@
 // Licensed under the MIT License.
 
 #pragma once
+
 #include "address.h"
 #include "bigint.h"
-#include "storage.h"
-#include "util.h"
-
-#include <nlohmann/json.hpp>
 
 namespace evm
 {
   using Code = std::vector<uint8_t>;
 
+  /**
+   * Abstract interface for interacting with EVM accounts
+   */
   struct Account
   {
-    Address address = {};
-    uint64_t nonce = {};
-    uint256_t balance = {};
-    Code code = {};
+    using Nonce = size_t;
 
-    Account() = default;
-    Account(
-      const Address& address, const uint256_t& balance, const Code& code) :
-      address(address),
-      nonce(0),
-      balance(balance),
-      code(code)
-    {}
+    virtual ~Account() {}
 
-    Account(
-      const Address& address,
-      uint64_t nonce,
-      const uint256_t& balance,
-      const Code& code) :
-      address(address),
-      nonce(nonce),
-      balance(balance),
-      code(code)
-    {}
+    virtual Address get_address() const = 0;
 
-    bool has_code() const;
-    void set_code(Code&& code_);
+    virtual uint256_t get_balance() const = 0;
+    virtual void increment_balance(const uint256_t& amount) = 0;
+    virtual void decrement_balance(const uint256_t& amount) = 0;
+    virtual void pay(Account& r, const uint256_t& amount) = 0;
 
-    void pay(const uint256_t& amount);
-    void pay(Account& r, const uint256_t& amount);
+    virtual Nonce get_nonce() const = 0; // Returns new nonce after incrementing
+    virtual void increment_nonce() = 0;
 
-    bool operator==(const Account& that) const;
-
-    friend void to_json(nlohmann::json&, const Account&);
-    friend void from_json(const nlohmann::json&, Account&);
+    virtual Code get_code() const = 0;
+    virtual bool has_code() = 0;
+    virtual void set_code(Code&& code_) = 0;
   };
-
-  void to_json(nlohmann::json&, const Account&);
-  void from_json(const nlohmann::json&, Account&);
 } // namespace evm

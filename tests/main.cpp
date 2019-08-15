@@ -8,13 +8,13 @@
 #include "../include/util.h"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include <doctest/doctest.h>
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <nlohmann/json.hpp>
-
 #include "../include/bigint.h"
+
+#include <doctest/doctest.h>
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <vector>
 
 using namespace std;
 using namespace evm;
@@ -23,48 +23,55 @@ TEST_CASE("from_json/to_json are mutually inverse")
 {
   constexpr auto env_var = "TEST_DIR";
   auto test_dir = getenv(env_var);
-  if (!test_dir) {
+  if (!test_dir)
+  {
     throw std::logic_error(
       "Must set path to test cases in " + std::string(env_var) +
       " environment variable");
   }
-  SUBCASE("Using default Account objects")
+
+  SUBCASE("Using default SimpleAccount objects")
   {
-    Account a1;
+    SimpleAccount a1;
     nlohmann::json j = a1;
-    Account a2 = j.get<Account>();
+    SimpleAccount a2 = j.get<SimpleAccount>();
     REQUIRE(a1 == a2);
   }
-  SUBCASE("Using non-default values for Account")
+
+  SUBCASE("Using non-default values for SimpleAccount")
   {
-    Account a1;
-    a1.address = from_hex_str("0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6");
-    a1.nonce = to_uint64(string("0x66"));
+    SimpleAccount a1(
+      from_hex_str("0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6"),
+      5678,
+      {0x00, 0x01, 0x10, 0x11});
+    a1.set_nonce(to_uint64(std::string("0x66")));
     nlohmann::json j = a1;
-    Account a2 = j;
+    SimpleAccount a2 = j;
     REQUIRE(a1 == a2);
   }
-  SUBCASE("Using partially defined JSON as a source for Account")
+
+  SUBCASE("Using partially defined JSON as a source for SimpleAccount")
   {
     auto test_path = string(test_dir) + "/vmTests.json";
     const auto j = nlohmann::json::parse(std::ifstream(test_path));
     const auto rec = *j["suicide"]["pre"].begin();
-    Account a1 = rec.get<Account>();
+    SimpleAccount a1 = rec.get<SimpleAccount>();
     nlohmann::json j2 = a1;
     if (rec.find("balance") != rec.end())
-      CHECK(a1.balance == from_hex_str(j2["balance"]));
+      CHECK(a1.get_balance() == from_hex_str(j2["balance"]));
     if (rec.find("code") != rec.end())
-      CHECK(a1.code == to_bytes(j2["code"]));
+      CHECK(a1.get_code() == to_bytes(j2["code"]));
     if (rec.find("nonce") != rec.end())
-      CHECK(a1.nonce == to_uint64(j2["nonce"]));
+      CHECK(a1.get_nonce() == to_uint64(j2["nonce"]));
     if (rec.find("address") != rec.end())
-      CHECK(a1.address == from_hex_str(j2["address"]));
+      CHECK(a1.get_address() == from_hex_str(j2["address"]));
   }
-  SUBCASE("Using fully defined JSON as a source for Account")
+
+  SUBCASE("Using fully defined JSON as a source for SimpleAccount")
   {
     auto test_path = string(test_dir) + "/accountFull.json";
     const auto j = nlohmann::json::parse(std::ifstream(test_path));
-    Account a1 = j.get<Account>();
+    SimpleAccount a1 = j.get<SimpleAccount>();
     nlohmann::json j2 = a1;
     REQUIRE(j == j2);
   }

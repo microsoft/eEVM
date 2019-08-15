@@ -33,8 +33,8 @@ if(RECORD_TRACE)
 endif(RECORD_TRACE)
 
 add_library(evm STATIC
-  evm/account.cpp
   evm/disassembler.cpp
+  evm/simpleaccount.cpp
   evm/simpleglobalstate.cpp
   evm/simplestorage.cpp
   evm/stack.cpp

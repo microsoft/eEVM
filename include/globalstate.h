@@ -21,8 +21,10 @@ namespace evm
 
     template <
       typename T,
-      typename = std::enable_if_t<std::is_base_of<Storage, T>::value>>
-    AccountState(std::pair<Account, T>& p) : acc(p.first), st(p.second)
+      typename U,
+      typename = std::enable_if_t<std::is_base_of<Account, T>::value>,
+      typename = std::enable_if_t<std::is_base_of<Storage, U>::value>>
+    AccountState(std::pair<T, U>& p) : acc(p.first), st(p.second)
     {}
     AccountState(Account& acc, Storage& st) : acc(acc), st(st) {}
   };

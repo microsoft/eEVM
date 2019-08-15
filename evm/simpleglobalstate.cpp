@@ -27,11 +27,9 @@ namespace evm
   AccountState SimpleGlobalState::create(
     const Address& addr, const uint256_t& balance, const Code& code)
   {
-    const auto acc = accounts.emplace(
-      addr, std::make_pair(Account(addr, balance, code), SimpleStorage()));
-    assert(acc.second);
+    insert({SimpleAccount(addr, balance, code), {}});
 
-    return acc.first->second;
+    return get(addr);
   }
 
   size_t SimpleGlobalState::num_accounts()
@@ -49,8 +47,10 @@ namespace evm
     return 0u;
   }
 
-  void SimpleGlobalState::insert(std::pair<Account, SimpleStorage> p)
+  void SimpleGlobalState::insert(const StateEntry& p)
   {
-    accounts.insert(std::make_pair(p.first.address, p));
+    const auto ib = accounts.insert(std::make_pair(p.first.get_address(), p));
+
+    assert(ib.second);
   }
 } // namespace evm

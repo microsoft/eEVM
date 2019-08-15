@@ -36,12 +36,10 @@ namespace evm
   class Program
   {
   public:
-    const vector<uint8_t>& code;
+    const vector<uint8_t> code;
     const set<uint64_t> jump_dests;
 
-    Program(const vector<uint8_t>& code) :
-      code(code),
-      jump_dests(compute_jump_dests(code))
+    Program(vector<uint8_t>&& c) : code(c), jump_dests(compute_jump_dests(code))
     {}
 
   private:
@@ -191,7 +189,14 @@ namespace evm
       };
 
       push_context(
-        caller, callee, move(input), callee.acc.code, call_value, rh, hh, eh);
+        caller,
+        callee,
+        move(input),
+        callee.acc.get_code(),
+        call_value,
+        rh,
+        hh,
+        eh);
 
       // run
       while (ctxt->get_pc() < ctxt->prog.code.size())
@@ -652,7 +657,7 @@ namespace evm
           err << "unknown/unsupported Opcode: 0x" << hex << int{get_op()}
               << endl;
           err << dec << " seen at position " << ctxt->get_pc() << " in "
-              << to_hex_str(ctxt->as.acc.address) << ", at call-depth "
+              << to_hex_str(ctxt->as.acc.get_address()) << ", at call-depth "
               << get_call_depth() << " called by " << to_hex_str(ctxt->caller);
           throw Exception(Exception::Type::illegalInstruction, err.str());
       };
@@ -980,17 +985,18 @@ namespace evm
 
     void extcodesize()
     {
-      ctxt->s.push(gs.get(pop_addr(ctxt->s)).acc.code.size());
+      ctxt->s.push(gs.get(pop_addr(ctxt->s)).acc.get_code().size());
     }
 
     void extcodecopy()
     {
-      copy_mem(ctxt->mem, gs.get(pop_addr(ctxt->s)).acc.code, Opcode::STOP);
+      copy_mem(
+        ctxt->mem, gs.get(pop_addr(ctxt->s)).acc.get_code(), Opcode::STOP);
     }
 
     void codesize()
     {
-      ctxt->s.push(ctxt->acc.code.size());
+      ctxt->s.push(ctxt->acc.get_code().size());
     }
 
     void calldataload()
@@ -1028,13 +1034,13 @@ namespace evm
 
     void address()
     {
-      ctxt->s.push(ctxt->acc.address);
+      ctxt->s.push(ctxt->acc.get_address());
     }
 
     void balance()
     {
       decltype(auto) acc = gs.get(pop_addr(ctxt->s)).acc;
-      ctxt->s.push(acc.balance);
+      ctxt->s.push(acc.get_balance());
     }
 
     void origin()
@@ -1094,7 +1100,7 @@ namespace evm
         topics[i] = ctxt->s.pop();
 
       tx.log_handler.handle(
-        {ctxt->acc.address, copy_from_mem(offset, size), topics});
+        {ctxt->acc.get_address(), copy_from_mem(offset, size), topics});
     }
 
     void blockhash()
@@ -1176,8 +1182,8 @@ namespace evm
 
     void destroy()
     {
-      gs.get(pop_addr(ctxt->s)).acc.balance += ctxt->acc.balance;
-      tx.destroy_list.push_back(ctxt->acc.address);
+      gs.get(pop_addr(ctxt->s)).acc.increment_balance(ctxt->acc.get_balance());
+      tx.destroy_list.push_back(ctxt->acc.get_address());
       stop();
     }
 
@@ -1186,24 +1192,39 @@ namespace evm
       const auto contractValue = ctxt->s.pop();
       const auto offset = ctxt->s.pop64();
       const auto size = ctxt->s.pop64();
-
-      ctxt->acc.pay(contractValue);
-      const auto initCode = copy_from_mem(offset, size);
+      auto initCode = copy_from_mem(offset, size);
 
       const auto newAddress =
-        generate_address(ctxt->acc.address, ctxt->acc.nonce);
+        generate_address(ctxt->acc.get_address(), ctxt->acc.get_nonce());
+
+      // For contract accounts, the nonce counts the number of
+      // contract-creations by this account
+      ctxt->acc.increment_nonce();
+
       decltype(auto) newAcc = gs.create(newAddress, contractValue, {});
+
+      // In contract creation, the transaction value is an endowment for the
+      // newly created account
+      ctxt->acc.pay(newAcc.acc, contractValue);
 
       auto parentContext = ctxt;
       auto rh = [&newAcc, parentContext](vector<uint8_t> output) {
         newAcc.acc.set_code(move(output));
-        parentContext->s.push(newAcc.acc.address);
+        parentContext->s.push(newAcc.acc.get_address());
       };
       auto hh = [parentContext]() { parentContext->s.push(0); };
       auto eh = [parentContext](const Exception&) { parentContext->s.push(0); };
 
       // create new context for init code execution
-      push_context(ctxt->acc.address, newAcc, {}, initCode, 0, rh, hh, eh);
+      push_context(
+        ctxt->acc.get_address(),
+        newAcc,
+        {},
+        std::move(initCode),
+        0,
+        rh,
+        hh,
+        eh);
     }
 
     void call()
@@ -1249,10 +1270,10 @@ namespace evm
       {
         case Opcode::CALL:
           push_context(
-            ctxt->acc.address,
+            ctxt->acc.get_address(),
             callee,
             move(input),
-            callee.acc.code,
+            callee.acc.get_code(),
             value,
             rh,
             hh,
@@ -1260,10 +1281,10 @@ namespace evm
           break;
         case Opcode::CALLCODE:
           push_context(
-            ctxt->acc.address,
+            ctxt->acc.get_address(),
             ctxt->as,
             move(input),
-            callee.acc.code,
+            callee.acc.get_code(),
             value,
             rh,
             hh,
@@ -1274,7 +1295,7 @@ namespace evm
             ctxt->caller,
             ctxt->as,
             move(input),
-            callee.acc.code,
+            callee.acc.get_code(),
             ctxt->call_value,
             rh,
             hh,

@@ -22,10 +22,10 @@ namespace evm
 
   struct ExecResult
   {
-    ExitReason er;
-    Exception::Type ex;
-    std::string exmsg;
-    std::vector<uint8_t> output;
+    ExitReason er = {};
+    Exception::Type ex = {};
+    std::string exmsg = {};
+    std::vector<uint8_t> output = {};
   };
 
   /**
