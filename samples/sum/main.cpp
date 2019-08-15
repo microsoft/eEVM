@@ -114,7 +114,7 @@ int main(int argc, char** argv)
   {
     std::cout << "Address " << to_hex_str(to)
               << " contains the following bytecode:" << std::endl;
-    std::cout << evm::to_hex_string(contract.acc.code) << std::endl;
+    std::cout << evm::to_hex_string(contract.acc.get_code()) << std::endl;
   }
 
   // Construct a transaction object

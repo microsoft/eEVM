@@ -84,14 +84,6 @@ namespace evm
 
   void SimpleAccount::set_code(Code&& c)
   {
-    // Only set code when it hasn't been set yet
-    if (has_code())
-    {
-      throw std::runtime_error(
-        "Trying to set code when it has already been set: " +
-        to_hex_str(address));
-    }
-
     code = c;
   }
 
