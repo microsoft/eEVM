@@ -15,10 +15,10 @@ namespace evm
 
   struct Account
   {
-    Address address;
-    uint64_t nonce;
-    uint256_t balance;
-    Code code;
+    Address address = {};
+    uint64_t nonce = {};
+    uint256_t balance = {};
+    Code code = {};
 
     Account() = default;
     Account(

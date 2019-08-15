@@ -16,10 +16,14 @@ namespace evm
     return (s.size() >= 2 && s[1] == 'x') ? s.substr(2) : s;
   }
 
+  uint64_t to_uint64(const std::string& s)
+  {
+    return strtoull(&s[0], nullptr, 16);
+  }
+
   uint64_t to_uint64(const nlohmann::json& j)
   {
-    string s = j;
-    return strtoull(&s[0], nullptr, 16);
+    return to_uint64(string(j));
   }
 
   vector<uint8_t> to_bytes(const string& _s)
