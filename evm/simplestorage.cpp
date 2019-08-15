@@ -50,13 +50,13 @@ namespace evm
     return s == that.s;
   }
 
-  inline void to_json(nlohmann::json& j, const SimpleStorage& s)
+  void to_json(nlohmann::json& j, const SimpleStorage& s)
   {
     for (const auto& p : s.s)
       j[to_hex_str(p.first)] = p.second;
   }
 
-  inline void from_json(const nlohmann::json& j, SimpleStorage& s)
+  void from_json(const nlohmann::json& j, SimpleStorage& s)
   {
     for (decltype(auto) it = j.cbegin(); it != j.cend(); it++)
       s.s.emplace(from_hex_str(it.key()), from_hex_str(it.value()));

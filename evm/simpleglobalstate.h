@@ -40,5 +40,11 @@ namespace evm
      * pre-constructed accounts
      */
     void insert(std::pair<Account, SimpleStorage> p);
+
+    friend void to_json(nlohmann::json&, const SimpleGlobalState&);
+    friend void from_json(const nlohmann::json&, SimpleGlobalState&);
   };
+
+  void to_json(nlohmann::json&, const SimpleGlobalState&);
+  void from_json(const nlohmann::json&, SimpleGlobalState&);
 } // namespace evm

@@ -53,4 +53,18 @@ namespace evm
   {
     accounts.insert(std::make_pair(p.first.address, p));
   }
+
+  void to_json(nlohmann::json& j, const SimpleGlobalState& s)
+  {
+    j["block"] = s.currentBlock;
+    j["accounts"] = s.accounts;
+  }
+
+  void from_json(const nlohmann::json& j, SimpleGlobalState& a)
+  {
+    if (j.find("block") != j.end())
+      assign_j(a.currentBlock, j["block"]);
+    if (j.find("accounts") != j.end())
+      assign_j(a.accounts, j["accounts"]);
+  }
 } // namespace evm

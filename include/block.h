@@ -25,4 +25,13 @@ namespace evm
     b.timestamp = to_uint64(j["currentTimestamp"]);
     b.coinbase = from_hex_str(j["currentCoinbase"]);
   }
+
+  inline void to_json(nlohmann::json& j, const Block& b)
+  {
+    j["currentNumber"] = to_hex_string(b.number);
+    j["currentDifficulty"] = to_hex_string(b.difficulty);
+    j["currentGasLimit"] = to_hex_string(b.gas_limit);
+    j["currentTimestamp"] = to_hex_string(b.timestamp);
+    j["currentCoinbase"] = to_hex_str(b.coinbase);
+  }
 } // namespace evm
