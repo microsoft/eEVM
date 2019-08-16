@@ -28,6 +28,24 @@ TEST_CASE("from_json/to_json are mutually inverse")
       "Must set path to test cases in " + std::string(env_var) +
       " environment variable");
   }
+  SUBCASE("Using default SimpleGlobalState objects")
+  {
+    SimpleGlobalState s0;
+    nlohmann::json j = s0;
+    SimpleGlobalState s1 = j.get<SimpleGlobalState>();
+    std::cout << j.dump(2) << std::endl;
+    REQUIRE(s1 == s0);
+  }
+  SUBCASE("Using fully defined SimpleGlobalState JSON object")
+  {
+    // simpleGlobalStateFull.json is a generated file, so we can safely
+    // check for an equality on string-by-string basis
+    auto test_path = string(test_dir) + "/simpleGlobalStateFull.json";
+    const auto j = nlohmann::json::parse(std::ifstream(test_path));
+    SimpleGlobalState s0 = j.get<SimpleGlobalState>();
+    nlohmann::json j2 = s0;
+    REQUIRE(j == j2);
+  }
   SUBCASE("Using default Account objects")
   {
     Account a1;
