@@ -74,7 +74,11 @@ namespace evm
   {
     if (j.find("block") != j.end())
       assign_j(a.currentBlock, j["block"]);
-    if (j.find("accounts") != j.end())
-      assign_j(a.accounts, j["accounts"]);
+    auto acc = j["accounts"].items();
+    for (const auto& it: acc) {
+      Address addr = it.value()[0];
+      std::pair<Account, SimpleStorage> p = it.value()[1];
+      a.accounts.insert(make_pair(addr, p));
+    }
   }
 } // namespace evm
