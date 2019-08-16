@@ -38,15 +38,22 @@ set(EEVM_INCLUDE_DIRS
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-add_library(eevm STATIC
+set(EEVM_CORE_SRCS
   src/account.cpp
   src/disassembler.cpp
   src/processor.cpp
   src/stack.cpp
   src/transaction.cpp
   src/util.cpp
+)
+
+set(EEVM_SIMPLE_SRCS
   src/simple/simpleglobalstate.cpp
   src/simple/simplestorage.cpp
+)
+
+add_library(eevm STATIC
+  ${EEVM_CORE_SRCS}
   ${KECCAK_SOURCES}
 )
 target_include_directories(eevm PRIVATE
@@ -57,6 +64,7 @@ add_executable(eevm_tests
   tests/main.cpp
   tests/harness.cpp
   tests/rlp.cpp
+  ${EEVM_SIMPLE_SRCS}
 )
 target_include_directories(eevm_tests PRIVATE
   ${EEVM_INCLUDE_DIRS}
@@ -71,12 +79,16 @@ add_test(
 )
 
 if(NOT ENV{TEST_DIR}) 
-  set_tests_properties(eevm_tests PROPERTIES ENVIRONMENT TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/test_cases)
+  set_tests_properties(eevm_tests
+    PROPERTIES
+      ENVIRONMENT TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/test_cases
+  )
 endif()
 
 function(add_sample name)
   add_executable(${name}
     samples/${name}/main.cpp
+    ${EEVM_SIMPLE_SRCS}
   )
   target_include_directories(${name} PRIVATE
     ${EEVM_INCLUDE_DIRS}
