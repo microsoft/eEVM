@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/disassembler.h"
+#include "eEVM/disassembler.h"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ using namespace std;
     } \
   }
 
-namespace evm
+namespace eevm
 {
   const std::unordered_map<uint8_t, Op> Disassembler::ops = {
     EVM_OPCODE(STOP),
@@ -153,4 +153,4 @@ namespace evm
     EVM_OPCODE(RETURN),
     EVM_OPCODE(DELEGATECALL),
     EVM_OPCODE(DESTROY)};
-} // namespace evm
+} // namespace eevm

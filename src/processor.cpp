@@ -1,13 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/processor.h"
+#include "eEVM/processor.h"
 
-#include "../include/bigint.h"
-#include "../include/exception.h"
-#include "../include/opcode.h"
-#include "../include/stack.h"
-#include "../include/util.h"
+#include "eEVM/bigint.h"
+#include "eEVM/exception.h"
+#include "eEVM/opcode.h"
+#include "eEVM/stack.h"
+#include "eEVM/util.h"
 
 #include <algorithm>
 #include <exception>
@@ -21,7 +21,7 @@
 
 using namespace std;
 
-namespace evm
+namespace eevm
 {
   struct Consts
   {
@@ -1298,4 +1298,4 @@ namespace evm
   {
     return _Processor(gs, tx, tr).run(caller, callee, input, call_value);
   }
-} // namespace evm
+} // namespace eevm

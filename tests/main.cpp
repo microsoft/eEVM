@@ -1,29 +1,29 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../evm/simpleglobalstate.h"
-#include "../include/disassembler.h"
-#include "../include/opcode.h"
-#include "../include/processor.h"
-#include "../include/util.h"
+#include "eEVM/bigint.h"
+#include "eEVM/disassembler.h"
+#include "eEVM/opcode.h"
+#include "eEVM/processor.h"
+#include "eEVM/simple/simpleglobalstate.h"
+#include "eEVM/util.h"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest/doctest.h>
-#include <vector>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
-
-#include "../include/bigint.h"
+#include <vector>
 
 using namespace std;
-using namespace evm;
+using namespace eevm;
 
 TEST_CASE("from_json/to_json are mutually inverse")
 {
   constexpr auto env_var = "TEST_DIR";
   auto test_dir = getenv(env_var);
-  if (!test_dir) {
+  if (!test_dir)
+  {
     throw std::logic_error(
       "Must set path to test cases in " + std::string(env_var) +
       " environment variable");

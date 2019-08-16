@@ -1,15 +1,15 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/util.h"
+#include "eEVM/util.h"
 
-#include "../include/rlp.h"
+#include "eEVM/rlp.h"
 
 #include <iomanip>
 
 using namespace std;
 
-namespace evm
+namespace eevm
 {
   string strip(const string& s)
   {
@@ -28,7 +28,7 @@ namespace evm
 
   vector<uint8_t> to_bytes(const string& _s)
   {
-    auto s = evm::strip(_s);
+    auto s = strip(_s);
 
     const size_t byte_len = (s.size() + 1) / 2; // round up
     vector<uint8_t> v(byte_len);
@@ -61,4 +61,4 @@ namespace evm
 
     return from_big_endian(buffer + 12u, buffer + 32u);
   }
-} // namespace evm
+} // namespace eevm

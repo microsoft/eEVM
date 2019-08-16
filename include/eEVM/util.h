@@ -14,7 +14,7 @@ extern "C"
 #include <sstream>
 #include <vector>
 
-namespace evm
+namespace eevm
 {
   /* Workaround for different json assignment issues, e.g.,
   Boost cpp_int or vector in VS 2017:
@@ -159,4 +159,4 @@ namespace evm
 
   uint64_t to_uint64(const nlohmann::json& j);
   uint64_t to_uint64(const std::string& s);
-} // namespace evm
+} // namespace eevm

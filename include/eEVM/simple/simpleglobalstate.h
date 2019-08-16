@@ -3,10 +3,10 @@
 
 #pragma once
 
-#include "../include/globalstate.h"
+#include "eEVM/globalstate.h"
 #include "simplestorage.h"
 
-namespace evm
+namespace eevm
 {
   /**
    * Simple std::map-backed implementation of GlobalState
@@ -43,10 +43,10 @@ namespace evm
 
     friend void to_json(nlohmann::json&, const SimpleGlobalState&);
     friend void from_json(const nlohmann::json&, SimpleGlobalState&);
-    friend bool operator== (const SimpleGlobalState&, const SimpleGlobalState&);
+    friend bool operator==(const SimpleGlobalState&, const SimpleGlobalState&);
   };
 
   void to_json(nlohmann::json&, const SimpleGlobalState&);
   void from_json(const nlohmann::json&, SimpleGlobalState&);
-  bool operator== (const SimpleGlobalState&, const SimpleGlobalState&);
-} // namespace evm
+  bool operator==(const SimpleGlobalState&, const SimpleGlobalState&);
+} // namespace eevm

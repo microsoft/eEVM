@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "simpleglobalstate.h"
+#include "eEVM/simple/simpleglobalstate.h"
 
-namespace evm
+namespace eevm
 {
   bool SimpleGlobalState::exists(const Address& addr)
   {
@@ -56,15 +56,15 @@ namespace evm
 
   bool operator==(const SimpleGlobalState& l, const SimpleGlobalState& r)
   {
-    return (l.accounts == r.accounts) &&
-      (l.currentBlock == r.currentBlock);
+    return (l.accounts == r.accounts) && (l.currentBlock == r.currentBlock);
   }
 
   void to_json(nlohmann::json& j, const SimpleGlobalState& s)
   {
     j["block"] = s.currentBlock;
     auto o = nlohmann::json::array();
-    for (const auto& p: s.accounts) {
+    for (const auto& p : s.accounts)
+    {
       o.push_back({to_hex_str(p.first), p.second});
     }
     j["accounts"] = o;
@@ -75,10 +75,11 @@ namespace evm
     if (j.find("block") != j.end())
       assign_j(a.currentBlock, j["block"]);
     auto acc = j["accounts"].items();
-    for (const auto& it: acc) {
+    for (const auto& it : acc)
+    {
       Address addr = it.value()[0];
       std::pair<Account, SimpleStorage> p = it.value()[1];
       a.accounts.insert(make_pair(addr, p));
     }
   }
-} // namespace evm
+} // namespace eevm

@@ -5,7 +5,7 @@
 #include "bigint.h"
 #include "util.h"
 
-namespace evm
+namespace eevm
 {
   /**
    * An Ethereum block descriptor; in particular, this is used to parse
@@ -43,4 +43,4 @@ namespace evm
     j["currentTimestamp"] = to_hex_string(b.timestamp);
     j["currentCoinbase"] = to_hex_str(b.coinbase);
   }
-} // namespace evm
+} // namespace eevm

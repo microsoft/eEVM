@@ -13,8 +13,8 @@ This sample creates and calls a contract which returns the string "Hello world!"
 - Generates some random Ethereum-compliant addresses. Real addresses should be derived from public-private key-pairs or from the contract generation method specified in the Yellow Paper, but here they are essentially arbitrary identifiers so can be random.
 - Constructs contract bytecode. Real smart contracts will generally be compiled from some higher-level language (such as [Solidity](https://solidity.readthedocs.io/en/v0.5.0/)), but this shows it is also possible to write by hand. When the contract is executed, it stores each byte of the string in EVM memory, then returns the stored memory range.
 - Deploys the contract. To execute bytecode, it must be deployed to an address in the GlobalState.
-- Executes the bytecode. This requires creating an `evm::Transaction` and a sending address, as all EVM execution is transactional.
-- Checks and prints the result. Execution may throw exceptions or halt unexpectedly, and these should be handled by checking `evm::ExitReason evm::ExecResult::er`. On success, any output (sent by `RETURN` opcodes in the top level code) will be in `evm::ExecResult::output`.
+- Executes the bytecode. This requires creating an `eevm::Transaction` and a sending address, as all EVM execution is transactional.
+- Checks and prints the result. Execution may throw exceptions or halt unexpectedly, and these should be handled by checking `eevm::ExitReason eevm::ExecResult::er`. On success, any output (sent by `RETURN` opcodes in the top level code) will be in `eevm::ExecResult::output`.
 
 #### Expected output
 
@@ -33,7 +33,7 @@ This sample creates a contract which sums a pair of arguments passed on the comm
 
 In addition to the concepts from [hello_world](#hello_world), this sample:
 
-- Parses args from command line. This demonstrates some of the helpers from [util.h](../include/util.h), specifically `from_hex_str` and `to_hex_str` for reading and writing 256-bit EVM numbers (or 160-bit addresses).
+- Parses args from command line. This demonstrates some of the helpers from [util.h](../include/eEVM/util.h), specifically `from_hex_str` and `to_hex_str` for reading and writing 256-bit EVM numbers (or 160-bit addresses).
 - Produces bytecode containing 256-bit immediates. Although the bytecode and each op code is a single byte, the complete code may contain larger values (such as the immediate for a `PUSH32` instruction) which must be serialized.
 - Produces verbose output. If the `-v` option is given, this sample will print the precise contract address and code contents.
 
@@ -62,7 +62,7 @@ $ solc --evm-version homestead --combined-json bin,hashes --pretty-json --optimi
 
 - Parses a contract definition. The compiled output is read from a file, then [nlohmann::json](https://github.com/nlohmann/json) is used to extract the relevant fields from json.
 - Deploys contract from definition. This demonstrates basic ABI encoding of arguments. The "bin" field from the contract definition is the raw code for the constructor - it must be given a single argument then run to produce the actual contract state and code.
-- Calls functions on a deployed contract. The function selectors are retrieved from the "hashes" field of the contract definition, their ABI-encoded arguments appended, and the result is passed as input to an EVM transaction. All function calls (totalSupply, balanceOf, transfer) are like this, and use `run_and_check_result` to wrap the execution in `evm::Processor::run`.
+- Calls functions on a deployed contract. The function selectors are retrieved from the "hashes" field of the contract definition, their ABI-encoded arguments appended, and the result is passed as input to an EVM transaction. All function calls (totalSupply, balanceOf, transfer) are like this, and use `run_and_check_result` to wrap the execution in `eevm::Processor::run`.
 - Address storage. Addresses are individual identities, and may have associated balances or state in any number of contracts' storage - all of which is contained within `GlobalState`. Only the address must be retained and passed.
 - State reporting. The contract (and entire network) state is embedded in `GlobalState`, but not in an easily readable form. Instead the state can be reconstructed by additional read-only transactions sent to the ERC20 contract, and those results converted to a human-readable representation of the returned values.
 

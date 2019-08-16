@@ -1,13 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "simplestorage.h"
+#include "eEVM/simple/simplestorage.h"
 
-#include "../include/util.h"
+#include "eEVM/util.h"
 
 #include <ostream>
 
-namespace evm
+namespace eevm
 {
   SimpleStorage::SimpleStorage(const nlohmann::json& j)
   {
@@ -67,4 +67,4 @@ namespace evm
     os << nlohmann::json(s).dump(2);
     return os;
   }
-} // namespace evm
+} // namespace eevm

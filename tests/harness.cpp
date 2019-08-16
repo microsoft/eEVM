@@ -1,20 +1,20 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../evm/simpleglobalstate.h"
-#include "../evm/simplestorage.h"
-#include "../include/disassembler.h"
-#include "../include/opcode.h"
-#include "../include/processor.h"
-#include "../include/rlp.h"
-#include "../include/util.h"
+#include "eEVM/disassembler.h"
+#include "eEVM/opcode.h"
+#include "eEVM/processor.h"
+#include "eEVM/rlp.h"
+#include "eEVM/simple/simpleglobalstate.h"
+#include "eEVM/simple/simplestorage.h"
+#include "eEVM/util.h"
 
 #include <doctest/doctest.h>
 #include <fstream>
 #include <nlohmann/json.hpp>
 
 using namespace std;
-using namespace evm;
+using namespace eevm;
 using namespace nlohmann;
 
 pair<Account, SimpleStorage> parseAccount(json::const_iterator& it)

@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/transaction.h"
+#include "eEVM/transaction.h"
 
-#include "../include/util.h"
+#include "eEVM/util.h"
 
-namespace evm
+namespace eevm
 {
   bool LogEntry::operator==(const LogEntry& that) const
   {
@@ -26,4 +26,4 @@ namespace evm
     assign_j_const(log.data, to_bytes(j["data"]));
     assign_j_const(log.topics, j["topics"]);
   }
-} // namespace evm
+} // namespace eevm

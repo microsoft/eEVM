@@ -1,14 +1,14 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/account.h"
+#include "eEVM/account.h"
 
-#include "../include/exception.h"
+#include "eEVM/exception.h"
 
 #include <ostream>
 #include <type_traits>
 
-namespace evm
+namespace eevm
 {
   bool Account::has_code() const
   {
@@ -72,4 +72,4 @@ namespace evm
     if (j.find("code") != j.end())
       assign_j(a.code, to_bytes(j["code"]));
   }
-} // namespace evm
+} // namespace eevm

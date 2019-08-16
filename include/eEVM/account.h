@@ -9,7 +9,7 @@
 
 #include <nlohmann/json.hpp>
 
-namespace evm
+namespace eevm
 {
   using Code = std::vector<uint8_t>;
 
@@ -54,4 +54,4 @@ namespace evm
 
   void to_json(nlohmann::json&, const Account&);
   void from_json(const nlohmann::json&, Account&);
-} // namespace evm
+} // namespace eevm
