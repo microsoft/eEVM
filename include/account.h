@@ -26,7 +26,7 @@ namespace evm
     virtual void decrement_balance(const uint256_t& amount) = 0;
     virtual void pay_to(Account& r, const uint256_t& amount) = 0;
 
-    virtual Nonce get_nonce() const = 0; // Returns new nonce after incrementing
+    virtual Nonce get_nonce() const = 0;
     virtual void increment_nonce() = 0;
 
     virtual Code get_code() const = 0;
