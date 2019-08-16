@@ -153,7 +153,7 @@ TEST_CASE("arrays" * doctest::test_suite("rlp"))
 {
   {
     std::array<uint8_t, 100> a;
-    for (size_t i; i < a.size(); ++i)
+    for (size_t i = 0; i < a.size(); ++i)
     {
       a[i] = i * i;
     }

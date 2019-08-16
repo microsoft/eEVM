@@ -17,6 +17,15 @@ namespace evm
     uint256_t coinbase;
   };
 
+  inline bool operator==(const Block& l, const Block& r)
+  {
+   return l.coinbase == r.coinbase &&
+          l.number == r.number &&
+          l.difficulty == r.difficulty &&
+          l.gas_limit == r.gas_limit &&
+          l.timestamp == r.timestamp;
+  }
+
   inline void from_json(const nlohmann::json& j, Block& b)
   {
     b.number = to_uint64(j["currentNumber"]);
@@ -24,5 +33,14 @@ namespace evm
     b.gas_limit = to_uint64(j["currentGasLimit"]);
     b.timestamp = to_uint64(j["currentTimestamp"]);
     b.coinbase = from_hex_str(j["currentCoinbase"]);
+  }
+
+  inline void to_json(nlohmann::json& j, const Block& b)
+  {
+    j["currentNumber"] = to_hex_string(b.number);
+    j["currentDifficulty"] = to_hex_string(b.difficulty);
+    j["currentGasLimit"] = to_hex_string(b.gas_limit);
+    j["currentTimestamp"] = to_hex_string(b.timestamp);
+    j["currentCoinbase"] = to_hex_str(b.coinbase);
   }
 } // namespace evm
