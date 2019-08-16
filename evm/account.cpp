@@ -8,7 +8,7 @@
 #include <ostream>
 #include <type_traits>
 
-namespace evm
+namespace eevm
 {
   bool Account::has_code() const
   {
@@ -72,4 +72,4 @@ namespace evm
     if (j.find("code") != j.end())
       assign_j(a.code, to_bytes(j["code"]));
   }
-} // namespace evm
+} // namespace eevm

@@ -11,7 +11,7 @@
 #include <utility>
 #include <vector>
 
-namespace evm
+namespace eevm
 {
   struct TraceEvent
   {
@@ -83,4 +83,4 @@ namespace evm
       os << e << std::endl;
     return os;
   }
-} // namespace evm
+} // namespace eevm

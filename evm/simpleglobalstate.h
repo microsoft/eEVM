@@ -6,7 +6,7 @@
 #include "../include/globalstate.h"
 #include "simplestorage.h"
 
-namespace evm
+namespace eevm
 {
   /**
    * Simple std::map-backed implementation of GlobalState
@@ -49,4 +49,4 @@ namespace evm
   void to_json(nlohmann::json&, const SimpleGlobalState&);
   void from_json(const nlohmann::json&, SimpleGlobalState&);
   bool operator== (const SimpleGlobalState&, const SimpleGlobalState&);
-} // namespace evm
+} // namespace eevm

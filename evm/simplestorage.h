@@ -7,7 +7,7 @@
 
 #include <map>
 
-namespace evm
+namespace eevm
 {
   /**
    * Simple std::map-backed implementation of Storage
@@ -32,4 +32,4 @@ namespace evm
   };
   void to_json(nlohmann::json& j, const SimpleStorage& s);
   void from_json(const nlohmann::json& j, SimpleStorage& s);
-} // namespace evm
+} // namespace eevm

@@ -12,7 +12,7 @@
 #include <utility>
 #include <vector>
 
-namespace evm
+namespace eevm
 {
   namespace rlp
   {
@@ -629,4 +629,4 @@ namespace evm
       return std::get<0>(tup);
     }
   }
-} // namespace evm
+} // namespace eevm

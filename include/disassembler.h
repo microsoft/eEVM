@@ -15,17 +15,17 @@
 #include <unordered_map>
 #include <vector>
 
-namespace evm
+namespace eevm
 {
   struct Op
   {
-    evm::Opcode opcode;
+    Opcode opcode;
     const char* mnemonic;
     const uint8_t immediate_bytes;
     const uint32_t gas = 0;
 
     Op(
-      evm::Opcode opcode,
+      Opcode opcode,
       const char* mnemonic,
       uint8_t immediate_bytes = 0,
       uint32_t gas = 0) :
@@ -172,4 +172,4 @@ namespace evm
       return d;
     }
   };
-} // namespace evm
+} // namespace eevm

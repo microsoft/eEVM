@@ -4,7 +4,7 @@
 
 #include <doctest/doctest.h>
 
-using namespace evm;
+using namespace eevm;
 using namespace std::string_literals;
 
 const auto large_input_decoded = std::make_tuple(

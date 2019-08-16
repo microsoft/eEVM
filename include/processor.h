@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace evm
+namespace eevm
 {
   enum class ExitReason : uint8_t
   {
@@ -42,7 +42,7 @@ namespace evm
      * @brief The main entry point for the EVM.
      *
      * Runs the callee's code in the caller's context. VM exceptions (ie,
-     * evm::Exception) will be caught and returned in the result.
+     * eevm::Exception) will be caught and returned in the result.
      *
      * @param tx the transaction
      * @param caller the caller's address
@@ -61,4 +61,4 @@ namespace evm
       const uint256_t& call_value,
       Trace* tr = nullptr);
   };
-} // namespace evm
+} // namespace eevm

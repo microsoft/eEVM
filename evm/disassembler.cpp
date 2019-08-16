@@ -20,7 +20,7 @@ using namespace std;
     } \
   }
 
-namespace evm
+namespace eevm
 {
   const std::unordered_map<uint8_t, Op> Disassembler::ops = {
     EVM_OPCODE(STOP),
@@ -153,4 +153,4 @@ namespace evm
     EVM_OPCODE(RETURN),
     EVM_OPCODE(DELEGATECALL),
     EVM_OPCODE(DESTROY)};
-} // namespace evm
+} // namespace eevm

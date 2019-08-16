@@ -6,7 +6,7 @@
 
 #include <vector>
 
-namespace evm
+namespace eevm
 {
   namespace log
   {
@@ -77,4 +77,4 @@ namespace evm
       log_handler(lh)
     {}
   };
-} // namespace evm
+} // namespace eevm

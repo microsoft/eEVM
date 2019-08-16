@@ -4,7 +4,7 @@
 #pragma once
 #include <exception>
 
-namespace evm
+namespace eevm
 {
   /**
    * A smart contract runtime execption
@@ -49,4 +49,4 @@ namespace evm
       return msg;
     }
   };
-} // namespace evm
+} // namespace eevm

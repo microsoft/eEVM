@@ -19,7 +19,7 @@ int usage(const char* bin_name)
 void push_uint256(std::vector<uint8_t>& code, const uint256_t& n)
 {
   // Append opcode
-  code.push_back(evm::Opcode::PUSH32);
+  code.push_back(eevm::Opcode::PUSH32);
 
   // Resize code array
   const size_t pre_size = code.size();
@@ -39,19 +39,19 @@ std::vector<uint8_t> create_a_plus_b_bytecode(
   // Push args and ADD
   push_uint256(code, a);
   push_uint256(code, b);
-  code.push_back(evm::Opcode::ADD);
+  code.push_back(eevm::Opcode::ADD);
 
   // Store result
-  code.push_back(evm::Opcode::PUSH1);
+  code.push_back(eevm::Opcode::PUSH1);
   code.push_back(mdest);
-  code.push_back(evm::Opcode::MSTORE);
+  code.push_back(eevm::Opcode::MSTORE);
 
   // Return
-  code.push_back(evm::Opcode::PUSH1);
+  code.push_back(eevm::Opcode::PUSH1);
   code.push_back(rsize);
-  code.push_back(evm::Opcode::PUSH1);
+  code.push_back(eevm::Opcode::PUSH1);
   code.push_back(mdest);
-  code.push_back(evm::Opcode::RETURN);
+  code.push_back(eevm::Opcode::RETURN);
 
   return code;
 }
@@ -93,36 +93,36 @@ int main(int argc, char** argv)
   std::vector<uint8_t> raw_address(160);
   std::generate(
     raw_address.begin(), raw_address.end(), []() { return rand(); });
-  const evm::Address sender =
+  const eevm::Address sender =
     from_big_endian(raw_address.begin(), raw_address.end());
 
   // Generate a target address for the summing contract (this COULD be random,
   // but here we use the scheme for Contract Creation specified in the Yellow
   // Paper)
-  const evm::Address to = evm::generate_address(sender, 0);
+  const eevm::Address to = eevm::generate_address(sender, 0);
 
   // Create summing bytecode
-  const evm::Code code = create_a_plus_b_bytecode(arg_a, arg_b);
+  const eevm::Code code = create_a_plus_b_bytecode(arg_a, arg_b);
 
   // Construct global state
-  evm::SimpleGlobalState gs;
+  eevm::SimpleGlobalState gs;
 
   // Populate the global state with the constructed contract
-  const evm::AccountState contract = gs.create(to, 0, code);
+  const eevm::AccountState contract = gs.create(to, 0, code);
 
   if (verbose)
   {
     std::cout << "Address " << to_hex_str(to)
               << " contains the following bytecode:" << std::endl;
-    std::cout << evm::to_hex_string(contract.acc.code) << std::endl;
+    std::cout << eevm::to_hex_string(contract.acc.code) << std::endl;
   }
 
   // Construct a transaction object
-  evm::NullLogHandler ignore; //< Ignore any logs produced by this transaction
-  evm::Transaction tx(sender, ignore);
+  eevm::NullLogHandler ignore; //< Ignore any logs produced by this transaction
+  eevm::Transaction tx(sender, ignore);
 
   // Construct processor
-  evm::Processor p(gs);
+  eevm::Processor p(gs);
 
   if (verbose)
   {
@@ -131,8 +131,8 @@ int main(int argc, char** argv)
   }
 
   // Run transaction
-  evm::Trace tr;
-  const evm::ExecResult e = p.run(
+  eevm::Trace tr;
+  const eevm::ExecResult e = p.run(
     tx,
     sender,
     contract,
@@ -141,7 +141,7 @@ int main(int argc, char** argv)
     &tr //< Record execution trace
   );
 
-  if (e.er != evm::ExitReason::returned)
+  if (e.er != eevm::ExitReason::returned)
   {
     std::cout << "Unexpected return code" << std::endl;
     return 2;

@@ -7,7 +7,7 @@
 
 #include <ostream>
 
-namespace evm
+namespace eevm
 {
   SimpleStorage::SimpleStorage(const nlohmann::json& j)
   {
@@ -67,4 +67,4 @@ namespace evm
     os << nlohmann::json(s).dump(2);
     return os;
   }
-} // namespace evm
+} // namespace eevm

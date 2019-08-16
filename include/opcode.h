@@ -4,7 +4,7 @@
 #pragma once
 #include <stdint.h>
 
-namespace evm
+namespace eevm
 {
   /**
    * All opcodes supported by our EVM. Note that we currently target Homestead
@@ -155,4 +155,4 @@ namespace evm
 
     DESTROY = 0xff
   };
-} // namespace evm
+} // namespace eevm

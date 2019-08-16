@@ -10,7 +10,7 @@
 
 using namespace std;
 
-namespace evm
+namespace eevm
 {
   using ET = Exception::Type;
 
@@ -89,4 +89,4 @@ namespace evm
       os << i++ << ": " << to_hex_str(elem) << "\n";
     return os;
   }
-} // namespace evm
+} // namespace eevm

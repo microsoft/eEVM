@@ -14,7 +14,7 @@
 #include <nlohmann/json.hpp>
 
 using namespace std;
-using namespace evm;
+using namespace eevm;
 using namespace nlohmann;
 
 pair<Account, SimpleStorage> parseAccount(json::const_iterator& it)

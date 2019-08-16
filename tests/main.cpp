@@ -17,7 +17,7 @@
 #include "../include/bigint.h"
 
 using namespace std;
-using namespace evm;
+using namespace eevm;
 
 TEST_CASE("from_json/to_json are mutually inverse")
 {

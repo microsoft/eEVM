@@ -7,7 +7,7 @@
 #include <deque>
 #include <ostream>
 
-namespace evm
+namespace eevm
 {
   /**
    * Stack used by Processor
@@ -29,4 +29,4 @@ namespace evm
 
     friend std::ostream& operator<<(std::ostream& os, const Stack& s);
   };
-} // namespace evm
+} // namespace eevm

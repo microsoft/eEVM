@@ -21,7 +21,7 @@
 
 using namespace std;
 
-namespace evm
+namespace eevm
 {
   struct Consts
   {
@@ -1298,4 +1298,4 @@ namespace evm
   {
     return _Processor(gs, tx, tr).run(caller, callee, input, call_value);
   }
-} // namespace evm
+} // namespace eevm

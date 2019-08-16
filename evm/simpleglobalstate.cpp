@@ -3,7 +3,7 @@
 
 #include "simpleglobalstate.h"
 
-namespace evm
+namespace eevm
 {
   bool SimpleGlobalState::exists(const Address& addr)
   {
@@ -81,4 +81,4 @@ namespace evm
       a.accounts.insert(make_pair(addr, p));
     }
   }
-} // namespace evm
+} // namespace eevm

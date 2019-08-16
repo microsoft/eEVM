@@ -5,7 +5,7 @@
 
 #include "bigint.h"
 
-namespace evm
+namespace eevm
 {
   /**
    * Abstract interface for accessing EVM's permanent, per-address key-value
@@ -19,4 +19,4 @@ namespace evm
     virtual bool remove(const uint256_t& key) = 0;
     virtual ~Storage() {}
   };
-} // namespace evm
+} // namespace eevm
