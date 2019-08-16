@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../evm/simpleglobalstate.h"
-#include "../evm/simplestorage.h"
 #include "../include/disassembler.h"
 #include "../include/opcode.h"
 #include "../include/processor.h"
 #include "../include/rlp.h"
+#include "../include/simple/simpleglobalstate.h"
+#include "../include/simple/simplestorage.h"
 #include "../include/util.h"
 
 #include <doctest/doctest.h>

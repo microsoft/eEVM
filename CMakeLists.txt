@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(evm)
+project(eevm)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -32,43 +32,43 @@ if(RECORD_TRACE)
   add_definitions(-DRECORD_TRACE)
 endif(RECORD_TRACE)
 
-add_library(evm STATIC
-  evm/account.cpp
-  evm/disassembler.cpp
-  evm/simpleglobalstate.cpp
-  evm/simplestorage.cpp
-  evm/stack.cpp
-  evm/transaction.cpp
-  evm/util.cpp
-  evm/processor.cpp
+add_library(eevm STATIC
+  src/account.cpp
+  src/disassembler.cpp
+  src/processor.cpp
+  src/stack.cpp
+  src/transaction.cpp
+  src/util.cpp
+  src/simple/simpleglobalstate.cpp
+  src/simple/simplestorage.cpp
   ${KECCAK_SOURCES}
 )
-target_include_directories(evm PRIVATE
+target_include_directories(eevm PRIVATE
   ${Boost_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
 )
 
-add_executable(evm_tests
+add_executable(eevm_tests
   tests/main.cpp
   tests/harness.cpp
   tests/rlp.cpp
 )
-target_include_directories(evm_tests PRIVATE
+target_include_directories(eevm_tests PRIVATE
   ${Boost_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
-target_compile_options(evm_tests PRIVATE ${COVERAGE_FLAGS})
-target_link_libraries(evm_tests evm ${PLATFORM_SPECIFIC_TEST_LIBS})
+target_compile_options(eevm_tests PRIVATE ${COVERAGE_FLAGS})
+target_link_libraries(eevm_tests eevm ${PLATFORM_SPECIFIC_TEST_LIBS})
 
 enable_testing()
 add_test(
-  NAME evm_tests
-  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tests/unit_test_wrapper.sh evm_tests
+  NAME eevm_tests
+  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tests/unit_test_wrapper.sh eevm_tests
 )
 
 if(NOT ENV{TEST_DIR}) 
-  set_tests_properties(evm_tests PROPERTIES ENVIRONMENT TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/test_cases)
+  set_tests_properties(eevm_tests PROPERTIES ENVIRONMENT TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/test_cases)
 endif()
 
 function(add_sample name)
@@ -80,7 +80,7 @@ function(add_sample name)
     ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
     ${CMAKE_CURRENT_SOURCE_DIR}
   )
-  target_link_libraries(${name} evm)
+  target_link_libraries(${name} eevm)
 endfunction()
 
 add_sample(hello_world)

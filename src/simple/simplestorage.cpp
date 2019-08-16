@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "simplestorage.h"
+#include "../include/simple/simplestorage.h"
 
 #include "../include/util.h"
 
