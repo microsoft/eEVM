@@ -17,6 +17,7 @@ namespace evm
       outOfBounds,
       outOfGas,
       outOfFunds,
+      overflow,
       illegalInstruction,
       notImplemented
     };

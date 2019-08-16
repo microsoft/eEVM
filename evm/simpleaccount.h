@@ -34,17 +34,15 @@ namespace evm
     void set_address(const Address& a);
 
     virtual uint256_t get_balance() const override;
-    virtual void increment_balance(const uint256_t& amount) override;
-    virtual void decrement_balance(const uint256_t& amount) override;
-    virtual void pay_to(Account& r, const uint256_t& amount) override;
+    virtual void set_balance(const uint256_t& b) override;
 
     virtual Nonce get_nonce() const override;
-    virtual void increment_nonce() override;
     void set_nonce(Nonce n);
+    virtual void increment_nonce() override;
 
     virtual Code get_code() const override;
-    virtual bool has_code() override;
     virtual void set_code(Code&& c) override;
+    virtual bool has_code() override;
 
     bool operator==(const Account&) const;
 

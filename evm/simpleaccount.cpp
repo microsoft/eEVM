@@ -3,7 +3,6 @@
 
 #include "simpleaccount.h"
 
-#include "../include/exception.h"
 #include "../include/util.h"
 
 namespace evm
@@ -23,38 +22,9 @@ namespace evm
     return balance;
   }
 
-  void SimpleAccount::increment_balance(const uint256_t& amount)
+  void SimpleAccount::set_balance(const uint256_t& b)
   {
-    const auto new_balance = balance + amount;
-
-    if (new_balance < balance)
-    {
-      // This overflow is not a type of evm::Exception, throw as runtime_error
-      throw std::runtime_error(
-        "Overflow while incrementing balance (" + to_hex_str(balance) + " + " +
-        to_hex_str(amount) + ")");
-    }
-
-    balance = new_balance;
-  }
-
-  void SimpleAccount::decrement_balance(const uint256_t& amount)
-  {
-    if (amount > balance)
-    {
-      throw Exception(
-        Exception::Type::outOfFunds,
-        "Insufficient funds to pay (" + to_hex_str(amount) + " > " +
-          to_hex_str(balance) + ")");
-    }
-
-    balance -= amount;
-  }
-
-  void SimpleAccount::pay_to(Account& r, const uint256_t& amount)
-  {
-    decrement_balance(amount);
-    r.increment_balance(amount);
+    balance = b;
   }
 
   Account::Nonce SimpleAccount::get_nonce() const
@@ -62,14 +32,14 @@ namespace evm
     return nonce;
   }
 
-  void SimpleAccount::increment_nonce()
-  {
-    ++nonce;
-  }
-
   void SimpleAccount::set_nonce(Nonce n)
   {
     nonce = n;
+  }
+
+  void SimpleAccount::increment_nonce()
+  {
+    ++nonce;
   }
 
   Code SimpleAccount::get_code() const
@@ -77,14 +47,14 @@ namespace evm
     return code;
   }
 
-  bool SimpleAccount::has_code()
-  {
-    return !get_code().empty();
-  }
-
   void SimpleAccount::set_code(Code&& c)
   {
     code = c;
+  }
+
+  bool SimpleAccount::has_code()
+  {
+    return !get_code().empty();
   }
 
   bool SimpleAccount::operator==(const Account& a) const
