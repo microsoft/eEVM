@@ -25,7 +25,7 @@ steps:
   displayName: Make
   workingDirectory: build
 
-- script: 'make test'
+- script: 'ctest -VV'
   displayName: Quick test
   workingDirectory: build
 
