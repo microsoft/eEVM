@@ -17,6 +17,15 @@ namespace evm
     uint256_t coinbase;
   };
 
+  inline bool operator==(const Block& l, const Block& r)
+  {
+   return l.coinbase == r.coinbase &&
+          l.number == r.number &&
+          l.difficulty == r.difficulty &&
+          l.gas_limit == r.gas_limit &&
+          l.timestamp == r.timestamp;
+  }
+
   inline void from_json(const nlohmann::json& j, Block& b)
   {
     b.number = to_uint64(j["currentNumber"]);

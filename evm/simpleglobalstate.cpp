@@ -54,10 +54,20 @@ namespace evm
     accounts.insert(std::make_pair(p.first.address, p));
   }
 
+  bool operator==(const SimpleGlobalState& l, const SimpleGlobalState& r)
+  {
+    return (l.accounts == r.accounts) &&
+      (l.currentBlock == r.currentBlock);
+  }
+
   void to_json(nlohmann::json& j, const SimpleGlobalState& s)
   {
     j["block"] = s.currentBlock;
-    j["accounts"] = s.accounts;
+    auto o = nlohmann::json::array();
+    for (const auto& p: s.accounts) {
+      o.push_back({to_hex_str(p.first), p.second});
+    }
+    j["accounts"] = o;
   }
 
   void from_json(const nlohmann::json& j, SimpleGlobalState& a)
