@@ -33,7 +33,7 @@ This sample creates a contract which sums a pair of arguments passed on the comm
 
 In addition to the concepts from [hello_world](#hello_world), this sample:
 
-- Parses args from command line. This demonstrates some of the helpers from [util.h](../include/util.h), specifically `from_hex_str` and `to_hex_str` for reading and writing 256-bit EVM numbers (or 160-bit addresses).
+- Parses args from command line. This demonstrates some of the helpers from [util.h](../include/eEVM/util.h), specifically `from_hex_str` and `to_hex_str` for reading and writing 256-bit EVM numbers (or 160-bit addresses).
 - Produces bytecode containing 256-bit immediates. Although the bytecode and each op code is a single byte, the complete code may contain larger values (such as the immediate for a `PUSH32` instruction) which must be serialized.
 - Produces verbose output. If the `-v` option is given, this sample will print the precise contract address and code contents.
 
