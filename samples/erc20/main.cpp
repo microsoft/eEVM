@@ -6,6 +6,7 @@
 #include "eEVM/simple/simpleglobalstate.h"
 
 #include <cassert>
+#include <fmt/format_header_only.h>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -74,7 +75,7 @@ std::vector<uint8_t> run_and_check_result(
     {
       // Rethrow to highlight any exceptions raised in execution
       throw std::runtime_error(
-        "Execution threw an error: " + exec_result.exmsg);
+        fmt::format("Execution threw an error: {}", exec_result.exmsg));
     }
 
     throw std::runtime_error("Deployment did not return");
@@ -179,9 +180,12 @@ bool transfer(
   append_argument(function_call, target_address);
   append_argument(function_call, amount);
 
-  std::cout << "Transferring " << amount << " from "
-            << eevm::to_checksum_address(source_address) << " to "
-            << eevm::to_checksum_address(target_address);
+  std::cout << fmt::format(
+                 "Transferring {} from {} to {}",
+                 amount,
+                 eevm::to_checksum_address(source_address),
+                 eevm::to_checksum_address(target_address))
+            << std::endl;
 
   const auto output =
     run_and_check_result(env, source_address, contract_address, function_call);
@@ -245,12 +249,13 @@ void print_erc20_state(
   }
 
   std::cout << heading << std::endl;
-  std::cout << "Total supply of tokens is: " << total_supply << std::endl;
+  std::cout << fmt::format("Total supply of tokens is: {}", total_supply)
+            << std::endl;
   std::cout << "User balances: " << std::endl;
   for (const auto& pair : balances)
   {
-    std::cout << "  " << pair.second << " owned by "
-              << eevm::to_checksum_address(pair.first);
+    std::cout << fmt::format(
+      " {} owned by {}", pair.second, eevm::to_checksum_address(pair.first));
     if (pair.first == env.owner_address)
     {
       std::cout << " (original contract creator)";
@@ -272,7 +277,7 @@ int main(int argc, char** argv)
 
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " path/to/ERC20_combined.json"
+    std::cout << fmt::format("Usage: {} path/to/ERC20_combined.json", argv[0])
               << std::endl;
     return 1;
   }
@@ -295,7 +300,7 @@ int main(int argc, char** argv)
   if (!contract_fstream)
   {
     throw std::runtime_error(
-      std::string("Unable to open contract definition file ") + contract_path);
+      fmt::format("Unable to open contract definition file {}", contract_path));
   }
 
   // Parse the contract definition from file
