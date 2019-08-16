@@ -15,13 +15,8 @@ numeric_limits<int256_t>::max() == numeric_limits<uint256_t>::max() == (1 <<
 256) -1 I.e., the sign is stored in a separate bit.
 */
 
-using uint128_t = boost::multiprecision::uint128_t;
 using uint256_t = boost::multiprecision::uint256_t;
 using uint512_t = boost::multiprecision::uint512_t;
-
-using int128_t = boost::multiprecision::int128_t;
-using int256_t = boost::multiprecision::int256_t;
-using int512_t = boost::multiprecision::int512_t;
 
 inline auto from_hex_str(const std::string& s)
 {
