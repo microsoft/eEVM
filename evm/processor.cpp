@@ -1182,7 +1182,8 @@ namespace evm
 
     void destroy()
     {
-      gs.get(pop_addr(ctxt->s)).acc.increment_balance(ctxt->acc.get_balance());
+      auto recipient = gs.get(pop_addr(ctxt->s));
+      ctxt->acc.pay_to(recipient.acc, ctxt->acc.get_balance());
       tx.destroy_list.push_back(ctxt->acc.get_address());
       stop();
     }
@@ -1205,7 +1206,7 @@ namespace evm
 
       // In contract creation, the transaction value is an endowment for the
       // newly created account
-      ctxt->acc.pay(newAcc.acc, contractValue);
+      ctxt->acc.pay_to(newAcc.acc, contractValue);
 
       auto parentContext = ctxt;
       auto rh = [&newAcc, parentContext](vector<uint8_t> output) {
@@ -1247,7 +1248,7 @@ namespace evm
       }
 
       decltype(auto) callee = gs.get(addr);
-      ctxt->acc.pay(callee.acc, value);
+      ctxt->acc.pay_to(callee.acc, value);
       if (!callee.acc.has_code())
       {
         ctxt->s.push(1);

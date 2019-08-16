@@ -51,7 +51,7 @@ namespace evm
     balance -= amount;
   }
 
-  void SimpleAccount::pay(Account& r, const uint256_t& amount)
+  void SimpleAccount::pay_to(Account& r, const uint256_t& amount)
   {
     decrement_balance(amount);
     r.increment_balance(amount);

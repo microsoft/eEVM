@@ -36,7 +36,7 @@ namespace evm
     virtual uint256_t get_balance() const override;
     virtual void increment_balance(const uint256_t& amount) override;
     virtual void decrement_balance(const uint256_t& amount) override;
-    virtual void pay(Account& r, const uint256_t& amount) override;
+    virtual void pay_to(Account& r, const uint256_t& amount) override;
 
     virtual Nonce get_nonce() const override;
     virtual void increment_nonce() override;

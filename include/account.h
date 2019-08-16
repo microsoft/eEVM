@@ -24,13 +24,13 @@ namespace evm
     virtual uint256_t get_balance() const = 0;
     virtual void increment_balance(const uint256_t& amount) = 0;
     virtual void decrement_balance(const uint256_t& amount) = 0;
-    virtual void pay(Account& r, const uint256_t& amount) = 0;
+    virtual void pay_to(Account& r, const uint256_t& amount) = 0;
 
     virtual Nonce get_nonce() const = 0; // Returns new nonce after incrementing
     virtual void increment_nonce() = 0;
 
     virtual Code get_code() const = 0;
     virtual bool has_code() = 0;
-    virtual void set_code(Code&& code_) = 0;
+    virtual void set_code(Code&& code) = 0;
   };
 } // namespace evm
