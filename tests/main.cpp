@@ -33,7 +33,6 @@ TEST_CASE("from_json/to_json are mutually inverse")
     SimpleGlobalState s0;
     nlohmann::json j = s0;
     SimpleGlobalState s1 = j.get<SimpleGlobalState>();
-    std::cout << j.dump(2) << std::endl;
     REQUIRE(s1 == s0);
   }
   SUBCASE("Using fully defined SimpleGlobalState JSON object")
