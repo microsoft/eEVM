@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/util.h"
+#include "eEVM/util.h"
 
-#include "../include/rlp.h"
+#include "eEVM/rlp.h"
 
 #include <iomanip>
 

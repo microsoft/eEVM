@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "../include/globalstate.h"
+#include "eEVM/globalstate.h"
 #include "simplestorage.h"
 
 namespace eevm
@@ -43,10 +43,10 @@ namespace eevm
 
     friend void to_json(nlohmann::json&, const SimpleGlobalState&);
     friend void from_json(const nlohmann::json&, SimpleGlobalState&);
-    friend bool operator== (const SimpleGlobalState&, const SimpleGlobalState&);
+    friend bool operator==(const SimpleGlobalState&, const SimpleGlobalState&);
   };
 
   void to_json(nlohmann::json&, const SimpleGlobalState&);
   void from_json(const nlohmann::json&, SimpleGlobalState&);
-  bool operator== (const SimpleGlobalState&, const SimpleGlobalState&);
+  bool operator==(const SimpleGlobalState&, const SimpleGlobalState&);
 } // namespace eevm

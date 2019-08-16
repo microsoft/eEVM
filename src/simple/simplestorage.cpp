@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/simple/simplestorage.h"
+#include "eEVM/simple/simplestorage.h"
 
-#include "../include/util.h"
+#include "eEVM/util.h"
 
 #include <ostream>
 

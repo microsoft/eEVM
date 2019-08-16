@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/stack.h"
+#include "eEVM/stack.h"
 
-#include "../include/exception.h"
+#include "eEVM/exception.h"
 
 #include <algorithm>
 #include <limits>

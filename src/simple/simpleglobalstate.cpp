@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/simple/simpleglobalstate.h"
+#include "eEVM/simple/simpleglobalstate.h"
 
 namespace eevm
 {

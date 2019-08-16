@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/disassembler.h"
+#include "eEVM/disassembler.h"
 
 using namespace std;
 

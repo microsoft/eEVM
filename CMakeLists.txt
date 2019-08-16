@@ -32,6 +32,12 @@ if(RECORD_TRACE)
   add_definitions(-DRECORD_TRACE)
 endif(RECORD_TRACE)
 
+set(EEVM_INCLUDE_DIRS
+  ${Boost_INCLUDE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
 add_library(eevm STATIC
   src/account.cpp
   src/disassembler.cpp
@@ -44,8 +50,7 @@ add_library(eevm STATIC
   ${KECCAK_SOURCES}
 )
 target_include_directories(eevm PRIVATE
-  ${Boost_INCLUDE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
+  ${EEVM_INCLUDE_DIRS}
 )
 
 add_executable(eevm_tests
@@ -54,9 +59,7 @@ add_executable(eevm_tests
   tests/rlp.cpp
 )
 target_include_directories(eevm_tests PRIVATE
-  ${Boost_INCLUDE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
-  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${EEVM_INCLUDE_DIRS}
 )
 target_compile_options(eevm_tests PRIVATE ${COVERAGE_FLAGS})
 target_link_libraries(eevm_tests eevm ${PLATFORM_SPECIFIC_TEST_LIBS})
@@ -76,9 +79,7 @@ function(add_sample name)
     samples/${name}/main.cpp
   )
   target_include_directories(${name} PRIVATE
-    ${Boost_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${EEVM_INCLUDE_DIRS}
   )
   target_link_libraries(${name} eevm)
 endfunction()

@@ -1,15 +1,14 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../include/disassembler.h"
-#include "../include/opcode.h"
-#include "../include/processor.h"
-#include "../include/simple/simpleglobalstate.h"
-#include "../include/util.h"
+#include "eEVM/bigint.h"
+#include "eEVM/disassembler.h"
+#include "eEVM/opcode.h"
+#include "eEVM/processor.h"
+#include "eEVM/simple/simpleglobalstate.h"
+#include "eEVM/util.h"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../include/bigint.h"
-
 #include <doctest/doctest.h>
 #include <fstream>
 #include <iostream>
