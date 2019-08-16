@@ -27,11 +27,17 @@ file(GLOB KECCAK_SOURCES
   3rdparty/keccak/*.c
 )
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Options 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 option(RECORD_TRACE "Record a detailed trace of EVM execution during test runs" OFF)
 if(RECORD_TRACE)
   add_definitions(-DRECORD_TRACE)
 endif(RECORD_TRACE)
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Common variables 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 set(EEVM_INCLUDE_DIRS
   ${Boost_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
@@ -52,6 +58,9 @@ set(EEVM_SIMPLE_SRCS
   src/simple/simplestorage.cpp
 )
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Libraries
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 add_library(eevm STATIC
   ${EEVM_CORE_SRCS}
   ${KECCAK_SOURCES}
@@ -60,6 +69,10 @@ target_include_directories(eevm PRIVATE
   ${EEVM_INCLUDE_DIRS}
 )
 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Executables
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 add_executable(eevm_tests
   tests/main.cpp
   tests/harness.cpp
@@ -72,7 +85,12 @@ target_include_directories(eevm_tests PRIVATE
 target_compile_options(eevm_tests PRIVATE ${COVERAGE_FLAGS})
 target_link_libraries(eevm_tests eevm ${PLATFORM_SPECIFIC_TEST_LIBS})
 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Tests
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 enable_testing()
+
 add_test(
   NAME eevm_tests
   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tests/unit_test_wrapper.sh eevm_tests
@@ -85,6 +103,10 @@ if(NOT ENV{TEST_DIR})
   )
 endif()
 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Samples
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 function(add_sample name)
   add_executable(${name}
     samples/${name}/main.cpp
