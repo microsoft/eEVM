@@ -77,7 +77,7 @@ namespace eevm
       i.op.has_immediate() ?
         fmt::format(" 0x{}", to_lower_hex_str(i.get_immediate())) :
         "",
-      i.op.opcode,
+      (int)i.op.opcode,
       fmt::join(i.raw_imm, " "),
       i.comment);
     return os;
