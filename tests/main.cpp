@@ -18,7 +18,8 @@
 using namespace std;
 using namespace eevm;
 
-TEST_CASE("from_json/to_json are mutually inverse")
+TEST_CASE(
+  "from_json/to_json are mutually inverse" * doctest::test_suite("json"))
 {
   constexpr auto env_var = "TEST_DIR";
   auto test_dir = getenv(env_var);
@@ -28,6 +29,7 @@ TEST_CASE("from_json/to_json are mutually inverse")
       "Must set path to test cases in " + std::string(env_var) +
       " environment variable");
   }
+
   SUBCASE("Using default SimpleGlobalState objects")
   {
     SimpleGlobalState s0;
@@ -35,6 +37,7 @@ TEST_CASE("from_json/to_json are mutually inverse")
     SimpleGlobalState s1 = j.get<SimpleGlobalState>();
     REQUIRE(s1 == s0);
   }
+
   SUBCASE("Using fully defined SimpleGlobalState JSON object")
   {
     // simpleGlobalStateFull.json is a generated file, so we can safely
@@ -45,6 +48,7 @@ TEST_CASE("from_json/to_json are mutually inverse")
     nlohmann::json j2 = s0;
     REQUIRE(j == j2);
   }
+
   SUBCASE("Using default Account objects")
   {
     Account a1;
@@ -52,6 +56,7 @@ TEST_CASE("from_json/to_json are mutually inverse")
     Account a2 = j.get<Account>();
     REQUIRE(a1 == a2);
   }
+
   SUBCASE("Using non-default values for Account")
   {
     Account a1;
@@ -61,6 +66,7 @@ TEST_CASE("from_json/to_json are mutually inverse")
     Account a2 = j;
     REQUIRE(a1 == a2);
   }
+
   SUBCASE("Using partially defined JSON as a source for Account")
   {
     auto test_path = string(test_dir) + "/vmTests.json";
@@ -77,6 +83,7 @@ TEST_CASE("from_json/to_json are mutually inverse")
     if (rec.find("address") != rec.end())
       CHECK(a1.address == from_hex_str(j2["address"]));
   }
+
   SUBCASE("Using fully defined JSON as a source for Account")
   {
     auto test_path = string(test_dir) + "/accountFull.json";

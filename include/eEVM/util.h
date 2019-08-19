@@ -104,7 +104,7 @@ namespace eevm
 
   inline std::string to_hex_string(uint64_t v)
   {
-    return fmt::format("0x{:02x}", v);
+    return fmt::format("0x{:x}", v);
   }
 
   inline auto address_to_hex_string(const Address& v)
