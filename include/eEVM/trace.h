@@ -6,6 +6,7 @@
 #include "opcode.h"
 #include "stack.h"
 
+#include <fmt/format_header_only.h>
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -39,15 +40,6 @@ namespace eevm
     {}
   };
 
-  inline std::ostream& operator<<(std::ostream& os, const TraceEvent& e)
-  {
-    os << e.pc << " (" << e.call_depth
-       << "): " << Disassembler::getOp(e.op).mnemonic;
-    if (e.s)
-      os << "\nstack before:\n" << *e.s;
-    return os;
-  }
-
   /**
    * Runtime trace of a smart contract (for debugging)
    */
@@ -72,15 +64,54 @@ namespace eevm
     {
       auto first = n < events.size() ? events.size() - n : 0;
       for (auto i = first; i < events.size(); ++i)
-        os << events[i] << std::endl;
-      os << std::endl;
+      {
+        os << fmt::format("{}", events[i]) << std::endl;
+      }
+    }
+  };
+} // namespace eevm
+
+namespace fmt
+{
+  template <>
+  struct formatter<eevm::TraceEvent>
+  {
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx)
+    {
+      return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const eevm::TraceEvent& e, FormatContext& ctx)
+    {
+      auto s = format_to(
+        ctx.out(),
+        "{} ({}): {}",
+        e.pc,
+        e.call_depth,
+        eevm::Disassembler::getOp(e.op).mnemonic);
+
+      if (e.s)
+        s = format_to(ctx.out(), "\nstack before:\n{}", *e.s);
+
+      return s;
     }
   };
 
-  inline std::ostream& operator<<(std::ostream& os, const Trace& t)
+  template <>
+  struct formatter<eevm::Trace>
   {
-    for (const auto& e : t.events)
-      os << e << std::endl;
-    return os;
-  }
-} // namespace eevm
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx)
+    {
+      return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const eevm::Trace& t, FormatContext& ctx)
+    {
+      return format_to(ctx.out(), "{}", fmt::join(t.events, "\n"));
+    }
+  };
+} // namespace fmt

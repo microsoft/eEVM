@@ -70,7 +70,7 @@ std::vector<uint8_t> run_and_check_result(
   if (exec_result.er != eevm::ExitReason::returned)
   {
     // Print the trace if nothing was returned
-    std::cerr << tr << std::endl;
+    std::cerr << fmt::format("Trace:\n{}", tr) << std::endl;
     if (exec_result.er == eevm::ExitReason::threw)
     {
       // Rethrow to highlight any exceptions raised in execution
@@ -182,7 +182,7 @@ bool transfer(
 
   std::cout << fmt::format(
                  "Transferring {} from {} to {}",
-                 amount,
+                 to_lower_hex_str(amount),
                  eevm::to_checksum_address(source_address),
                  eevm::to_checksum_address(target_address))
             << std::endl;
@@ -249,13 +249,17 @@ void print_erc20_state(
   }
 
   std::cout << heading << std::endl;
-  std::cout << fmt::format("Total supply of tokens is: {}", total_supply)
+  std::cout << fmt::format(
+                 "Total supply of tokens is: {}",
+                 to_lower_hex_str(total_supply))
             << std::endl;
   std::cout << "User balances: " << std::endl;
   for (const auto& pair : balances)
   {
     std::cout << fmt::format(
-      " {} owned by {}", pair.second, eevm::to_checksum_address(pair.first));
+      " {} owned by {}",
+      to_lower_hex_str(pair.second),
+      eevm::to_checksum_address(pair.first));
     if (pair.first == env.owner_address)
     {
       std::cout << " (original contract creator)";

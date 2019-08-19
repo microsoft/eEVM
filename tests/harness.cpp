@@ -47,7 +47,7 @@ void run_test_case(
 
 #ifdef RECORD_TRACE
   const string delim(15, '-');
-  fmt::printf("Test file {}\n{}", testPath, delim);
+  cout << fmt::format("Test file {}\n{}", testPath, delim) << endl;
 #endif
 
   ifstream fs(testPath);
@@ -74,12 +74,12 @@ void run_test_case(
       uint64_t value = to_uint64(j["exec"]["value"]);
 
 #ifdef RECORD_TRACE
-      fmt::printf("Case {} (#{})", it.key(), i);
+      cout << fmt::format("Case {} (#{})", it.key(), i) << endl;
       if (disasm)
       {
         try
         {
-          fmt::printf("Disassembly:{}", Disassembler::dis(c));
+          cout << "Disassembly:" << endl << Disassembler::dis(c) << endl;
         }
         catch (const exception& e)
         {
@@ -116,7 +116,7 @@ void run_test_case(
       const auto e = p.run(tx, caller, gs.get(callee), inp, value, tr);
 
 #ifdef RECORD_TRACE
-      fmt::printf("Trace:\n{}{}", *tr, delim);
+      cout << fmt::format("Trace:\n{}{}", *tr, delim) << endl;
       delete tr;
 #endif
 

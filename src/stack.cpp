@@ -86,7 +86,7 @@ namespace eevm
     int i = 0;
     os << std::dec;
     for (const auto& elem : s.st)
-      os << i++ << ": " << to_hex_str(elem) << "\n";
+      os << fmt::format(" {}: {}", i++, to_hex_str(elem)) << std::endl;
     return os;
   }
 } // namespace eevm
