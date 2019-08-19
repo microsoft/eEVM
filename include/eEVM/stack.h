@@ -5,6 +5,8 @@
 #include "bigint.h"
 
 #include <deque>
+#include <fmt/format_header_only.h>
+#include <fmt/ostream.h>
 #include <ostream>
 
 namespace eevm

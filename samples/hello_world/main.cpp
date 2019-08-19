@@ -5,6 +5,7 @@
 #include "eEVM/processor.h"
 #include "eEVM/simple/simpleglobalstate.h"
 
+#include <fmt/format_header_only.h>
 #include <iostream>
 
 std::vector<uint8_t> create_bytecode(const std::string& s)
@@ -73,7 +74,8 @@ int main(int argc, char** argv)
   // Check the response
   if (e.er != eevm::ExitReason::returned)
   {
-    std::cout << "Unexpected return code" << std::endl;
+    std::cout << fmt::format("Unexpected return code: {}", (size_t)e.er)
+              << std::endl;
     return 2;
   }
 
@@ -81,9 +83,8 @@ int main(int argc, char** argv)
   const std::string response(reinterpret_cast<const char*>(e.output.data()));
   if (response != hello_world)
   {
-    throw std::runtime_error(
-      "Incorrect result.\n Expected: " + hello_world +
-      "\n Actual: " + response);
+    throw std::runtime_error(fmt::format(
+      "Incorrect result.\n Expected: {}\n Actual: {}", hello_world, response));
     return 3;
   }
 

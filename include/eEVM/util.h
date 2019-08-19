@@ -93,16 +93,7 @@ namespace eevm
   template <typename Iterator>
   std::string to_hex_string(Iterator begin, Iterator end)
   {
-    std::stringstream ss;
-
-    ss << "0x" << std::hex;
-    while (begin != end)
-    {
-      ss << std::setfill('0') << std::setw(2) << (int)*begin;
-      begin++;
-    }
-
-    return ss.str();
+    return fmt::format("0x{:02x}", fmt::join(begin, end, ""));
   }
 
   template <typename T>
@@ -113,9 +104,7 @@ namespace eevm
 
   inline std::string to_hex_string(uint64_t v)
   {
-    std::stringstream ss;
-    ss << "0x" << std::hex << v;
-    return ss.str();
+    return fmt::format("0x{:x}", v);
   }
 
   inline auto address_to_hex_string(const Address& v)

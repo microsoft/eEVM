@@ -10,6 +10,7 @@
 #include "eEVM/util.h"
 
 #include <doctest/doctest.h>
+#include <fmt/format_header_only.h>
 #include <fstream>
 #include <nlohmann/json.hpp>
 
@@ -36,18 +37,17 @@ void run_test_case(
   string testPath = fileName;
   if (test_dir)
   {
-    testPath = string(test_dir) + "/" + fileName;
+    testPath = fmt::format("{}/{}", string(test_dir), fileName);
   }
   else
   {
-    throw std::logic_error(
-      "Must set path to test cases in " + std::string(env_var) +
-      " environment variable");
+    throw std::logic_error(fmt::format(
+      "Must set path to test cases in {} environment variable", env_var));
   }
 
 #ifdef RECORD_TRACE
   const string delim(15, '-');
-  cout << "Test file " << testPath << "\n" << delim << endl;
+  cout << fmt::format("Test file {}\n{}", testPath, delim) << endl;
 #endif
 
   ifstream fs(testPath);
@@ -74,16 +74,16 @@ void run_test_case(
       uint64_t value = to_uint64(j["exec"]["value"]);
 
 #ifdef RECORD_TRACE
-      cout << "Case " << it.key() << " (#" << std::dec << i << ")" << endl;
+      cout << fmt::format("Case {} (#{})", it.key(), i) << endl;
       if (disasm)
       {
         try
         {
-          cout << "Disassembly:\n" << Disassembler::dis(c);
+          cout << "Disassembly:" << endl << Disassembler::dis(c) << endl;
         }
-        catch (exception)
+        catch (const exception& e)
         {
-          cout << "Failed to disassemble.\n";
+          cerr << fmt::format("Failed to disassemble: {}", e.what()) << endl;
           continue;
         }
         cout << delim << endl;
@@ -116,7 +116,7 @@ void run_test_case(
       const auto e = p.run(tx, caller, gs.get(callee), inp, value, tr);
 
 #ifdef RECORD_TRACE
-      cout << "Trace:\n" << *tr << delim << endl;
+      cout << fmt::format("Trace:\n{}{}", *tr, delim) << endl;
       delete tr;
 #endif
 

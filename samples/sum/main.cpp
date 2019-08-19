@@ -4,15 +4,17 @@
 #include "eEVM/opcode.h"
 #include "eEVM/processor.h"
 #include "eEVM/simple/simpleglobalstate.h"
+#include "eEVM/util.h"
 
+#include <fmt/format_header_only.h>
 #include <iostream>
 
 int usage(const char* bin_name)
 {
-  std::cout << "Usage: " << bin_name << " [-v] hex_a hex_b" << std::endl;
-  std::cout << "Prints sum of arguments (hex string representation of 256-bit "
-               "uints)"
-            << std::endl;
+  std::cout << fmt::format("Usage: {} [-v] hex_a hex_b", bin_name) << std::endl;
+  std::cout
+    << "Prints sum of arguments (hex string representation of 256-bit uints)"
+    << std::endl;
   return 1;
 }
 
@@ -85,8 +87,11 @@ int main(int argc, char** argv)
 
   if (verbose)
   {
-    std::cout << "Calculating " << to_hex_str(arg_a) << " + "
-              << to_hex_str(arg_b) << std::endl;
+    std::cout << fmt::format(
+                   "Calculating {} + {}",
+                   to_lower_hex_str(arg_a),
+                   to_lower_hex_str(arg_b))
+              << std::endl;
   }
 
   // Invent a random address to use as sender
@@ -112,9 +117,11 @@ int main(int argc, char** argv)
 
   if (verbose)
   {
-    std::cout << "Address " << to_hex_str(to)
-              << " contains the following bytecode:" << std::endl;
-    std::cout << eevm::to_hex_string(contract.acc.code) << std::endl;
+    std::cout << fmt::format(
+                   "Address {} contains the following bytecode:\n {}",
+                   eevm::to_checksum_address(to),
+                   eevm::to_hex_string(contract.acc.code))
+              << std::endl;
   }
 
   // Construct a transaction object
@@ -126,8 +133,11 @@ int main(int argc, char** argv)
 
   if (verbose)
   {
-    std::cout << "Executing a transaction from " << to_hex_str(sender) << " to "
-              << to_hex_str(to) << std::endl;
+    std::cout << fmt::format(
+                   "Executing a transaction from {} to {}",
+                   eevm::to_checksum_address(sender),
+                   eevm::to_checksum_address(to))
+              << std::endl;
   }
 
   // Run transaction
@@ -143,29 +153,27 @@ int main(int argc, char** argv)
 
   if (e.er != eevm::ExitReason::returned)
   {
-    std::cout << "Unexpected return code" << std::endl;
+    std::cout << fmt::format("Unexpected return code: {}", (size_t)e.er)
+              << std::endl;
     return 2;
   }
 
   if (verbose)
   {
-    std::cout << "Execution completed, and returned a result of "
-              << e.output.size() << " bytes" << std::endl;
+    std::cout << fmt::format(
+                   "Execution completed, and returned a result of {} bytes",
+                   e.output.size())
+              << std::endl;
   }
 
   const uint256_t result = from_big_endian(e.output.begin(), e.output.end());
 
-  std::cout << to_lower_hex_str(arg_a);
-  std::cout << " + ";
-  std::cout << to_lower_hex_str(arg_b);
-  std::cout << " = ";
-  std::cout << to_lower_hex_str(result);
-  std::cout << std::endl;
-
-  if (verbose)
-  {
-    std::cout << "Done" << std::endl;
-  }
+  std::cout << fmt::format(
+                 "{} + {} = {}",
+                 to_lower_hex_str(arg_a),
+                 to_lower_hex_str(arg_b),
+                 to_lower_hex_str(result))
+            << std::endl;
 
   return 0;
 }

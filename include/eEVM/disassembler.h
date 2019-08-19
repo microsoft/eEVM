@@ -70,18 +70,16 @@ namespace eevm
 
   inline std::ostream& operator<<(std::ostream& os, const Instr& i)
   {
-    os << std::dec << i.pc << ": ";
-    // print bytes
-    os << std::hex << std::setfill('0') << std::setw(2) << (int)i.op.opcode
-       << ' ';
-    for (const auto& b : i.raw_imm)
-      os << std::hex << std::setfill('0') << std::setw(2) << (int)b << ' ';
-
-    os << " " << i.op;
-    if (i.op.has_immediate())
-      os << " 0x" << std::hex << i.get_immediate();
-    if (i.comment.length())
-      os << " ; " << i.comment;
+    os << fmt::format(
+      "{}: {}{} ({:02x} {:02x}); {}",
+      i.pc,
+      i.op.mnemonic,
+      i.op.has_immediate() ?
+        fmt::format(" 0x{}", to_lower_hex_str(i.get_immediate())) :
+        "",
+      i.op.opcode,
+      fmt::join(i.raw_imm, " "),
+      i.comment);
     return os;
   }
 

@@ -649,11 +649,19 @@ namespace eevm
           break;
         default:
           stringstream err;
-          err << "unknown/unsupported Opcode: 0x" << hex << int{get_op()}
+          err << fmt::format(
+                   "Unknown/unsupported Opcode: 0x{:02x}", int{get_op()})
               << endl;
-          err << dec << " seen at position " << ctxt->get_pc() << " in "
-              << to_hex_str(ctxt->as.acc.address) << ", at call-depth "
-              << get_call_depth() << " called by " << to_hex_str(ctxt->caller);
+          err << fmt::format(
+                   " in contract {}", to_checksum_address(ctxt->as.acc.address))
+              << endl;
+          err << fmt::format(" called by {}", to_checksum_address(ctxt->caller))
+              << endl;
+          err << fmt::format(
+                   " at position {}, call-depth {}",
+                   ctxt->get_pc(),
+                   get_call_depth())
+              << endl;
           throw Exception(Exception::Type::illegalInstruction, err.str());
       };
     }
