@@ -34,7 +34,7 @@ jobs:
 
       - run:
           name: Full tests
-          command: 'time ./evm_tests -ns -d'
+          command: 'time ./eevm_tests -ns -d'
           working_directory: build
           environment:
               TEST_DIR: '../3rdparty/test_cases/'
