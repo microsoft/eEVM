@@ -29,6 +29,6 @@ steps:
   displayName: Quick test
   workingDirectory: build
 
-- script: 'time TEST_DIR=../3rdparty/test_cases/ ./evm_tests -ns -d'
+- script: 'time TEST_DIR=../3rdparty/test_cases/ ./eevm_tests -ns -d'
   displayName: Full tests
   workingDirectory: build

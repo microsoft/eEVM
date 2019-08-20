@@ -120,7 +120,7 @@ int main(int argc, char** argv)
     std::cout << fmt::format(
                    "Address {} contains the following bytecode:\n {}",
                    eevm::to_checksum_address(to),
-                   eevm::to_hex_string(contract.acc.code))
+                   eevm::to_hex_string(contract.acc.get_code()))
               << std::endl;
   }
 

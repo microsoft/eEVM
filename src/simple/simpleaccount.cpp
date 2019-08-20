@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "simpleaccount.h"
+#include "eEVM/simple/simpleaccount.h"
 
-#include "../include/util.h"
+#include "eEVM/util.h"
 
-namespace evm
+namespace eevm
 {
   Address SimpleAccount::get_address() const
   {
@@ -86,4 +86,4 @@ namespace evm
     if (j.find("code") != j.end())
       assign_j(a.code, to_bytes(j["code"]));
   }
-} // namespace evm
+} // namespace eevm

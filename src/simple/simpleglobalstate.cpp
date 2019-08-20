@@ -74,12 +74,11 @@ namespace eevm
   {
     if (j.find("block") != j.end())
       assign_j(a.currentBlock, j["block"]);
-    auto acc = j["accounts"].items();
-    for (const auto& it : acc)
+
+    for (const auto& it : j["accounts"].items())
     {
-      Address addr = it.value()[0];
-      std::pair<Account, SimpleStorage> p = it.value()[1];
-      a.accounts.insert(make_pair(addr, p));
+      const auto& v = it.value();
+      a.accounts.insert(make_pair(from_hex_str(v[0]), v[1]));
     }
   }
 } // namespace eevm

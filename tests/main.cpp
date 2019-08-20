@@ -5,12 +5,11 @@
 #include "eEVM/disassembler.h"
 #include "eEVM/opcode.h"
 #include "eEVM/processor.h"
+#include "eEVM/simple/simpleaccount.h"
 #include "eEVM/simple/simpleglobalstate.h"
 #include "eEVM/util.h"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../include/bigint.h"
-
 #include <doctest/doctest.h>
 #include <fstream>
 #include <iostream>

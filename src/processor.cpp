@@ -658,7 +658,8 @@ namespace eevm
                    "Unknown/unsupported Opcode: 0x{:02x}", int{get_op()})
               << endl;
           err << fmt::format(
-                   " in contract {}", to_checksum_address(ctxt->as.acc.address))
+                   " in contract {}",
+                   to_checksum_address(ctxt->as.acc.get_address()))
               << endl;
           err << fmt::format(" called by {}", to_checksum_address(ctxt->caller))
               << endl;

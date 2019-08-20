@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include "../include/account.h"
+#include "eEVM/account.h"
 
 #include <nlohmann/json.hpp>
 
-namespace evm
+namespace eevm
 {
   /**
    * Simple implementation of Account
@@ -49,4 +49,7 @@ namespace evm
     friend void to_json(nlohmann::json&, const SimpleAccount&);
     friend void from_json(const nlohmann::json&, SimpleAccount&);
   };
-} // namespace evm
+
+  void to_json(nlohmann::json&, const SimpleAccount&);
+  void from_json(const nlohmann::json&, SimpleAccount&);
+} // namespace eevm
