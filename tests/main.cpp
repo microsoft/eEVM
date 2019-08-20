@@ -1,11 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "../evm/simpleglobalstate.h"
-#include "../include/disassembler.h"
-#include "../include/opcode.h"
-#include "../include/processor.h"
-#include "../include/util.h"
+#include "eEVM/bigint.h"
+#include "eEVM/disassembler.h"
+#include "eEVM/opcode.h"
+#include "eEVM/processor.h"
+#include "eEVM/simple/simpleglobalstate.h"
+#include "eEVM/util.h"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "../include/bigint.h"
@@ -17,9 +18,10 @@
 #include <vector>
 
 using namespace std;
-using namespace evm;
+using namespace eevm;
 
-TEST_CASE("from_json/to_json are mutually inverse")
+TEST_CASE(
+  "from_json/to_json are mutually inverse" * doctest::test_suite("json"))
 {
   constexpr auto env_var = "TEST_DIR";
   auto test_dir = getenv(env_var);
@@ -28,6 +30,25 @@ TEST_CASE("from_json/to_json are mutually inverse")
     throw std::logic_error(
       "Must set path to test cases in " + std::string(env_var) +
       " environment variable");
+  }
+
+  SUBCASE("Using default SimpleGlobalState objects")
+  {
+    SimpleGlobalState s0;
+    nlohmann::json j = s0;
+    SimpleGlobalState s1 = j.get<SimpleGlobalState>();
+    REQUIRE(s1 == s0);
+  }
+
+  SUBCASE("Using fully defined SimpleGlobalState JSON object")
+  {
+    // simpleGlobalStateFull.json is a generated file, so we can safely
+    // check for an equality on string-by-string basis
+    auto test_path = string(test_dir) + "/simpleGlobalStateFull.json";
+    const auto j = nlohmann::json::parse(std::ifstream(test_path));
+    SimpleGlobalState s0 = j.get<SimpleGlobalState>();
+    nlohmann::json j2 = s0;
+    REQUIRE(j == j2);
   }
 
   SUBCASE("Using default SimpleAccount objects")

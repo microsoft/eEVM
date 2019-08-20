@@ -1,10 +1,13 @@
-#include "../include/rlp.h"
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
-#include "../include/util.h"
+#include "eEVM/rlp.h"
+
+#include "eEVM/util.h"
 
 #include <doctest/doctest.h>
 
-using namespace evm;
+using namespace eevm;
 using namespace std::string_literals;
 
 const auto large_input_decoded = std::make_tuple(
@@ -153,7 +156,7 @@ TEST_CASE("arrays" * doctest::test_suite("rlp"))
 {
   {
     std::array<uint8_t, 100> a;
-    for (size_t i; i < a.size(); ++i)
+    for (size_t i = 0; i < a.size(); ++i)
     {
       a[i] = i * i;
     }

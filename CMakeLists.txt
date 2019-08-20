@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(evm)
+project(eevm)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -27,60 +27,95 @@ file(GLOB KECCAK_SOURCES
   3rdparty/keccak/*.c
 )
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Options 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 option(RECORD_TRACE "Record a detailed trace of EVM execution during test runs" OFF)
 if(RECORD_TRACE)
   add_definitions(-DRECORD_TRACE)
 endif(RECORD_TRACE)
 
-add_library(evm STATIC
-  evm/disassembler.cpp
-  evm/simpleaccount.cpp
-  evm/simpleglobalstate.cpp
-  evm/simplestorage.cpp
-  evm/stack.cpp
-  evm/transaction.cpp
-  evm/util.cpp
-  evm/processor.cpp
-  ${KECCAK_SOURCES}
-)
-target_include_directories(evm PRIVATE
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Common variables 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+set(EEVM_INCLUDE_DIRS
   ${Boost_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-add_executable(evm_tests
+set(EEVM_CORE_SRCS
+  src/account.cpp
+  src/disassembler.cpp
+  src/processor.cpp
+  src/stack.cpp
+  src/transaction.cpp
+  src/util.cpp
+)
+
+set(EEVM_SIMPLE_SRCS
+  src/simple/simpleglobalstate.cpp
+  src/simple/simplestorage.cpp
+)
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Libraries
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+add_library(eevm STATIC
+  ${EEVM_CORE_SRCS}
+  ${KECCAK_SOURCES}
+)
+target_include_directories(eevm PRIVATE
+  ${EEVM_INCLUDE_DIRS}
+)
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Executables
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+add_executable(eevm_tests
   tests/main.cpp
   tests/harness.cpp
   tests/rlp.cpp
+  ${EEVM_SIMPLE_SRCS}
 )
-target_include_directories(evm_tests PRIVATE
-  ${Boost_INCLUDE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
-  ${CMAKE_CURRENT_SOURCE_DIR}
+target_include_directories(eevm_tests PRIVATE
+  ${EEVM_INCLUDE_DIRS}
 )
-target_compile_options(evm_tests PRIVATE ${COVERAGE_FLAGS})
-target_link_libraries(evm_tests evm ${PLATFORM_SPECIFIC_TEST_LIBS})
+target_compile_options(eevm_tests PRIVATE ${COVERAGE_FLAGS})
+target_link_libraries(eevm_tests eevm ${PLATFORM_SPECIFIC_TEST_LIBS})
 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Tests
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 enable_testing()
+
 add_test(
-  NAME evm_tests
-  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tests/unit_test_wrapper.sh evm_tests
+  NAME eevm_tests
+  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tests/unit_test_wrapper.sh eevm_tests
 )
 
 if(NOT ENV{TEST_DIR}) 
-  set_tests_properties(evm_tests PROPERTIES ENVIRONMENT TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/test_cases)
+  set_tests_properties(eevm_tests
+    PROPERTIES
+      ENVIRONMENT TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/test_cases
+  )
 endif()
 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Samples
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 function(add_sample name)
   add_executable(${name}
     samples/${name}/main.cpp
+    ${EEVM_SIMPLE_SRCS}
   )
   target_include_directories(${name} PRIVATE
-    ${Boost_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${EEVM_INCLUDE_DIRS}
   )
-  target_link_libraries(${name} evm)
+  target_link_libraries(${name} eevm)
 endfunction()
 
 add_sample(hello_world)

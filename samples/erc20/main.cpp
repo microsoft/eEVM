@@ -1,11 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#include "evm/simpleglobalstate.h"
-#include "include/opcode.h"
-#include "include/processor.h"
+#include "eEVM/opcode.h"
+#include "eEVM/processor.h"
+#include "eEVM/simple/simpleglobalstate.h"
 
 #include <cassert>
+#include <fmt/format_header_only.h>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -17,12 +18,12 @@
 //
 // Util typedefs and functions
 //
-using Addresses = std::vector<evm::Address>;
+using Addresses = std::vector<eevm::Address>;
 
 struct Environment
 {
-  evm::GlobalState& gs;
-  const evm::Address& owner_address;
+  eevm::GlobalState& gs;
+  const eevm::Address& owner_address;
   const nlohmann::json& contract_definition;
 };
 
@@ -42,7 +43,7 @@ uint256_t get_random_uint256(size_t bytes = 32)
   return from_big_endian(raw.begin(), raw.end());
 }
 
-evm::Address get_random_address()
+eevm::Address get_random_address()
 {
   return get_random_uint256(20);
 }
@@ -51,30 +52,30 @@ evm::Address get_random_address()
 // Run input as an EVM transaction, check the result and return the output
 std::vector<uint8_t> run_and_check_result(
   Environment& env,
-  const evm::Address& from,
-  const evm::Address& to,
-  const evm::Code& input)
+  const eevm::Address& from,
+  const eevm::Address& to,
+  const eevm::Code& input)
 {
   // Ignore any logs produced by this transaction
-  evm::NullLogHandler ignore;
-  evm::Transaction tx(from, ignore);
+  eevm::NullLogHandler ignore;
+  eevm::Transaction tx(from, ignore);
 
   // Record a trace to aid debugging
-  evm::Trace tr;
-  evm::Processor p(env.gs);
+  eevm::Trace tr;
+  eevm::Processor p(env.gs);
 
   // Run the transaction
   const auto exec_result = p.run(tx, from, env.gs.get(to), input, 0u, &tr);
 
-  if (exec_result.er != evm::ExitReason::returned)
+  if (exec_result.er != eevm::ExitReason::returned)
   {
     // Print the trace if nothing was returned
-    std::cerr << tr << std::endl;
-    if (exec_result.er == evm::ExitReason::threw)
+    std::cerr << fmt::format("Trace:\n{}", tr) << std::endl;
+    if (exec_result.er == eevm::ExitReason::threw)
     {
       // Rethrow to highlight any exceptions raised in execution
       throw std::runtime_error(
-        "Execution threw an error: " + exec_result.exmsg);
+        fmt::format("Execution threw an error: {}", exec_result.exmsg));
     }
 
     throw std::runtime_error("Deployment did not return");
@@ -98,14 +99,14 @@ void append_argument(std::vector<uint8_t>& code, const uint256_t& arg)
 
 // Deploy the ERC20 contract defined in env, with total_supply tokens. Return
 // the address the contract was deployed to
-evm::Address deploy_erc20_contract(
+eevm::Address deploy_erc20_contract(
   Environment& env, const uint256_t total_supply)
 {
   // Generate the contract address
-  const auto contract_address = evm::generate_address(env.owner_address, 0u);
+  const auto contract_address = eevm::generate_address(env.owner_address, 0u);
 
   // Get the binary constructor of the contract
-  auto contract_constructor = evm::to_bytes(env.contract_definition["bin"]);
+  auto contract_constructor = eevm::to_bytes(env.contract_definition["bin"]);
 
   // The constructor takes a single argument (total_supply) - append it
   append_argument(contract_constructor, total_supply);
@@ -126,14 +127,14 @@ evm::Address deploy_erc20_contract(
 
 // Get the total token supply by calling totalSupply on the contract_address
 uint256_t get_total_supply(
-  Environment& env, const evm::Address& contract_address)
+  Environment& env, const eevm::Address& contract_address)
 {
   // Anyone can call totalSupply - prove this by asking from a randomly
   // generated address
   const auto caller = get_random_address();
 
   const auto function_call =
-    evm::to_bytes(env.contract_definition["hashes"]["totalSupply()"]);
+    eevm::to_bytes(env.contract_definition["hashes"]["totalSupply()"]);
 
   const auto output =
     run_and_check_result(env, caller, contract_address, function_call);
@@ -145,15 +146,15 @@ uint256_t get_total_supply(
 // contract_address
 uint256_t get_balance(
   Environment& env,
-  const evm::Address& contract_address,
-  const evm::Address& target_address)
+  const eevm::Address& contract_address,
+  const eevm::Address& target_address)
 {
   // Anyone can call balanceOf - prove this by asking from a randomly generated
   // address
   const auto caller = get_random_address();
 
   auto function_call =
-    evm::to_bytes(env.contract_definition["hashes"]["balanceOf(address)"]);
+    eevm::to_bytes(env.contract_definition["hashes"]["balanceOf(address)"]);
 
   append_argument(function_call, target_address);
 
@@ -167,21 +168,24 @@ uint256_t get_balance(
 // contract_address
 bool transfer(
   Environment& env,
-  const evm::Address& contract_address,
-  const evm::Address& source_address,
-  const evm::Address& target_address,
+  const eevm::Address& contract_address,
+  const eevm::Address& source_address,
+  const eevm::Address& target_address,
   const uint256_t& amount)
 {
   // To transfer tokens, the caller must be the intended source address
-  auto function_call = evm::to_bytes(
+  auto function_call = eevm::to_bytes(
     env.contract_definition["hashes"]["transfer(address,uint256)"]);
 
   append_argument(function_call, target_address);
   append_argument(function_call, amount);
 
-  std::cout << "Transferring " << amount << " from "
-            << evm::to_checksum_address(source_address) << " to "
-            << evm::to_checksum_address(target_address);
+  std::cout << fmt::format(
+                 "Transferring {} from {} to {}",
+                 to_lower_hex_str(amount),
+                 eevm::to_checksum_address(source_address),
+                 eevm::to_checksum_address(target_address))
+            << std::endl;
 
   const auto output =
     run_and_check_result(env, source_address, contract_address, function_call);
@@ -201,7 +205,7 @@ bool transfer(
 // Send N randomly generated token transfers. Some will be to new user addresses
 template <size_t N>
 void run_random_transactions(
-  Environment& env, const evm::Address& contract_address, Addresses& users)
+  Environment& env, const eevm::Address& contract_address, Addresses& users)
 {
   const auto total_supply = get_total_supply(env, contract_address);
   const auto transfer_max = (2 * total_supply) / N;
@@ -230,12 +234,12 @@ void run_random_transactions(
 void print_erc20_state(
   const std::string& heading,
   Environment& env,
-  const evm::Address& contract_address,
+  const eevm::Address& contract_address,
   const Addresses& users)
 {
   const auto total_supply = get_total_supply(env, contract_address);
 
-  using Balances = std::vector<std::pair<evm::Address, uint256_t>>;
+  using Balances = std::vector<std::pair<eevm::Address, uint256_t>>;
   Balances balances;
 
   for (const auto& user : users)
@@ -245,12 +249,17 @@ void print_erc20_state(
   }
 
   std::cout << heading << std::endl;
-  std::cout << "Total supply of tokens is: " << total_supply << std::endl;
+  std::cout << fmt::format(
+                 "Total supply of tokens is: {}",
+                 to_lower_hex_str(total_supply))
+            << std::endl;
   std::cout << "User balances: " << std::endl;
   for (const auto& pair : balances)
   {
-    std::cout << "  " << pair.second << " owned by "
-              << evm::to_checksum_address(pair.first);
+    std::cout << fmt::format(
+      " {} owned by {}",
+      to_lower_hex_str(pair.second),
+      eevm::to_checksum_address(pair.first));
     if (pair.first == env.owner_address)
     {
       std::cout << " (original contract creator)";
@@ -272,7 +281,7 @@ int main(int argc, char** argv)
 
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " path/to/ERC20_combined.json"
+    std::cout << fmt::format("Usage: {} path/to/ERC20_combined.json", argv[0])
               << std::endl;
     return 1;
   }
@@ -295,7 +304,7 @@ int main(int argc, char** argv)
   if (!contract_fstream)
   {
     throw std::runtime_error(
-      std::string("Unable to open contract definition file ") + contract_path);
+      fmt::format("Unable to open contract definition file {}", contract_path));
   }
 
   // Parse the contract definition from file
@@ -304,7 +313,7 @@ int main(int argc, char** argv)
   const auto erc20_definition = all_contracts["ERC20.sol:ERC20Token"];
 
   // Create environment
-  evm::SimpleGlobalState gs;
+  eevm::SimpleGlobalState gs;
   Environment env{gs, owner_address, erc20_definition};
 
   // Deploy the ERC20 contract
