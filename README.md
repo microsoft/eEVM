@@ -68,7 +68,7 @@ To run the tests outside of CTest you will need to provide the path to the test 
 ```bash
 cd build
 export TEST_DIR=../3rdparty/test_cases/
-./evm_tests
+./eevm_tests
 ```
 
 The full test suite contains some longer performance tests which are skipped by default. For full coverage, these can be run by passing the `no-skip` option to the test app - these should complete in minutes, while the default tests should complete in under a second.
@@ -76,11 +76,11 @@ The full test suite contains some longer performance tests which are skipped by 
 ```bash
 cd build
 
-time TEST_DIR=../3rdparty/test_cases/ ./evm_tests
+time TEST_DIR=../3rdparty/test_cases/ ./eevm_tests
 ...
 real    0m0.424s
 
-time TEST_DIR=../3rdparty/test_cases/ ./evm_tests -ns
+time TEST_DIR=../3rdparty/test_cases/ ./eevm_tests -ns
 ...
 real    2m11.306s
 ```
