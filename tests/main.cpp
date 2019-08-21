@@ -63,8 +63,8 @@ TEST_CASE(
     SimpleAccount a1(
       from_hex_str("0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6"),
       5678,
-      {0x00, 0x01, 0x10, 0x11});
-    a1.set_nonce(to_uint64(std::string("0x66")));
+      {0x00, 0x01, 0x10, 0x11},
+      0x66);
     nlohmann::json j = a1;
     SimpleAccount a2 = j;
     REQUIRE(a1 == a2);

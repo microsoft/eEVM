@@ -17,8 +17,8 @@ namespace eevm
   private:
     Address address = {};
     uint256_t balance = {};
-    Nonce nonce = {};
     Code code = {};
+    Nonce nonce = {};
 
   public:
     SimpleAccount() = default;
@@ -26,8 +26,16 @@ namespace eevm
     SimpleAccount(const Address& a, const uint256_t& b, const Code& c) :
       address(a),
       balance(b),
-      nonce(0),
-      code(c)
+      code(c),
+      nonce(0)
+    {}
+
+    SimpleAccount(
+      const Address& a, const uint256_t& b, const Code& c, Nonce n) :
+      address(a),
+      balance(b),
+      code(c),
+      nonce(n)
     {}
 
     virtual Address get_address() const override;
