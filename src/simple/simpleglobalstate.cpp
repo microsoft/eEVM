@@ -5,11 +5,6 @@
 
 namespace eevm
 {
-  bool SimpleGlobalState::exists(const Address& addr)
-  {
-    return accounts.find(addr) != accounts.end();
-  }
-
   void SimpleGlobalState::remove(const Address& addr)
   {
     accounts.erase(addr);
@@ -30,6 +25,11 @@ namespace eevm
     insert({SimpleAccount(addr, balance, code), {}});
 
     return get(addr);
+  }
+  
+  bool SimpleGlobalState::exists(const Address& addr)
+  {
+    return accounts.find(addr) != accounts.end();
   }
 
   size_t SimpleGlobalState::num_accounts()

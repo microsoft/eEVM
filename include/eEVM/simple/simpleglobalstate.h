@@ -26,14 +26,14 @@ namespace eevm
     SimpleGlobalState() = default;
     explicit SimpleGlobalState(Block b) : currentBlock(std::move(b)) {}
 
-    virtual bool exists(const Address& addr) override;
     virtual void remove(const Address& addr) override;
 
     AccountState get(const Address& addr) override;
     AccountState create(
       const Address& addr, const uint256_t& balance, const Code& code) override;
 
-    size_t num_accounts() override;
+    bool exists(const Address& addr);
+    size_t num_accounts();
 
     virtual const Block& get_current_block() override;
     virtual uint256_t get_block_hash(uint8_t offset) override;

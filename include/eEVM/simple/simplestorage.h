@@ -22,7 +22,7 @@ namespace eevm
 
     void store(const uint256_t& key, const uint256_t& value) override;
     uint256_t load(const uint256_t& key) override;
-    bool exists(const uint256_t& key) override;
+    bool exists(const uint256_t& key);
     bool remove(const uint256_t& key) override;
 
     bool operator==(const SimpleStorage& that) const;
