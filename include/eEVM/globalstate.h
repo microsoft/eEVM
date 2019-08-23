@@ -21,8 +21,10 @@ namespace eevm
 
     template <
       typename T,
-      typename = std::enable_if_t<std::is_base_of<Storage, T>::value>>
-    AccountState(std::pair<Account, T>& p) : acc(p.first), st(p.second)
+      typename U,
+      typename = std::enable_if_t<std::is_base_of<Account, T>::value>,
+      typename = std::enable_if_t<std::is_base_of<Storage, U>::value>>
+    AccountState(std::pair<T, U>& p) : acc(p.first), st(p.second)
     {}
     AccountState(Account& acc, Storage& st) : acc(acc), st(st) {}
   };
@@ -32,7 +34,6 @@ namespace eevm
    */
   struct GlobalState
   {
-    virtual bool exists(const Address& addr) = 0;
     virtual void remove(const Address& addr) = 0;
 
     /**
@@ -42,8 +43,6 @@ namespace eevm
     virtual AccountState get(const Address& addr) = 0;
     virtual AccountState create(
       const Address& addr, const uint256_t& balance, const Code& code) = 0;
-
-    virtual size_t num_accounts() = 0;
 
     virtual const Block& get_current_block() = 0;
     virtual uint256_t get_block_hash(uint8_t offset) = 0;

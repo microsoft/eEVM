@@ -4,7 +4,8 @@
 #pragma once
 
 #include "eEVM/globalstate.h"
-#include "simplestorage.h"
+#include "eEVM/simple/simpleaccount.h"
+#include "eEVM/simple/simplestorage.h"
 
 namespace eevm
 {
@@ -13,24 +14,26 @@ namespace eevm
    */
   class SimpleGlobalState : public GlobalState
   {
+  public:
+    using StateEntry = std::pair<SimpleAccount, SimpleStorage>;
+
   private:
     Block currentBlock;
 
-  protected:
-    std::map<uint256_t, std::pair<Account, SimpleStorage>> accounts;
+    std::map<Address, StateEntry> accounts;
 
   public:
     SimpleGlobalState() = default;
     explicit SimpleGlobalState(Block b) : currentBlock(std::move(b)) {}
 
-    virtual bool exists(const Address& addr) override;
     virtual void remove(const Address& addr) override;
 
     AccountState get(const Address& addr) override;
     AccountState create(
       const Address& addr, const uint256_t& balance, const Code& code) override;
 
-    size_t num_accounts() override;
+    bool exists(const Address& addr);
+    size_t num_accounts();
 
     virtual const Block& get_current_block() override;
     virtual uint256_t get_block_hash(uint8_t offset) override;
@@ -39,7 +42,7 @@ namespace eevm
      * For tests which require some initial state, allow manual insertion of
      * pre-constructed accounts
      */
-    void insert(std::pair<Account, SimpleStorage> p);
+    void insert(const StateEntry& e);
 
     friend void to_json(nlohmann::json&, const SimpleGlobalState&);
     friend void from_json(const nlohmann::json&, SimpleGlobalState&);

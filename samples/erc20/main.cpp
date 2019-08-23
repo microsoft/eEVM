@@ -120,9 +120,9 @@ eevm::Address deploy_erc20_contract(
 
   // Result of running the compiled constructor is the code that should be the
   // contract's body (constructor will also have setup contract's Storage)
-  contract.acc.code = result;
+  contract.acc.set_code(std::move(result));
 
-  return contract.acc.address;
+  return contract.acc.get_address();
 }
 
 // Get the total token supply by calling totalSupply on the contract_address

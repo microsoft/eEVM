@@ -36,12 +36,10 @@ namespace eevm
   class Program
   {
   public:
-    const vector<uint8_t>& code;
+    const vector<uint8_t> code;
     const set<uint64_t> jump_dests;
 
-    Program(const vector<uint8_t>& code) :
-      code(code),
-      jump_dests(compute_jump_dests(code))
+    Program(vector<uint8_t>&& c) : code(c), jump_dests(compute_jump_dests(code))
     {}
 
   private:
@@ -191,7 +189,14 @@ namespace eevm
       };
 
       push_context(
-        caller, callee, move(input), callee.acc.code, call_value, rh, hh, eh);
+        caller,
+        callee,
+        move(input),
+        callee.acc.get_code(),
+        call_value,
+        rh,
+        hh,
+        eh);
 
       // run
       while (ctxt->get_pc() < ctxt->prog.code.size())
@@ -653,7 +658,8 @@ namespace eevm
                    "Unknown/unsupported Opcode: 0x{:02x}", int{get_op()})
               << endl;
           err << fmt::format(
-                   " in contract {}", to_checksum_address(ctxt->as.acc.address))
+                   " in contract {}",
+                   to_checksum_address(ctxt->as.acc.get_address()))
               << endl;
           err << fmt::format(" called by {}", to_checksum_address(ctxt->caller))
               << endl;
@@ -988,17 +994,18 @@ namespace eevm
 
     void extcodesize()
     {
-      ctxt->s.push(gs.get(pop_addr(ctxt->s)).acc.code.size());
+      ctxt->s.push(gs.get(pop_addr(ctxt->s)).acc.get_code().size());
     }
 
     void extcodecopy()
     {
-      copy_mem(ctxt->mem, gs.get(pop_addr(ctxt->s)).acc.code, Opcode::STOP);
+      copy_mem(
+        ctxt->mem, gs.get(pop_addr(ctxt->s)).acc.get_code(), Opcode::STOP);
     }
 
     void codesize()
     {
-      ctxt->s.push(ctxt->acc.code.size());
+      ctxt->s.push(ctxt->acc.get_code().size());
     }
 
     void calldataload()
@@ -1036,13 +1043,13 @@ namespace eevm
 
     void address()
     {
-      ctxt->s.push(ctxt->acc.address);
+      ctxt->s.push(ctxt->acc.get_address());
     }
 
     void balance()
     {
       decltype(auto) acc = gs.get(pop_addr(ctxt->s)).acc;
-      ctxt->s.push(acc.balance);
+      ctxt->s.push(acc.get_balance());
     }
 
     void origin()
@@ -1102,7 +1109,7 @@ namespace eevm
         topics[i] = ctxt->s.pop();
 
       tx.log_handler.handle(
-        {ctxt->acc.address, copy_from_mem(offset, size), topics});
+        {ctxt->acc.get_address(), copy_from_mem(offset, size), topics});
     }
 
     void blockhash()
@@ -1184,8 +1191,9 @@ namespace eevm
 
     void destroy()
     {
-      gs.get(pop_addr(ctxt->s)).acc.balance += ctxt->acc.balance;
-      tx.destroy_list.push_back(ctxt->acc.address);
+      auto recipient = gs.get(pop_addr(ctxt->s));
+      ctxt->acc.pay_to(recipient.acc, ctxt->acc.get_balance());
+      tx.destroy_list.push_back(ctxt->acc.get_address());
       stop();
     }
 
@@ -1194,24 +1202,40 @@ namespace eevm
       const auto contractValue = ctxt->s.pop();
       const auto offset = ctxt->s.pop64();
       const auto size = ctxt->s.pop64();
-
-      ctxt->acc.pay(contractValue);
-      const auto initCode = copy_from_mem(offset, size);
+      auto initCode = copy_from_mem(offset, size);
 
       const auto newAddress =
-        generate_address(ctxt->acc.address, ctxt->acc.nonce);
+        generate_address(ctxt->acc.get_address(), ctxt->acc.get_nonce());
+
+      // For contract accounts, the nonce counts the number of
+      // contract-creations by this account
+      // TODO: Work out why this fails the test cases
+      //ctxt->acc.increment_nonce();
+
       decltype(auto) newAcc = gs.create(newAddress, contractValue, {});
+
+      // In contract creation, the transaction value is an endowment for the
+      // newly created account
+      ctxt->acc.pay_to(newAcc.acc, contractValue);
 
       auto parentContext = ctxt;
       auto rh = [&newAcc, parentContext](vector<uint8_t> output) {
         newAcc.acc.set_code(move(output));
-        parentContext->s.push(newAcc.acc.address);
+        parentContext->s.push(newAcc.acc.get_address());
       };
       auto hh = [parentContext]() { parentContext->s.push(0); };
       auto eh = [parentContext](const Exception&) { parentContext->s.push(0); };
 
       // create new context for init code execution
-      push_context(ctxt->acc.address, newAcc, {}, initCode, 0, rh, hh, eh);
+      push_context(
+        ctxt->acc.get_address(),
+        newAcc,
+        {},
+        std::move(initCode),
+        0,
+        rh,
+        hh,
+        eh);
     }
 
     void call()
@@ -1234,7 +1258,7 @@ namespace eevm
       }
 
       decltype(auto) callee = gs.get(addr);
-      ctxt->acc.pay(callee.acc, value);
+      ctxt->acc.pay_to(callee.acc, value);
       if (!callee.acc.has_code())
       {
         ctxt->s.push(1);
@@ -1257,10 +1281,10 @@ namespace eevm
       {
         case Opcode::CALL:
           push_context(
-            ctxt->acc.address,
+            ctxt->acc.get_address(),
             callee,
             move(input),
-            callee.acc.code,
+            callee.acc.get_code(),
             value,
             rh,
             hh,
@@ -1268,10 +1292,10 @@ namespace eevm
           break;
         case Opcode::CALLCODE:
           push_context(
-            ctxt->acc.address,
+            ctxt->acc.get_address(),
             ctxt->as,
             move(input),
-            callee.acc.code,
+            callee.acc.get_code(),
             value,
             rh,
             hh,
@@ -1282,7 +1306,7 @@ namespace eevm
             ctxt->caller,
             ctxt->as,
             move(input),
-            callee.acc.code,
+            callee.acc.get_code(),
             ctxt->call_value,
             rh,
             hh,

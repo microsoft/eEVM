@@ -5,11 +5,6 @@
 
 namespace eevm
 {
-  bool SimpleGlobalState::exists(const Address& addr)
-  {
-    return accounts.find(addr) != accounts.end();
-  }
-
   void SimpleGlobalState::remove(const Address& addr)
   {
     accounts.erase(addr);
@@ -27,11 +22,14 @@ namespace eevm
   AccountState SimpleGlobalState::create(
     const Address& addr, const uint256_t& balance, const Code& code)
   {
-    const auto acc = accounts.emplace(
-      addr, std::make_pair(Account(addr, balance, code), SimpleStorage()));
-    assert(acc.second);
+    insert({SimpleAccount(addr, balance, code), {}});
 
-    return acc.first->second;
+    return get(addr);
+  }
+  
+  bool SimpleGlobalState::exists(const Address& addr)
+  {
+    return accounts.find(addr) != accounts.end();
   }
 
   size_t SimpleGlobalState::num_accounts()
@@ -49,9 +47,11 @@ namespace eevm
     return 0u;
   }
 
-  void SimpleGlobalState::insert(std::pair<Account, SimpleStorage> p)
+  void SimpleGlobalState::insert(const StateEntry& p)
   {
-    accounts.insert(std::make_pair(p.first.address, p));
+    const auto ib = accounts.insert(std::make_pair(p.first.get_address(), p));
+
+    assert(ib.second);
   }
 
   bool operator==(const SimpleGlobalState& l, const SimpleGlobalState& r)
@@ -74,12 +74,11 @@ namespace eevm
   {
     if (j.find("block") != j.end())
       assign_j(a.currentBlock, j["block"]);
-    auto acc = j["accounts"].items();
-    for (const auto& it : acc)
+
+    for (const auto& it : j["accounts"].items())
     {
-      Address addr = it.value()[0];
-      std::pair<Account, SimpleStorage> p = it.value()[1];
-      a.accounts.insert(make_pair(addr, p));
+      const auto& v = it.value();
+      a.accounts.insert(make_pair(from_hex_str(v[0]), v[1]));
     }
   }
 } // namespace eevm

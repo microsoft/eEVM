@@ -45,7 +45,6 @@ set(EEVM_INCLUDE_DIRS
 )
 
 set(EEVM_CORE_SRCS
-  src/account.cpp
   src/disassembler.cpp
   src/processor.cpp
   src/stack.cpp
@@ -54,6 +53,7 @@ set(EEVM_CORE_SRCS
 )
 
 set(EEVM_SIMPLE_SRCS
+  src/simple/simpleaccount.cpp
   src/simple/simpleglobalstate.cpp
   src/simple/simplestorage.cpp
 )

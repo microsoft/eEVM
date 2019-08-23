@@ -22,7 +22,7 @@ namespace eevm
 
     void store(const uint256_t& key, const uint256_t& value) override;
     uint256_t load(const uint256_t& key) override;
-    bool exists(const uint256_t& key) override;
+    bool exists(const uint256_t& key);
     bool remove(const uint256_t& key) override;
 
     bool operator==(const SimpleStorage& that) const;
@@ -30,6 +30,7 @@ namespace eevm
     friend void to_json(nlohmann::json&, const SimpleStorage&);
     friend void from_json(const nlohmann::json&, SimpleStorage&);
   };
+
   void to_json(nlohmann::json& j, const SimpleStorage& s);
   void from_json(const nlohmann::json& j, SimpleStorage& s);
 } // namespace eevm
