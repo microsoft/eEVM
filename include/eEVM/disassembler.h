@@ -71,14 +71,15 @@ namespace eevm
   inline std::ostream& operator<<(std::ostream& os, const Instr& i)
   {
     os << fmt::format(
-      "{}: {}{} ({:02x} {:02x}); {}",
+      "{}: {}{} [{:02x}{}]; {}",
       i.pc,
       i.op.mnemonic,
       i.op.has_immediate() ?
-        fmt::format(" 0x{}", to_lower_hex_str(i.get_immediate())) :
+        fmt::format(" {}", to_lower_hex_str(i.get_immediate())) :
         "",
       (int)i.op.opcode,
-      fmt::join(i.raw_imm, " "),
+      i.raw_imm.size() > 0 ? fmt::format(" {:02x}", fmt::join(i.raw_imm, " ")) :
+                             "",
       i.comment);
     return os;
   }
