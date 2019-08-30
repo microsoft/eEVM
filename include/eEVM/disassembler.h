@@ -71,7 +71,7 @@ namespace eevm
   inline std::ostream& operator<<(std::ostream& os, const Instr& i)
   {
     os << fmt::format(
-      "{}: {}{} [{:02x}{}]; {}",
+      "{:>5}: {}{} [{:02x}{}]; {}",
       i.pc,
       i.op.mnemonic,
       i.op.has_immediate() ?
