@@ -124,7 +124,13 @@ namespace eevm
         const auto op = getOp((Opcode)opcode);
         const auto bytes_left = prog.cend() - it;
         if (bytes_left < op.immediate_bytes)
-          throw std::out_of_range("Immediate exceeds instruction stream.");
+          throw std::out_of_range(fmt::format(
+            "Immediate exceeds instruction stream (op {} at "
+            "instruction {} wants {} bytes, only {} remain)",
+            op.mnemonic,
+            (size_t)(it - prog.cbegin()),
+            op.immediate_bytes,
+            bytes_left));
 
         auto instr = std::make_unique<Instr>(
           op, pc, std::vector<uint8_t>(it, it + op.immediate_bytes));
