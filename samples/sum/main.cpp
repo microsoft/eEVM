@@ -28,7 +28,7 @@ void push_uint256(std::vector<uint8_t>& code, const uint256_t& n)
   code.resize(pre_size + 32);
 
   // Serialize number into code array
-  to_big_endian(n, code.begin() + pre_size);
+  to_big_endian(n, code.data() + pre_size);
 }
 
 std::vector<uint8_t> create_a_plus_b_bytecode(
