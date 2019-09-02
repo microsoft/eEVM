@@ -52,19 +52,35 @@ auto from_big_endian(const Iterator begin, const Iterator end)
   return v;
 }
 
-template <typename Iterator>
-inline void to_big_endian(uint256_t v, Iterator out)
+inline void to_big_endian(uint256_t v, uint8_t* out)
 {
   // boost::multiprecision::export_bits() does not work here, because it doesn't
   // support fixed width export.
-  uint64_t* o = reinterpret_cast<uint64_t*>(&*out);
-  constexpr uint64_t mask64 = 0xffffffff'ffffffff;
 
-  for (size_t i = 4; i-- > 0;)
+  if ((uintptr_t)out % alignof(uint64_t) == 0)
   {
-    uint64_t n = static_cast<uint64_t>(v & mask64);
-    v >>= 64;
-    o[i] = boost::endian::native_to_big(n);
+    // If the target is aligned, we can work faster by writing 64 bits at a time
+    uint64_t* o = reinterpret_cast<uint64_t*>(out);
+    constexpr uint64_t mask64 = 0xffffffff'ffffffff;
+
+    for (size_t i = 4; i-- > 0;)
+    {
+      uint64_t n = static_cast<uint64_t>(v & mask64);
+      v >>= 64;
+      o[i] = boost::endian::native_to_big(n);
+    }
+  }
+  else
+  {
+    // Else we do it the slow way, byte-by-byte
+    uint8_t* o = out;
+    constexpr uint8_t mask8 = 0xff;
+    for (size_t i = 32; i-- > 0;)
+    {
+      uint8_t n = static_cast<uint8_t>(v & mask8);
+      v >>= 8;
+      o[i] = boost::endian::native_to_big(n);
+    }
   }
 }
 
@@ -93,4 +109,3 @@ namespace boost
     }
   } // namespace multiprecision
 } // namespace boost
-

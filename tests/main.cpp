@@ -202,7 +202,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
   SUBCASE("empty")
   {
     uint256_t n = 0x0;
-    to_big_endian(n, raw.begin());
+    to_big_endian(n, raw.data());
     for (size_t i = 0; i < 32; ++i)
     {
       REQUIRE(raw[i] == 0);
@@ -215,7 +215,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
   SUBCASE("0xf")
   {
     uint256_t n = 0xf;
-    to_big_endian(n, raw.begin());
+    to_big_endian(n, raw.data());
     REQUIRE(raw[31] == 0xf);
     for (size_t i = 0; i < 31; ++i)
     {
@@ -229,7 +229,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
   SUBCASE("0xff")
   {
     uint256_t n = 0xff;
-    to_big_endian(n, raw.begin());
+    to_big_endian(n, raw.data());
     REQUIRE(raw[31] == 0xff);
     for (size_t i = 0; i < 31; ++i)
     {
@@ -243,7 +243,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
   SUBCASE("0xfff")
   {
     uint256_t n = 0xfff;
-    to_big_endian(n, raw.begin());
+    to_big_endian(n, raw.data());
     REQUIRE(raw[31] == 0xff);
     REQUIRE(raw[30] == 0xf);
     for (size_t i = 0; i < 30; ++i)
@@ -258,7 +258,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
   SUBCASE("0xab0cd01002340560000078")
   {
     uint256_t n = from_hex_str("0xab0cd01002340560000078");
-    to_big_endian(n, raw.begin());
+    to_big_endian(n, raw.data());
     REQUIRE(raw[31] == 0x78);
     REQUIRE(raw[30] == 0x00);
     REQUIRE(raw[29] == 0x00);
@@ -283,7 +283,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
   {
     uint256_t n = from_hex_str(
       "0xa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf");
-    to_big_endian(n, raw.begin());
+    to_big_endian(n, raw.data());
     for (size_t i = 0; i < 32; ++i)
     {
       REQUIRE(raw[i] == 0xa0 + i);
