@@ -1210,7 +1210,7 @@ namespace eevm
       // For contract accounts, the nonce counts the number of
       // contract-creations by this account
       // TODO: Work out why this fails the test cases
-      //ctxt->acc.increment_nonce();
+      // ctxt->acc.increment_nonce();
 
       decltype(auto) newAcc = gs.create(newAddress, contractValue, {});
 
@@ -1274,7 +1274,7 @@ namespace eevm
           copy_mem_raw(offOut, 0, sizeOut, parentContext->mem, output);
           parentContext->s.push(1);
         };
-      auto hh = [parentContext]() { parentContext->s.push(0); };
+      auto hh = [parentContext]() { parentContext->s.push(1); };
       auto he = [parentContext](const Exception&) { parentContext->s.push(0); };
 
       switch (op)
