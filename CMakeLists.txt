@@ -27,6 +27,8 @@ file(GLOB KECCAK_SOURCES
   3rdparty/keccak/*.c
 )
 
+add_subdirectory(3rdparty)
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Options 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -84,6 +86,13 @@ target_include_directories(eevm_tests PRIVATE
 )
 target_compile_options(eevm_tests PRIVATE ${COVERAGE_FLAGS})
 target_link_libraries(eevm_tests eevm ${PLATFORM_SPECIFIC_TEST_LIBS})
+
+add_executable(intx_test
+  tests/intx/main.cpp
+)
+target_link_libraries(intx_test
+  intx::intx
+)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
