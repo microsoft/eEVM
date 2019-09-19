@@ -2,37 +2,24 @@
 // Licensed under the MIT License.
 
 #pragma once
-#include <boost/endian/conversion.hpp>
-#include <boost/functional/hash/hash.hpp>
-#include <boost/multiprecision/cpp_int.hpp>
 #include <fmt/format_header_only.h>
+#include <intx/intx.hpp>
 #include <limits>
 #include <nlohmann/json.hpp>
 #include <sstream>
 #include <string>
 
-/* Boosts big integers behave (sort of) unexpected in the following sense.
-numeric_limits<int256_t>::max() == numeric_limits<uint256_t>::max() == (1 <<
-256) -1 I.e., the sign is stored in a separate bit.
-*/
+using uint256_t = intx::uint256;
+using uint512_t = intx::uint256;
 
-using uint256_t = boost::multiprecision::uint256_t;
-using uint512_t = boost::multiprecision::uint512_t;
-
-inline auto from_hex_str(const std::string& s)
+inline uint256_t from_hex_str(const std::string& s)
 {
-  std::stringstream ss;
-  ss << std::hex << s;
-  uint256_t v;
-  ss >> v;
-  return v;
+  return intx::from_string<uint256_t>(s);
 }
 
 inline auto to_hex_str(const uint256_t& v)
 {
-  std::stringstream ss;
-  ss << "0x" << std::hex << v;
-  return ss.str();
+  return intx::hex(v);
 }
 
 inline auto to_lower_hex_str(const uint256_t& v)
@@ -42,46 +29,30 @@ inline auto to_lower_hex_str(const uint256_t& v)
   return s;
 }
 
-template <typename Iterator>
-auto from_big_endian(const Iterator begin, const Iterator end)
+auto from_big_endian(const uint8_t* begin, const uint8_t* end)
 {
-  uint256_t v;
-  // imports in big endian by default
-  boost::multiprecision::import_bits(
-    v, begin, end, std::numeric_limits<uint8_t>::digits, true);
-  return v;
-}
-
-inline void to_big_endian(uint256_t v, uint8_t* out)
-{
-  // boost::multiprecision::export_bits() does not work here, because it doesn't
-  // support fixed width export.
-
-  if ((uintptr_t)out % alignof(uint64_t) == 0)
+  if (end - begin == 32)
   {
-    // If the target is aligned, we can work faster by writing 64 bits at a time
-    uint64_t* o = reinterpret_cast<uint64_t*>(out);
-    constexpr uint64_t mask64 = 0xffffffff'ffffffff;
-
-    for (size_t i = 4; i-- > 0;)
-    {
-      uint64_t n = static_cast<uint64_t>(v & mask64);
-      v >>= 64;
-      o[i] = boost::endian::native_to_big(n);
-    }
+    return intx::be::unsafe::load<uint256_t>(begin);
   }
   else
   {
-    // Else we do it the slow way, byte-by-byte
-    uint8_t* o = out;
-    constexpr uint8_t mask8 = 0xff;
-    for (size_t i = 32; i-- > 0;)
-    {
-      uint8_t n = static_cast<uint8_t>(v & mask8);
-      v >>= 8;
-      o[i] = boost::endian::native_to_big(n);
-    }
+    // TODO: Find out how common this path is, make it the caller's
+    // responsibility
+    uint8_t tmp[32] = {};
+    const auto provided = end - begin;
+    const auto offset = 32 - provided;
+    memcpy(tmp + offset, begin, provided);
+
+    return intx::be::load<uint256_t>(tmp);
   }
+}
+
+inline void to_big_endian(const uint256_t& v, uint8_t* out)
+{
+  // TODO: Is this cast safe?
+  // uint8_t(&arr)[32] = *static_cast<uint8_t(*)[32]>(static_cast<void*>(out));
+  intx::be::unsafe::store(out, v);
 }
 
 inline int get_sign(uint256_t v)
@@ -91,7 +62,7 @@ inline int get_sign(uint256_t v)
 
 inline auto power(uint256_t b, uint64_t e)
 {
-  return boost::multiprecision::pow(b, static_cast<unsigned int>(e));
+  return intx::exp(b, uint256_t(e));
 }
 
 namespace boost
