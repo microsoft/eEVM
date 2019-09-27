@@ -779,7 +779,7 @@ namespace eevm
       if (!m)
         ctxt->s.push(0);
       else
-        ctxt->s.push(static_cast<uint256_t>((x + y) % m));
+        ctxt->s.push(intx::narrow_cast<uint256_t>((x + y) % m));
     }
 
     void mulmod()
@@ -790,7 +790,7 @@ namespace eevm
       if (!m)
         ctxt->s.push(m);
       else
-        ctxt->s.push(static_cast<uint256_t>((x * y) % m));
+        ctxt->s.push(intx::narrow_cast<uint256_t>((x * y) % m));
     }
 
     void exp()
