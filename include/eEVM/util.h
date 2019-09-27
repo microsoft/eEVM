@@ -112,7 +112,7 @@ namespace eevm
   {
     std::stringstream ss;
     ss << "0x" << std::hex << std::setw(40) << std::setfill('0')
-       << to_hex_str(v);
+       << to_hex_str(v).substr(2);
     auto s = ss.str();
     std::transform(s.begin(), s.end(), s.begin(), ::tolower);
     return s;
