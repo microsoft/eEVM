@@ -19,7 +19,7 @@ inline uint256_t from_hex_str(const std::string& s)
 
 inline auto to_hex_str(const uint256_t& v)
 {
-  return intx::hex(v);
+  return fmt::format("0x{}", intx::hex(v));
 }
 
 inline auto to_lower_hex_str(const uint256_t& v)
