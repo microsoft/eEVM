@@ -10,7 +10,7 @@
 #include <string>
 
 using uint256_t = intx::uint256;
-using uint512_t = intx::uint256;
+using uint512_t = intx::uint512;
 
 inline uint256_t from_hex_str(const std::string& s)
 {
