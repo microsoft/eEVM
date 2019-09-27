@@ -52,6 +52,8 @@ namespace eevm
 
   void to_json(nlohmann::json& j, const SimpleStorage& s)
   {
+    j = nlohmann::json::object();
+
     for (const auto& p : s.s)
       j[to_hex_str(p.first)] = p.second;
   }
