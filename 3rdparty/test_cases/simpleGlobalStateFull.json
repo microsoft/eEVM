@@ -9,11 +9,11 @@
           "code": "0xff",
           "nonce": "0x0"
         },
-        null
+        {}
       ]
     ],
     [
-      "0xE01C10FD900939D1EAB56EE373EA5E2BD4E2CFB3",
+      "0xe01c10fd900939d1eab56ee373ea5e2bd4e2cfb3",
       [
         {
           "address": "0xe01c10fd900939d1eab56ee373ea5e2bd4e2cfb3",
