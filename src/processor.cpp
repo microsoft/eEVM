@@ -739,7 +739,11 @@ namespace eevm
           x = 0 - x;
         if (signY == -1)
           y = 0 - y;
-        ctxt->s.push((x / y) * signX * signY);
+
+        auto z = (x / y);
+        if (signX != signY)
+          z = 0 - z;
+        ctxt->s.push(z);
       }
     }
 
