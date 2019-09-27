@@ -961,7 +961,7 @@ namespace eevm
       const auto offset = ctxt->s.pop64();
       prepare_mem_access(offset, Consts::WORD_SIZE);
       const auto start = ctxt->mem.data() + offset;
-      ctxt->s.push(from_big_endian(start, Consts::WORD_SIZE - offset));
+      ctxt->s.push(from_big_endian(start, Consts::WORD_SIZE));
     }
 
     void mstore()
