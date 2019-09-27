@@ -815,8 +815,9 @@ namespace eevm
       }
       const auto idx = 8 * shrink<uint8_t>(x) + 7;
       const auto sign = static_cast<uint8_t>((y >> idx) & 1);
-      const auto mask = uint256_t(-1) >> (256 - idx);
-      const auto yex = (uint256_t(-sign) << idx) | (y & mask);
+      constexpr auto zero = uint256_t(0);
+      const auto mask = ~zero >> (256 - idx);
+      const auto yex = ((sign ? ~zero : zero) << idx) | (y & mask);
       ctxt->s.push(yex);
     }
 
