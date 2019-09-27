@@ -40,7 +40,7 @@ uint256_t get_random_uint256(size_t bytes = 32)
 {
   std::vector<uint8_t> raw(bytes);
   std::generate(raw.begin(), raw.end(), []() { return rand(); });
-  return from_big_endian(raw.begin(), raw.end());
+  return from_big_endian(raw.data(), raw.size());
 }
 
 eevm::Address get_random_address()
@@ -139,7 +139,7 @@ uint256_t get_total_supply(
   const auto output =
     run_and_check_result(env, caller, contract_address, function_call);
 
-  return from_big_endian(output.begin(), output.end());
+  return from_big_endian(output.data(), output.size());
 }
 
 // Get the current token balance of target_address by calling balanceOf on
@@ -161,7 +161,7 @@ uint256_t get_balance(
   const auto output =
     run_and_check_result(env, caller, contract_address, function_call);
 
-  return from_big_endian(output.begin(), output.end());
+  return from_big_endian(output.data(), output.size());
 }
 
 // Transfer tokens from source_address to target_address by calling transfer on

@@ -29,9 +29,9 @@ inline auto to_lower_hex_str(const uint256_t& v)
   return s;
 }
 
-auto from_big_endian(const uint8_t* begin, const uint8_t* end)
+inline auto from_big_endian(const uint8_t* begin, size_t size = 32u)
 {
-  if (end - begin == 32)
+  if (size == 32)
   {
     return intx::be::unsafe::load<uint256_t>(begin);
   }
@@ -40,9 +40,8 @@ auto from_big_endian(const uint8_t* begin, const uint8_t* end)
     // TODO: Find out how common this path is, make it the caller's
     // responsibility
     uint8_t tmp[32] = {};
-    const auto provided = end - begin;
-    const auto offset = 32 - provided;
-    memcpy(tmp + offset, begin, provided);
+    const auto offset = 32 - size;
+    memcpy(tmp + offset, begin, size);
 
     return intx::be::load<uint256_t>(tmp);
   }
@@ -65,18 +64,15 @@ inline auto power(uint256_t b, uint64_t e)
   return intx::exp(b, uint256_t(e));
 }
 
-namespace boost
+namespace intx
 {
-  namespace multiprecision
+  inline void to_json(nlohmann::json& j, const uint256& v)
   {
-    inline void to_json(nlohmann::json& j, const uint256_t& v)
-    {
-      j = to_lower_hex_str(v);
-    }
+    j = to_lower_hex_str(v);
+  }
 
-    inline void from_json(const nlohmann::json& j, uint256_t& v)
-    {
-      v = from_hex_str(j);
-    }
-  } // namespace multiprecision
-} // namespace boost
+  inline void from_json(const nlohmann::json& j, uint256& v)
+  {
+    v = from_hex_str(j);
+  }
+} // namespace intx

@@ -99,7 +99,7 @@ int main(int argc, char** argv)
   std::generate(
     raw_address.begin(), raw_address.end(), []() { return rand(); });
   const eevm::Address sender =
-    from_big_endian(raw_address.begin(), raw_address.end());
+    from_big_endian(raw_address.data(), raw_address.size());
 
   // Generate a target address for the summing contract (this COULD be random,
   // but here we use the scheme for Contract Creation specified in the Yellow
@@ -166,7 +166,7 @@ int main(int argc, char** argv)
               << std::endl;
   }
 
-  const uint256_t result = from_big_endian(e.output.begin(), e.output.end());
+  const uint256_t result = from_big_endian(e.output.data(), e.output.size());
 
   std::cout << fmt::format(
                  "{} + {} = {}",

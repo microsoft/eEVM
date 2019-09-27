@@ -208,7 +208,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
@@ -222,7 +222,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
@@ -236,7 +236,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
@@ -251,7 +251,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
@@ -275,7 +275,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
@@ -289,7 +289,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0xa0 + i);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 }
@@ -365,7 +365,7 @@ TEST_CASE("vmExecution" * doctest::test_suite("vm"))
     CHECK(e.er == ExitReason::returned);
     CHECK(e.output.size() == rsize);
 
-    const uint256_t result = from_big_endian(e.output.begin(), e.output.end());
+    const uint256_t result = from_big_endian(e.output.data(), e.output.size());
     CHECK(result == a + b);
 
     // Confirm each opcode produced a TraceEvent, in order

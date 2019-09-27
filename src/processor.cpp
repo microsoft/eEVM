@@ -809,7 +809,7 @@ namespace eevm
         ctxt->s.push(y);
         return;
       }
-      const uint8_t idx = 8 * shrink<uint8_t>(x) + 7;
+      const auto idx = 8 * shrink<uint8_t>(x) + 7;
       const auto sign = static_cast<uint8_t>((y >> idx) & 1);
       const auto mask = uint256_t(-1) >> (256 - idx);
       const auto yex = (uint256_t(-sign) << idx) | (y & mask);
@@ -840,8 +840,8 @@ namespace eevm
         return;
       }
 
-      uint8_t signX = x.sign();
-      uint8_t signY = y.sign();
+      uint8_t signX = get_sign(x);
+      uint8_t signY = get_sign(y);
       if (signX != signY)
       {
         if (signX == 1)
@@ -951,8 +951,8 @@ namespace eevm
     {
       const auto offset = ctxt->s.pop64();
       prepare_mem_access(offset, Consts::WORD_SIZE);
-      const auto start = ctxt->mem.begin() + offset;
-      ctxt->s.push(from_big_endian(start, start + Consts::WORD_SIZE));
+      const auto start = ctxt->mem.data() + offset;
+      ctxt->s.push(from_big_endian(start, Consts::WORD_SIZE - offset));
     }
 
     void mstore()
@@ -1166,7 +1166,7 @@ namespace eevm
 
       uint8_t h[32];
       keccak_256(ctxt->mem.data() + offset, static_cast<unsigned int>(size), h);
-      ctxt->s.push(from_big_endian(h, h + sizeof(h)));
+      ctxt->s.push(from_big_endian(h, sizeof(h)));
     }
 
     void return_()

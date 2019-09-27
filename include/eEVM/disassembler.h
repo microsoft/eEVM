@@ -64,7 +64,7 @@ namespace eevm
     {
       if (!raw_imm.size())
         throw std::logic_error("Instruction does not have immediate.");
-      return from_big_endian(raw_imm.data(), raw_imm.data() + raw_imm.size());
+      return from_big_endian(raw_imm.data(), raw_imm.size());
     }
   };
 

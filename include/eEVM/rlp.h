@@ -429,9 +429,7 @@ namespace eevm
 
         if (size > 0)
         {
-          const uint8_t(&arr)[size] = *static_cast<const uint8_t(*)[size]>(
-            static_cast<const void*>(data));
-          result = intx::be::load(arr);
+          result = from_big_endian(data, size);
         }
 
         data += size;
