@@ -840,11 +840,11 @@ namespace eevm
         return;
       }
 
-      uint8_t signX = get_sign(x);
-      uint8_t signY = get_sign(y);
+      const auto signX = get_sign(x);
+      const auto signY = get_sign(y);
       if (signX != signY)
       {
-        if (signX == 1)
+        if (signX == -1)
           ctxt->s.push(1);
         else
           ctxt->s.push(0);
