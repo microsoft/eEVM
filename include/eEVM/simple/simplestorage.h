@@ -6,6 +6,7 @@
 #include "eEVM/storage.h"
 
 #include <map>
+#include <nlohmann/json.hpp>
 
 namespace eevm
 {

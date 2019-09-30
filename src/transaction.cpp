@@ -15,15 +15,24 @@ namespace eevm
 
   void to_json(nlohmann::json& j, const LogEntry& log)
   {
-    j["address"] = log.address;
+    j["address"] = to_hex_string(log.address);
     j["data"] = to_hex_string(log.data);
-    j["topics"] = log.topics;
+
+    auto topics_array = nlohmann::json::array();
+    for (const auto& topic : log.topics)
+    {
+      topics_array.push_back(to_hex_string(topic));
+    }
+    j["topics"] = topics_array;
   }
 
   void from_json(const nlohmann::json& j, LogEntry& log)
   {
-    log.address = j["address"];
+    log.address = to_uint256(j["address"]);
     log.data = to_bytes(j["data"]);
-    log.topics = j["topics"].get<decltype(LogEntry::topics)>();
+    for (const auto& topic : j["topics"])
+    {
+      log.topics.push_back(to_uint256(topic));
+    }
   }
 } // namespace eevm

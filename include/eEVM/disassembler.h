@@ -75,7 +75,7 @@ namespace eevm
       i.pc,
       i.op.mnemonic,
       i.op.has_immediate() ?
-        fmt::format(" {}", to_lower_hex_str(i.get_immediate())) :
+        fmt::format(" {}", to_lower_hex_string(i.get_immediate())) :
         "",
       (int)i.op.opcode,
       i.raw_imm.size() > 0 ? fmt::format(" {:02x}", fmt::join(i.raw_imm, " ")) :

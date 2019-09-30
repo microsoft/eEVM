@@ -30,6 +30,11 @@ namespace eevm
     static constexpr auto MAX_MEM_SIZE = 1ull << 25; // 32 MB
   };
 
+  inline int get_sign(const uint256_t& v)
+  {
+    return (v >> 255) ? -1 : 1;
+  }
+
   /**
    * bytecode program
    */
@@ -805,7 +810,7 @@ namespace eevm
     {
       const auto b = ctxt->s.pop();
       const auto e = ctxt->s.pop64();
-      ctxt->s.push(power(b, e));
+      ctxt->s.push(intx::exp(b, uint256_t(e)));
     }
 
     void signextend()

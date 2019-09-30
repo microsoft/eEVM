@@ -22,7 +22,7 @@ SimpleGlobalState::StateEntry parseAccount(json::const_iterator& it)
 {
   auto storage = it.value()["storage"];
   auto account = it.value().get<SimpleAccount>();
-  account.set_address(from_hex_str(it.key()));
+  account.set_address(to_uint256(it.key()));
   return {account, storage};
 }
 
@@ -67,8 +67,8 @@ void run_test_case(
     INFO("SUBCASE: " << subcase);
     {
       const auto& j = it.value();
-      Address callee = j["exec"]["address"];
-      Address caller = j["exec"]["caller"];
+      Address callee = to_uint256(j["exec"]["address"]);
+      Address caller = to_uint256(j["exec"]["caller"]);
       const auto c = to_bytes(j["exec"]["code"]);
       const auto inp = to_bytes(j["exec"]["data"]);
       uint64_t value = to_uint64(j["exec"]["value"]);

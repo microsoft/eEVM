@@ -28,7 +28,7 @@ void push_uint256(std::vector<uint8_t>& code, const uint256_t& n)
   code.resize(pre_size + 32);
 
   // Serialize number into code array
-  to_big_endian(n, code.data() + pre_size);
+  eevm::to_big_endian(n, code.data() + pre_size);
 }
 
 std::vector<uint8_t> create_a_plus_b_bytecode(
@@ -82,15 +82,15 @@ int main(int argc, char** argv)
   srand(time(nullptr));
 
   // Parse args
-  const uint256_t arg_a = from_hex_str(argv[first_arg]);
-  const uint256_t arg_b = from_hex_str(argv[first_arg + 1]);
+  const uint256_t arg_a = eevm::to_uint256(argv[first_arg]);
+  const uint256_t arg_b = eevm::to_uint256(argv[first_arg + 1]);
 
   if (verbose)
   {
     std::cout << fmt::format(
                    "Calculating {} + {}",
-                   to_lower_hex_str(arg_a),
-                   to_lower_hex_str(arg_b))
+                   eevm::to_lower_hex_string(arg_a),
+                   eevm::to_lower_hex_string(arg_b))
               << std::endl;
   }
 
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
   std::generate(
     raw_address.begin(), raw_address.end(), []() { return rand(); });
   const eevm::Address sender =
-    from_big_endian(raw_address.data(), raw_address.size());
+    eevm::from_big_endian(raw_address.data(), raw_address.size());
 
   // Generate a target address for the summing contract (this COULD be random,
   // but here we use the scheme for Contract Creation specified in the Yellow
@@ -166,13 +166,14 @@ int main(int argc, char** argv)
               << std::endl;
   }
 
-  const uint256_t result = from_big_endian(e.output.data(), e.output.size());
+  const uint256_t result =
+    eevm::from_big_endian(e.output.data(), e.output.size());
 
   std::cout << fmt::format(
                  "{} + {} = {}",
-                 to_lower_hex_str(arg_a),
-                 to_lower_hex_str(arg_b),
-                 to_lower_hex_str(result))
+                 eevm::to_lower_hex_string(arg_a),
+                 eevm::to_lower_hex_string(arg_b),
+                 eevm::to_lower_hex_string(result))
             << std::endl;
 
   return 0;

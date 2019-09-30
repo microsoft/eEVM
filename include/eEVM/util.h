@@ -9,6 +9,7 @@ extern "C"
 }
 #include "address.h"
 
+#include <fmt/format_header_only.h>
 #include <iomanip>
 #include <limits>
 #include <nlohmann/json.hpp>
@@ -121,7 +122,7 @@ namespace eevm
   {
     std::stringstream ss;
     ss << "0x" << std::hex << std::setw(40) << std::setfill('0')
-       << to_hex_str(v).substr(2);
+       << to_hex_string(v).substr(2);
     auto s = ss.str();
     std::transform(s.begin(), s.end(), s.begin(), ::tolower);
     return s;
@@ -135,14 +136,14 @@ namespace eevm
     return s;
   }
 
-  inline uint256_t from_hex_string(const std::string& s)
+  inline uint256_t to_uint256(const std::string& s)
   {
     return intx::from_string<uint256_t>(s);
   }
 
   inline std::string to_checksum_address(const Address& a)
   {
-    auto s = to_lower_hex_str(a);
+    auto s = to_lower_hex_string(a);
 
     // Start at index 2 to skip the "0x" prefix
     const auto h = keccak_256_skip(2, s);
@@ -164,7 +165,7 @@ namespace eevm
 
   inline bool is_checksum_address(const std::string& s)
   {
-    const auto cs = to_checksum_address(from_hex_str(s));
+    const auto cs = to_checksum_address(to_uint256(s));
     return cs == s;
   }
 

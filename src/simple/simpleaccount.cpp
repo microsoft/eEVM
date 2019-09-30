@@ -67,7 +67,7 @@ namespace eevm
   void to_json(nlohmann::json& j, const SimpleAccount& a)
   {
     j["address"] = address_to_hex_string(a.address);
-    j["balance"] = a.balance;
+    j["balance"] = to_hex_string(a.balance);
     j["nonce"] = to_hex_string(a.nonce);
     j["code"] = to_hex_string(a.code);
   }
@@ -76,12 +76,12 @@ namespace eevm
   {
     if (j.find("address") != j.end())
     {
-      a.address = j["address"];
+      a.address = to_uint256(j["address"]);
     }
 
     if (j.find("balance") != j.end())
     {
-      a.balance = j["balance"];
+      a.balance = to_uint256(j["balance"]);
     }
 
     if (j.find("nonce") != j.end())

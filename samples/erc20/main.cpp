@@ -182,7 +182,7 @@ bool transfer(
 
   std::cout << fmt::format(
                  "Transferring {} from {} to {}",
-                 to_lower_hex_str(amount),
+                 to_lower_hex_string(amount),
                  eevm::to_checksum_address(source_address),
                  eevm::to_checksum_address(target_address))
             << std::endl;
@@ -251,14 +251,14 @@ void print_erc20_state(
   std::cout << heading << std::endl;
   std::cout << fmt::format(
                  "Total supply of tokens is: {}",
-                 to_lower_hex_str(total_supply))
+                 to_lower_hex_string(total_supply))
             << std::endl;
   std::cout << "User balances: " << std::endl;
   for (const auto& pair : balances)
   {
     std::cout << fmt::format(
       " {} owned by {}",
-      to_lower_hex_str(pair.second),
+      to_lower_hex_string(pair.second),
       eevm::to_checksum_address(pair.first));
     if (pair.first == env.owner_address)
     {

@@ -4,6 +4,7 @@
 #pragma once
 
 #include "bigint.h"
+#include "util.h"
 
 #include <cstdint>
 #include <stdexcept>
@@ -414,25 +415,6 @@ namespace eevm
           result[i] = *data++;
         }
 
-        size = 0u;
-
-        return result;
-      }
-    };
-
-    template <>
-    struct from_bytes<uint256_t>
-    {
-      uint256_t operator()(const uint8_t*& data, size_t& size)
-      {
-        uint256_t result = 0u;
-
-        if (size > 0)
-        {
-          result = from_big_endian(data, size);
-        }
-
-        data += size;
         size = 0u;
 
         return result;
