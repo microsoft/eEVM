@@ -26,19 +26,6 @@ namespace eevm
     o = j.get<T>();
   }
 
-  template <typename T, typename U>
-  void assign_const(const T& x, U&& y)
-  {
-    *const_cast<T*>(&x) = y;
-  }
-
-  template <typename T>
-  void assign_j_const(const T& x, const nlohmann::json& j)
-  {
-    T t = j;
-    assign_const(x, std::move(t));
-  }
-
   inline void keccak_256(
     const unsigned char* input,
     unsigned int inputByteLen,

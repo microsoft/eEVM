@@ -22,8 +22,8 @@ namespace eevm
 
   void from_json(const nlohmann::json& j, LogEntry& log)
   {
-    assign_j_const(log.address, j["address"]);
-    assign_j_const(log.data, to_bytes(j["data"]));
-    assign_j_const(log.topics, j["topics"]);
+    log.address = j["address"];
+    log.data = to_bytes(j["data"]);
+    log.topics = j["topics"].get<decltype(LogEntry::topics)>();
   }
 } // namespace eevm
