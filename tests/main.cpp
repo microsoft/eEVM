@@ -168,23 +168,19 @@ TEST_CASE("util" * doctest::test_suite("util"))
 
   SUBCASE("to_checksum_address")
   {
-    const Address t0 =
-      to_uint256("0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed");
+    const Address t0 = to_uint256("0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed");
     REQUIRE(
       to_checksum_address(t0) == "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed");
 
-    const Address t1 =
-      to_uint256("0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359");
+    const Address t1 = to_uint256("0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359");
     REQUIRE(
       to_checksum_address(t1) == "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359");
 
-    const Address t2 =
-      to_uint256("0xDBF03B407C01E7CD3CBEA99509D93F8DDDC8C6FB");
+    const Address t2 = to_uint256("0xDBF03B407C01E7CD3CBEA99509D93F8DDDC8C6FB");
     REQUIRE(
       to_checksum_address(t2) == "0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB");
 
-    const Address t3 =
-      to_uint256("0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb");
+    const Address t3 = to_uint256("0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb");
     REQUIRE(
       to_checksum_address(t3) == "0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb");
 
