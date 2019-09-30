@@ -26,7 +26,7 @@ namespace eevm
 
     return get(addr);
   }
-  
+
   bool SimpleGlobalState::exists(const Address& addr)
   {
     return accounts.find(addr) != accounts.end();
@@ -73,7 +73,9 @@ namespace eevm
   void from_json(const nlohmann::json& j, SimpleGlobalState& a)
   {
     if (j.find("block") != j.end())
-      assign_j(a.currentBlock, j["block"]);
+    {
+      a.currentBlock = j["block"];
+    }
 
     for (const auto& it : j["accounts"].items())
     {

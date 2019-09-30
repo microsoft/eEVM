@@ -17,15 +17,6 @@ extern "C"
 
 namespace eevm
 {
-  /* Workaround for different json assignment issues, e.g.,
-  Boost cpp_int or vector in VS 2017:
-  https://github.com/nlohmann/json/issues/220 */
-  template <typename T>
-  void assign_j(T& o, const nlohmann::json& j)
-  {
-    o = j.get<T>();
-  }
-
   inline void keccak_256(
     const unsigned char* input,
     unsigned int inputByteLen,

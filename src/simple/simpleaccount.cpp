@@ -75,15 +75,23 @@ namespace eevm
   void from_json(const nlohmann::json& j, SimpleAccount& a)
   {
     if (j.find("address") != j.end())
-      assign_j(a.address, j["address"]);
+    {
+      a.address = j["address"];
+    }
 
     if (j.find("balance") != j.end())
-      assign_j(a.balance, j["balance"]);
+    {
+      a.balance = j["balance"];
+    }
 
     if (j.find("nonce") != j.end())
-      assign_j(a.nonce, to_uint64(j["nonce"]));
+    {
+      a.nonce = to_uint64(j["nonce"]);
+    }
 
     if (j.find("code") != j.end())
-      assign_j(a.code, to_bytes(j["code"]));
+    {
+      a.code = to_bytes(j["code"]);
+    }
   }
 } // namespace eevm
