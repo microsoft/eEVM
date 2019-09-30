@@ -17,6 +17,32 @@ extern "C"
 
 namespace eevm
 {
+  inline auto from_big_endian(const uint8_t* begin, size_t size = 32u)
+  {
+    if (size == 32)
+    {
+      return intx::be::unsafe::load<uint256_t>(begin);
+    }
+    else
+    {
+      // TODO: Find out how common this path is, make it the caller's
+      // responsibility
+      uint8_t tmp[32] = {};
+      const auto offset = 32 - size;
+      memcpy(tmp + offset, begin, size);
+
+      return intx::be::load<uint256_t>(tmp);
+    }
+  }
+
+  inline void to_big_endian(const uint256_t& v, uint8_t* out)
+  {
+    // TODO: Is this cast safe?
+    // uint8_t(&arr)[32] =
+    // *static_cast<uint8_t(*)[32]>(static_cast<void*>(out));
+    intx::be::unsafe::store(out, v);
+  }
+
   inline void keccak_256(
     const unsigned char* input,
     unsigned int inputByteLen,
@@ -86,6 +112,11 @@ namespace eevm
     return fmt::format("0x{:x}", v);
   }
 
+  inline std::string to_hex_string(const uint256_t& v)
+  {
+    return fmt::format("0x{}", intx::hex(v));
+  }
+
   inline auto address_to_hex_string(const Address& v)
   {
     std::stringstream ss;
@@ -94,6 +125,19 @@ namespace eevm
     auto s = ss.str();
     std::transform(s.begin(), s.end(), s.begin(), ::tolower);
     return s;
+  }
+
+  template <typename T>
+  std::string to_lower_hex_string(const T& v)
+  {
+    auto s = to_hex_string(v);
+    std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+    return s;
+  }
+
+  inline uint256_t from_hex_string(const std::string& s)
+  {
+    return intx::from_string<uint256_t>(s);
   }
 
   inline std::string to_checksum_address(const Address& a)
