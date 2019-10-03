@@ -171,6 +171,5 @@ namespace eevm
 
   Address generate_address(const Address& sender, uint64_t nonce);
 
-  uint64_t to_uint64(const nlohmann::json& j);
   uint64_t to_uint64(const std::string& s);
 } // namespace eevm
