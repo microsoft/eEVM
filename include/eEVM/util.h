@@ -102,8 +102,13 @@ namespace eevm
     return fmt::format("0x{:02x}", fmt::join(begin, end, ""));
   }
 
-  template <typename T>
-  std::string to_hex_string(const T& bytes)
+  template <size_t N>
+  std::string to_hex_string(const std::array<uint8_t, N>& bytes)
+  {
+    return to_hex_string(bytes.begin(), bytes.end());
+  }
+
+  inline std::string to_hex_string(const std::vector<uint8_t>& bytes)
   {
     return to_hex_string(bytes.begin(), bytes.end());
   }
