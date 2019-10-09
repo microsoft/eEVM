@@ -3,6 +3,8 @@
 
 #pragma once
 #include <intx/intx.hpp>
+#include <iomanip>
+#include <iostream>
 
 using uint256_t = intx::uint256;
 using uint512_t = intx::uint512;
