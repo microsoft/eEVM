@@ -26,7 +26,7 @@ namespace eevm
 
     return get(addr);
   }
-  
+
   bool SimpleGlobalState::exists(const Address& addr)
   {
     return accounts.find(addr) != accounts.end();
@@ -65,7 +65,7 @@ namespace eevm
     auto o = nlohmann::json::array();
     for (const auto& p : s.accounts)
     {
-      o.push_back({to_hex_str(p.first), p.second});
+      o.push_back({to_hex_string(p.first), p.second});
     }
     j["accounts"] = o;
   }
@@ -73,12 +73,14 @@ namespace eevm
   void from_json(const nlohmann::json& j, SimpleGlobalState& a)
   {
     if (j.find("block") != j.end())
-      assign_j(a.currentBlock, j["block"]);
+    {
+      a.currentBlock = j["block"];
+    }
 
     for (const auto& it : j["accounts"].items())
     {
       const auto& v = it.value();
-      a.accounts.insert(make_pair(from_hex_str(v[0]), v[1]));
+      a.accounts.insert(make_pair(to_uint256(v[0]), v[1]));
     }
   }
 } // namespace eevm

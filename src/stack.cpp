@@ -4,6 +4,7 @@
 #include "eEVM/stack.h"
 
 #include "eEVM/exception.h"
+#include "eEVM/util.h"
 
 #include <algorithm>
 #include <limits>
@@ -32,7 +33,7 @@ namespace eevm
     if (val > numeric_limits<uint64_t>::max())
       throw Exception(
         ET::outOfBounds,
-        "Value on stack (" + to_hex_str(val) + ") is larger than 2^64");
+        "Value on stack (" + to_hex_string(val) + ") is larger than 2^64");
 
     return static_cast<uint64_t>(val);
   }
@@ -86,7 +87,7 @@ namespace eevm
     int i = 0;
     os << std::dec;
     for (const auto& elem : s.st)
-      os << fmt::format(" {}: {}", i++, to_hex_str(elem)) << std::endl;
+      os << fmt::format(" {}: {}", i++, to_hex_string(elem)) << std::endl;
     return os;
   }
 } // namespace eevm

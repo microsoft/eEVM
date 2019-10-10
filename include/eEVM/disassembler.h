@@ -64,7 +64,7 @@ namespace eevm
     {
       if (!raw_imm.size())
         throw std::logic_error("Instruction does not have immediate.");
-      return from_big_endian(raw_imm.cbegin(), raw_imm.cend());
+      return from_big_endian(raw_imm.data(), raw_imm.size());
     }
   };
 
@@ -75,7 +75,7 @@ namespace eevm
       i.pc,
       i.op.mnemonic,
       i.op.has_immediate() ?
-        fmt::format(" {}", to_lower_hex_str(i.get_immediate())) :
+        fmt::format(" {}", to_lower_hex_string(i.get_immediate())) :
         "",
       (int)i.op.opcode,
       i.raw_imm.size() > 0 ? fmt::format(" {:02x}", fmt::join(i.raw_imm, " ")) :

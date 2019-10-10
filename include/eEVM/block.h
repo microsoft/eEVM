@@ -19,11 +19,9 @@ namespace eevm
 
   inline bool operator==(const Block& l, const Block& r)
   {
-   return l.coinbase == r.coinbase &&
-          l.number == r.number &&
-          l.difficulty == r.difficulty &&
-          l.gas_limit == r.gas_limit &&
-          l.timestamp == r.timestamp;
+    return l.coinbase == r.coinbase && l.number == r.number &&
+      l.difficulty == r.difficulty && l.gas_limit == r.gas_limit &&
+      l.timestamp == r.timestamp;
   }
 
   inline void from_json(const nlohmann::json& j, Block& b)
@@ -32,7 +30,7 @@ namespace eevm
     b.difficulty = to_uint64(j["currentDifficulty"]);
     b.gas_limit = to_uint64(j["currentGasLimit"]);
     b.timestamp = to_uint64(j["currentTimestamp"]);
-    b.coinbase = from_hex_str(j["currentCoinbase"]);
+    b.coinbase = to_uint256(j["currentCoinbase"]);
   }
 
   inline void to_json(nlohmann::json& j, const Block& b)
@@ -41,6 +39,6 @@ namespace eevm
     j["currentDifficulty"] = to_hex_string(b.difficulty);
     j["currentGasLimit"] = to_hex_string(b.gas_limit);
     j["currentTimestamp"] = to_hex_string(b.timestamp);
-    j["currentCoinbase"] = to_hex_str(b.coinbase);
+    j["currentCoinbase"] = to_hex_string(b.coinbase);
   }
 } // namespace eevm

@@ -40,7 +40,7 @@ uint256_t get_random_uint256(size_t bytes = 32)
 {
   std::vector<uint8_t> raw(bytes);
   std::generate(raw.begin(), raw.end(), []() { return rand(); });
-  return from_big_endian(raw.begin(), raw.end());
+  return eevm::from_big_endian(raw.data(), raw.size());
 }
 
 eevm::Address get_random_address()
@@ -94,7 +94,7 @@ void append_argument(std::vector<uint8_t>& code, const uint256_t& arg)
   // complicated, so not shown in this sample.
   const auto pre_size = code.size();
   code.resize(pre_size + 32u);
-  to_big_endian(arg, code.data() + pre_size);
+  eevm::to_big_endian(arg, code.data() + pre_size);
 }
 
 // Deploy the ERC20 contract defined in env, with total_supply tokens. Return
@@ -139,7 +139,7 @@ uint256_t get_total_supply(
   const auto output =
     run_and_check_result(env, caller, contract_address, function_call);
 
-  return from_big_endian(output.begin(), output.end());
+  return eevm::from_big_endian(output.data(), output.size());
 }
 
 // Get the current token balance of target_address by calling balanceOf on
@@ -161,7 +161,7 @@ uint256_t get_balance(
   const auto output =
     run_and_check_result(env, caller, contract_address, function_call);
 
-  return from_big_endian(output.begin(), output.end());
+  return eevm::from_big_endian(output.data(), output.size());
 }
 
 // Transfer tokens from source_address to target_address by calling transfer on
@@ -182,7 +182,7 @@ bool transfer(
 
   std::cout << fmt::format(
                  "Transferring {} from {} to {}",
-                 to_lower_hex_str(amount),
+                 eevm::to_lower_hex_string(amount),
                  eevm::to_checksum_address(source_address),
                  eevm::to_checksum_address(target_address))
             << std::endl;
@@ -251,14 +251,14 @@ void print_erc20_state(
   std::cout << heading << std::endl;
   std::cout << fmt::format(
                  "Total supply of tokens is: {}",
-                 to_lower_hex_str(total_supply))
+                 eevm::to_lower_hex_string(total_supply))
             << std::endl;
   std::cout << "User balances: " << std::endl;
   for (const auto& pair : balances)
   {
     std::cout << fmt::format(
       " {} owned by {}",
-      to_lower_hex_str(pair.second),
+      eevm::to_lower_hex_string(pair.second),
       eevm::to_checksum_address(pair.first));
     if (pair.first == env.owner_address)
     {

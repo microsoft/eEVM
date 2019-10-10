@@ -21,11 +21,6 @@ namespace eevm
     return strtoull(s.c_str(), nullptr, 16);
   }
 
-  uint64_t to_uint64(const nlohmann::json& j)
-  {
-    return to_uint64(j.get<std::string>());
-  }
-
   vector<uint8_t> to_bytes(const string& _s)
   {
     auto s = strip(_s);
@@ -59,6 +54,6 @@ namespace eevm
       static_cast<unsigned int>(rlp_encoding.size()),
       buffer);
 
-    return from_big_endian(buffer + 12u, buffer + 32u);
+    return from_big_endian(buffer + 12u, 20u);
   }
 } // namespace eevm

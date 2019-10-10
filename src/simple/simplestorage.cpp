@@ -14,8 +14,8 @@ namespace eevm
     for (auto it = j.cbegin(); it != j.cend(); it++)
       s.emplace(
         std::piecewise_construct,
-        /* key */ std::forward_as_tuple(from_hex_str(it.key())),
-        /* value */ std::forward_as_tuple(from_hex_str(it.value())));
+        /* key */ std::forward_as_tuple(to_uint256(it.key())),
+        /* value */ std::forward_as_tuple(to_uint256(it.value())));
   }
 
   void SimpleStorage::store(const uint256_t& key, const uint256_t& value)
@@ -52,14 +52,20 @@ namespace eevm
 
   void to_json(nlohmann::json& j, const SimpleStorage& s)
   {
+    j = nlohmann::json::object();
+
     for (const auto& p : s.s)
-      j[to_hex_str(p.first)] = p.second;
+    {
+      j[to_hex_string(p.first)] = to_hex_string(p.second);
+    }
   }
 
   void from_json(const nlohmann::json& j, SimpleStorage& s)
   {
     for (decltype(auto) it = j.cbegin(); it != j.cend(); it++)
-      s.s.emplace(from_hex_str(it.key()), from_hex_str(it.value()));
+    {
+      s.s.emplace(to_uint256(it.key()), to_uint256(it.value()));
+    }
   }
 
   inline std::ostream& operator<<(std::ostream& os, const SimpleStorage& s)

@@ -4,8 +4,6 @@ project(eevm)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(Boost_ADDITIONAL_VERSIONS "1.67" "1.67.0")
-find_package(Boost 1.60.0 REQUIRED)
 
 if(MSVC)
   # Set Windows compiler options.
@@ -27,6 +25,8 @@ file(GLOB KECCAK_SOURCES
   3rdparty/keccak/*.c
 )
 
+add_subdirectory(3rdparty)
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Options 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -39,7 +39,6 @@ endif(RECORD_TRACE)
 # Common variables 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 set(EEVM_INCLUDE_DIRS
-  ${Boost_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
@@ -67,6 +66,9 @@ add_library(eevm STATIC
 )
 target_include_directories(eevm PRIVATE
   ${EEVM_INCLUDE_DIRS}
+)
+target_link_libraries(eevm
+  intx::intx
 )
 
 
