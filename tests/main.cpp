@@ -61,7 +61,7 @@ TEST_CASE(
   SUBCASE("Using non-default values for SimpleAccount")
   {
     SimpleAccount a1(
-      from_hex_str("0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6"),
+      to_uint256("0x0f572e5295c57f15886f9b263e2f6d2d6c7b5ec6"),
       5678,
       {0x00, 0x01, 0x10, 0x11},
       0x66);
@@ -78,13 +78,13 @@ TEST_CASE(
     SimpleAccount a1 = rec.get<SimpleAccount>();
     nlohmann::json j2 = a1;
     if (rec.find("balance") != rec.end())
-      CHECK(a1.get_balance() == from_hex_str(j2["balance"]));
+      CHECK(a1.get_balance() == to_uint256(j2["balance"]));
     if (rec.find("code") != rec.end())
       CHECK(a1.get_code() == to_bytes(j2["code"]));
     if (rec.find("nonce") != rec.end())
       CHECK(a1.get_nonce() == to_uint64(j2["nonce"]));
     if (rec.find("address") != rec.end())
-      CHECK(a1.get_address() == from_hex_str(j2["address"]));
+      CHECK(a1.get_address() == to_uint256(j2["address"]));
   }
 
   SUBCASE("Using fully defined JSON as a source for SimpleAccount")
@@ -168,23 +168,19 @@ TEST_CASE("util" * doctest::test_suite("util"))
 
   SUBCASE("to_checksum_address")
   {
-    const Address t0 =
-      from_hex_str("0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed");
+    const Address t0 = to_uint256("0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed");
     REQUIRE(
       to_checksum_address(t0) == "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed");
 
-    const Address t1 =
-      from_hex_str("0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359");
+    const Address t1 = to_uint256("0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359");
     REQUIRE(
       to_checksum_address(t1) == "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359");
 
-    const Address t2 =
-      from_hex_str("0xDBF03B407C01E7CD3CBEA99509D93F8DDDC8C6FB");
+    const Address t2 = to_uint256("0xDBF03B407C01E7CD3CBEA99509D93F8DDDC8C6FB");
     REQUIRE(
       to_checksum_address(t2) == "0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB");
 
-    const Address t3 =
-      from_hex_str("0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb");
+    const Address t3 = to_uint256("0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb");
     REQUIRE(
       to_checksum_address(t3) == "0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb");
 
@@ -208,7 +204,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
@@ -222,7 +218,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
@@ -236,7 +232,7 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
@@ -251,13 +247,13 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
   SUBCASE("0xab0cd01002340560000078")
   {
-    uint256_t n = from_hex_str("0xab0cd01002340560000078");
+    uint256_t n = to_uint256("0xab0cd01002340560000078");
     to_big_endian(n, raw.data());
     REQUIRE(raw[31] == 0x78);
     REQUIRE(raw[30] == 0x00);
@@ -275,13 +271,13 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 
   SUBCASE("fullsize")
   {
-    uint256_t n = from_hex_str(
+    uint256_t n = to_uint256(
       "0xa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf");
     to_big_endian(n, raw.data());
     for (size_t i = 0; i < 32; ++i)
@@ -289,26 +285,26 @@ TEST_CASE("byteExport" * doctest::test_suite("primitive"))
       REQUIRE(raw[i] == 0xa0 + i);
     }
 
-    uint256_t m = from_big_endian(raw.begin(), raw.end());
+    uint256_t m = from_big_endian(raw.data(), raw.size());
     REQUIRE(m == n);
   }
 }
 
 TEST_CASE("addressGeneration" * doctest::test_suite("rlp"))
 {
-  Address sender = from_hex_str("0x6ac7ea33f8831ea9dcc53393aaa88b25a785dbf0");
+  Address sender = to_uint256("0x6ac7ea33f8831ea9dcc53393aaa88b25a785dbf0");
 
   Address nonce0 = generate_address(sender, 0u);
-  CHECK(nonce0 == from_hex_str("0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d"));
+  CHECK(nonce0 == to_uint256("0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d"));
 
   Address nonce1 = generate_address(sender, 1u);
-  CHECK(nonce1 == from_hex_str("0x343c43a37d37dff08ae8c4a11544c718abb4fcf8"));
+  CHECK(nonce1 == to_uint256("0x343c43a37d37dff08ae8c4a11544c718abb4fcf8"));
 
   Address nonce2 = generate_address(sender, 2u);
-  CHECK(nonce2 == from_hex_str("0xf778b86fa74e846c4f0a1fbd1335fe81c00a0c91"));
+  CHECK(nonce2 == to_uint256("0xf778b86fa74e846c4f0a1fbd1335fe81c00a0c91"));
 
   Address nonce3 = generate_address(sender, 3u);
-  CHECK(nonce3 == from_hex_str("0xfffd933a0bc612844eaf0c6fe3e5b8e9b6c1d19c"));
+  CHECK(nonce3 == to_uint256("0xfffd933a0bc612844eaf0c6fe3e5b8e9b6c1d19c"));
 }
 
 TEST_CASE("vmExecution" * doctest::test_suite("vm"))
@@ -365,7 +361,7 @@ TEST_CASE("vmExecution" * doctest::test_suite("vm"))
     CHECK(e.er == ExitReason::returned);
     CHECK(e.output.size() == rsize);
 
-    const uint256_t result = from_big_endian(e.output.begin(), e.output.end());
+    const uint256_t result = from_big_endian(e.output.data(), e.output.size());
     CHECK(result == a + b);
 
     // Confirm each opcode produced a TraceEvent, in order

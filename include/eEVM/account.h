@@ -6,6 +6,10 @@
 #include "address.h"
 #include "bigint.h"
 #include "exception.h"
+#include "util.h"
+
+#include <fmt/format_header_only.h>
+#include <vector>
 
 namespace eevm
 {
@@ -32,10 +36,10 @@ namespace eevm
       {
         throw Exception(
           Exception::Type::outOfFunds,
-          "Insufficient funds to pay " + to_hex_str(amount) + " to " +
-            to_hex_str(other.get_address()) + " (from " +
-            to_hex_str(get_address()) + ", current balance " +
-            to_hex_str(this_balance) + ")");
+          "Insufficient funds to pay " + to_hex_string(amount) + " to " +
+            to_hex_string(other.get_address()) + " (from " +
+            to_hex_string(get_address()) + ", current balance " +
+            to_hex_string(this_balance) + ")");
       }
 
       const auto other_balance = other.get_balance();
@@ -44,9 +48,10 @@ namespace eevm
       {
         throw Exception(
           Exception::Type::overflow,
-          "Overflow while attempting to pay " + to_hex_str(amount) + " to " +
-            to_hex_str(other.get_address()) + " (current balance " +
-            to_hex_str(other_balance) + ") from " + to_hex_str(get_address()));
+          "Overflow while attempting to pay " + to_hex_string(amount) + " to " +
+            to_hex_string(other.get_address()) + " (current balance " +
+            to_hex_string(other_balance) + ") from " +
+            to_hex_string(get_address()));
       }
 
       set_balance(this_balance - amount);

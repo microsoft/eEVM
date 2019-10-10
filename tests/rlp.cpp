@@ -174,8 +174,8 @@ TEST_CASE("uint256_t" * doctest::test_suite("rlp"))
   uint256_t small_decoded = 1024;
   auto small_encoded = rlp::ByteString{0x82, 0x04, 0x00};
 
-  using namespace boost::multiprecision::literals;
-  uint256_t large_decoded = 0x1234567890abcdefdeadbeefcafef00dbaaaad_cppui;
+  using namespace intx;
+  uint256_t large_decoded = 0x1234567890abcdefdeadbeefcafef00dbaaaad_u256;
   auto large_encoded =
     rlp::ByteString{0x93, 0x12, 0x34, 0x56, 0x78, 0x90, 0xab, 0xcd, 0xef, 0xde,
                     0xad, 0xbe, 0xef, 0xca, 0xfe, 0xf0, 0x0d, 0xba, 0xaa, 0xad};
@@ -329,11 +329,11 @@ TEST_CASE("user types" * doctest::test_suite("rlp"))
 
 TEST_CASE("transaction" * doctest::test_suite("rlp"))
 {
-  using namespace boost::multiprecision::literals;
+  using namespace intx;
   uint256_t nonce = 0x5;
-  uint256_t gas_price = 0x09184e72a000_cppui;
-  uint256_t gas_limit = 0x30000_cppui;
-  uint256_t to = 0xab2fcCB0c5F0499278801CE41F4bcCCA39676f2D_cppui;
+  uint256_t gas_price = 0x09184e72a000_u256;
+  uint256_t gas_limit = 0x30000_u256;
+  uint256_t to = 0xab2fcCB0c5F0499278801CE41F4bcCCA39676f2D_u256;
   uint256_t value = 0x0;
   rlp::ByteString data = {};
 

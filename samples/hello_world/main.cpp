@@ -42,12 +42,12 @@ int main(int argc, char** argv)
   std::generate(
     raw_address.begin(), raw_address.end(), []() { return rand(); });
   const eevm::Address sender =
-    from_big_endian(raw_address.begin(), raw_address.end());
+    eevm::from_big_endian(raw_address.data(), raw_address.size());
 
   std::generate(
     raw_address.begin(), raw_address.end(), []() { return rand(); });
   const eevm::Address to =
-    from_big_endian(raw_address.begin(), raw_address.end());
+    eevm::from_big_endian(raw_address.data(), raw_address.size());
 
   // Create global state
   eevm::SimpleGlobalState gs;

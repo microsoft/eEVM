@@ -1,0 +1,182 @@
+version: 2.1
+
+executors:
+  linux:
+    docker:
+      - image: ethereum/cpp-build-env:11
+
+commands:
+  install_deps:
+    description: "Install dependencies"
+    steps:
+      - run:
+          name: "Install dependencies"
+          command: |
+            sudo apt -q update
+            sudo apt install -qy libgmp-dev
+
+  build_and_test:
+    description: "Build & Test"
+    steps:
+      - run:
+          name: "Environment"
+          command: |
+            CC=${CC:-cc}
+            CXX=${CXX:-cpp}
+            echo CC: $CC
+            echo CXX: $CXX
+            $CC --version
+            $CXX --version
+            cmake --version
+      - checkout
+      - run:
+          name: "Update submodules"
+          command: git submodule update --init --recursive
+      - run:
+          name: "Configure"
+          working_directory: ~/build
+          command: cmake ../project -DCMAKE_INSTALL_PREFIX=~/install -DCMAKE_BUILD_TYPE=$BUILD_TYPE $CMAKE_OPTIONS
+      - run:
+          name: "Build"
+          working_directory: ~/build
+          command: |
+            cmake --build . -- -j4
+            cmake --build . --target install
+            cmake --build . --target package
+      - run:
+          name: "Test"
+          working_directory: ~/build
+          command: |
+            ctest -j4 --output-on-failure --schedule-random -R ${TESTS_FILTER:-'.*'} -E ${TESTS_EXCLUDE}
+      - run:
+          name: "Install"
+          command: cmake --build ~/build --target install
+
+  benchmark:
+    description: "Benchmark"
+    steps:
+      - run:
+          name: "Benchmark"
+          working_directory: ~/build
+          command: test/intx-bench
+
+
+jobs:
+
+  linux-gcc-coverage:
+    environment:
+      - CXX: g++-8
+      - CC:  gcc-8
+      - GCOV: gcov-8
+      - BUILD_PARALLEL_JOBS: 4
+      - BUILD_TYPE: Debug
+      - CMAKE_OPTIONS: -DCOVERAGE=ON
+      - TESTS_FILTER: unittests
+      - TESTS_EXCLUDE: random
+    docker:
+      - image: ethereum/cpp-build-env:11
+    steps:
+      - install_deps
+      - build_and_test
+      - run:
+          name: "Upload coverage data"
+          command: |
+            codecov --required --gcov-exec "$GCOV" --gcov-root ~/build
+
+  linux-clang-asan:
+    environment:
+      - CXX: clang++-8
+      - CC:  clang-8
+      - GCOV: gcov-8
+      - BUILD_PARALLEL_JOBS: 4
+      - BUILD_TYPE: Debug
+      - CMAKE_OPTIONS: -DSANITIZE=address
+    docker:
+      - image: ethereum/cpp-build-env:11
+    steps:
+      - install_deps
+      - build_and_test
+
+  linux-clang-ubsan:
+    environment:
+      - CXX: clang++-8
+      - CC:  clang-8
+      - BUILD_PARALLEL_JOBS: 4
+      - CMAKE_OPTIONS: -DSANITIZE=undefined,implicit-conversion,nullability
+      - UBSAN_OPTIONS: halt_on_error=1
+    docker:
+      - image: ethereum/cpp-build-env:11
+    steps:
+      - install_deps
+      - build_and_test
+      - benchmark
+
+  linux-32bit:
+    environment:
+      - CXX: g++-8
+      - CC:  gcc-8
+      - BUILD_PARALLEL_JOBS: 4
+      - BUILD_TYPE: Release
+      - CMAKE_OPTIONS: -DTOOLCHAIN=cxx14-32bit -DINTX_BENCHMARKING=OFF
+    docker:
+      - image: ethereum/cpp-build-env:11
+    steps:
+      - run:
+          name: "Install GCC multilib"
+          command: |
+            sudo apt -q update
+            sudo apt install -qy g++-8-multilib
+      - build_and_test
+
+  fuzzing:
+    environment:
+      - CXX: clang++-8
+      - CC:  clang-8
+      - BUILD_PARALLEL_JOBS: 4
+      - CMAKE_OPTIONS: -DINTX_FUZZING=ON
+    docker:
+      - image: ethereum/cpp-build-env:11
+    steps:
+      - install_deps
+      - build_and_test
+      - benchmark
+      - restore_cache:
+          keys:
+            - corpus
+      - run:
+          name: "Fuzzing"
+          working_directory: ~/build
+          command: |
+            mkdir -p ~/corpus
+            test/intx-fuzzer ~/corpus -use_value_profile=1 -max_len=129 -runs=500000
+      - save_cache:
+          key: corpus-{{ epoch }}
+          paths:
+            - ~/corpus
+
+  macos:
+    environment:
+      BUILD_TYPE: Release
+      BUILD_PARALLEL_JOBS: 8
+      TEST_PARALLEL_JOBS: 8
+    macos:
+      xcode: 10.2.0
+    steps:
+      - run:
+          name: "Install deps"
+          command: |
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install cmake gmp
+      - build_and_test
+      - benchmark
+
+
+workflows:
+  version: 2
+  intx:
+    jobs:
+      - linux-gcc-coverage
+      - linux-clang-asan
+      - linux-clang-ubsan
+      - linux-32bit
+      - fuzzing
+      - macos

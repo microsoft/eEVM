@@ -30,6 +30,11 @@ namespace eevm
     static constexpr auto MAX_MEM_SIZE = 1ull << 25; // 32 MB
   };
 
+  inline int get_sign(const uint256_t& v)
+  {
+    return (v >> 255) ? -1 : 1;
+  }
+
   /**
    * bytecode program
    */
@@ -739,7 +744,11 @@ namespace eevm
           x = 0 - x;
         if (signY == -1)
           y = 0 - y;
-        ctxt->s.push((x / y) * signX * signY);
+
+        auto z = (x / y);
+        if (signX != signY)
+          z = 0 - z;
+        ctxt->s.push(z);
       }
     }
 
@@ -767,7 +776,11 @@ namespace eevm
           x = 0 - x;
         if (signM == -1)
           m = 0 - m;
-        ctxt->s.push((x % m) * signX);
+
+        auto z = (x % m);
+        if (signX == -1)
+          z = 0 - z;
+        ctxt->s.push(z);
       }
     }
 
@@ -779,7 +792,7 @@ namespace eevm
       if (!m)
         ctxt->s.push(0);
       else
-        ctxt->s.push(static_cast<uint256_t>((x + y) % m));
+        ctxt->s.push(intx::narrow_cast<uint256_t>((x + y) % m));
     }
 
     void mulmod()
@@ -790,14 +803,14 @@ namespace eevm
       if (!m)
         ctxt->s.push(m);
       else
-        ctxt->s.push(static_cast<uint256_t>((x * y) % m));
+        ctxt->s.push(intx::narrow_cast<uint256_t>((x * y) % m));
     }
 
     void exp()
     {
       const auto b = ctxt->s.pop();
       const auto e = ctxt->s.pop64();
-      ctxt->s.push(power(b, e));
+      ctxt->s.push(intx::exp(b, uint256_t(e)));
     }
 
     void signextend()
@@ -809,10 +822,11 @@ namespace eevm
         ctxt->s.push(y);
         return;
       }
-      const uint8_t idx = 8 * shrink<uint8_t>(x) + 7;
+      const auto idx = 8 * shrink<uint8_t>(x) + 7;
       const auto sign = static_cast<uint8_t>((y >> idx) & 1);
-      const auto mask = uint256_t(-1) >> (256 - idx);
-      const auto yex = (uint256_t(-sign) << idx) | (y & mask);
+      constexpr auto zero = uint256_t(0);
+      const auto mask = ~zero >> (256 - idx);
+      const auto yex = ((sign ? ~zero : zero) << idx) | (y & mask);
       ctxt->s.push(yex);
     }
 
@@ -840,11 +854,11 @@ namespace eevm
         return;
       }
 
-      uint8_t signX = x.sign();
-      uint8_t signY = y.sign();
+      const auto signX = get_sign(x);
+      const auto signY = get_sign(y);
       if (signX != signY)
       {
-        if (signX == 1)
+        if (signX == -1)
           ctxt->s.push(1);
         else
           ctxt->s.push(0);
@@ -951,8 +965,8 @@ namespace eevm
     {
       const auto offset = ctxt->s.pop64();
       prepare_mem_access(offset, Consts::WORD_SIZE);
-      const auto start = ctxt->mem.begin() + offset;
-      ctxt->s.push(from_big_endian(start, start + Consts::WORD_SIZE));
+      const auto start = ctxt->mem.data() + offset;
+      ctxt->s.push(from_big_endian(start, Consts::WORD_SIZE));
     }
 
     void mstore()
@@ -1166,7 +1180,7 @@ namespace eevm
 
       uint8_t h[32];
       keccak_256(ctxt->mem.data() + offset, static_cast<unsigned int>(size), h);
-      ctxt->s.push(from_big_endian(h, h + sizeof(h)));
+      ctxt->s.push(from_big_endian(h, sizeof(h)));
     }
 
     void return_()

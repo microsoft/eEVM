@@ -4,6 +4,7 @@
 #pragma once
 #include "address.h"
 
+#include <nlohmann/json.hpp>
 #include <vector>
 
 namespace eevm

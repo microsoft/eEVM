@@ -1,0 +1,31 @@
+version: "{build}"
+image: Visual Studio 2017
+branches:
+  only:
+  - master
+  - /release\/.*/
+  - appveyor
+  - hunter
+configuration:
+  - Release
+environment:
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      GENERATOR: "Ninja"
+
+cache:
+  - C:\.hunter\_Base\Cache -> cmake\Hunter\init.cmake
+
+install:
+- cmake --version
+
+before_build:
+- call "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd" -arch=amd64
+- cmake -S . -B build -DINTX_BENCHMARKING=OFF -DNATIVE=ON -Wno-dev -G "%GENERATOR%" -DCMAKE_INSTALL_PREFIX=C:\install
+
+build_script:
+- cmake --build build --target install
+- cmake --build build --target package
+
+after_build:
+- cd build && ctest -j4 --output-on-failure --schedule-random

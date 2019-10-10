@@ -4,6 +4,7 @@
 #pragma once
 
 #include "bigint.h"
+#include "util.h"
 
 #include <cstdint>
 #include <stdexcept>
@@ -121,7 +122,15 @@ namespace eevm
       // a single 0 byte
       if (n != 0)
       {
-        boost::multiprecision::export_bits(n, std::back_inserter(bs), 8, true);
+        // Get big-endian form
+        uint8_t arr[32] = {};
+        intx::be::store(arr, n);
+
+        // No leading zeroes - count signficant bytes
+        const auto n_bytes = intx::count_significant_words<uint8_t>(n);
+        bs.resize(n_bytes);
+
+        std::memcpy(bs.data(), arr + 32 - n_bytes, n_bytes);
       }
 
       return bs;
@@ -421,12 +430,7 @@ namespace eevm
 
         if (size > 0)
         {
-          boost::multiprecision::import_bits(
-            result,
-            data,
-            data + size,
-            std::numeric_limits<uint8_t>::digits,
-            true);
+          result = from_big_endian(data, size);
         }
 
         data += size;

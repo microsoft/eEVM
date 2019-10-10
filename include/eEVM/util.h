@@ -9,6 +9,8 @@ extern "C"
 }
 #include "address.h"
 
+#include <fmt/format_header_only.h>
+#include <iomanip>
 #include <limits>
 #include <nlohmann/json.hpp>
 #include <sstream>
@@ -16,26 +18,30 @@ extern "C"
 
 namespace eevm
 {
-  /* Workaround for different json assignment issues, e.g.,
-  Boost cpp_int or vector in VS 2017:
-  https://github.com/nlohmann/json/issues/220 */
-  template <typename T>
-  void assign_j(T& o, const nlohmann::json& j)
+  inline auto from_big_endian(const uint8_t* begin, size_t size = 32u)
   {
-    o = j.get<T>();
+    if (size == 32)
+    {
+      return intx::be::unsafe::load<uint256_t>(begin);
+    }
+    else
+    {
+      // TODO: Find out how common this path is, make it the caller's
+      // responsibility
+      uint8_t tmp[32] = {};
+      const auto offset = 32 - size;
+      memcpy(tmp + offset, begin, size);
+
+      return intx::be::load<uint256_t>(tmp);
+    }
   }
 
-  template <typename T, typename U>
-  void assign_const(const T& x, U&& y)
+  inline void to_big_endian(const uint256_t& v, uint8_t* out)
   {
-    *const_cast<T*>(&x) = y;
-  }
-
-  template <typename T>
-  void assign_j_const(const T& x, const nlohmann::json& j)
-  {
-    T t = j;
-    assign_const(x, std::move(t));
+    // TODO: Is this cast safe?
+    // uint8_t(&arr)[32] =
+    // *static_cast<uint8_t(*)[32]>(static_cast<void*>(out));
+    intx::be::unsafe::store(out, v);
   }
 
   inline void keccak_256(
@@ -96,8 +102,13 @@ namespace eevm
     return fmt::format("0x{:02x}", fmt::join(begin, end, ""));
   }
 
-  template <typename T>
-  std::string to_hex_string(const T& bytes)
+  template <size_t N>
+  std::string to_hex_string(const std::array<uint8_t, N>& bytes)
+  {
+    return to_hex_string(bytes.begin(), bytes.end());
+  }
+
+  inline std::string to_hex_string(const std::vector<uint8_t>& bytes)
   {
     return to_hex_string(bytes.begin(), bytes.end());
   }
@@ -107,18 +118,37 @@ namespace eevm
     return fmt::format("0x{:x}", v);
   }
 
+  inline std::string to_hex_string(const uint256_t& v)
+  {
+    return fmt::format("0x{}", intx::hex(v));
+  }
+
   inline auto address_to_hex_string(const Address& v)
   {
     std::stringstream ss;
-    ss << "0x" << std::hex << std::setw(40) << std::setfill('0') << v;
+    ss << "0x" << std::hex << std::setw(40) << std::setfill('0')
+       << to_hex_string(v).substr(2);
     auto s = ss.str();
     std::transform(s.begin(), s.end(), s.begin(), ::tolower);
     return s;
   }
 
+  template <typename T>
+  std::string to_lower_hex_string(const T& v)
+  {
+    auto s = to_hex_string(v);
+    std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+    return s;
+  }
+
+  inline uint256_t to_uint256(const std::string& s)
+  {
+    return intx::from_string<uint256_t>(s);
+  }
+
   inline std::string to_checksum_address(const Address& a)
   {
-    auto s = to_lower_hex_str(a);
+    auto s = to_lower_hex_string(a);
 
     // Start at index 2 to skip the "0x" prefix
     const auto h = keccak_256_skip(2, s);
@@ -140,12 +170,11 @@ namespace eevm
 
   inline bool is_checksum_address(const std::string& s)
   {
-    const auto cs = to_checksum_address(from_hex_str(s));
+    const auto cs = to_checksum_address(to_uint256(s));
     return cs == s;
   }
 
   Address generate_address(const Address& sender, uint64_t nonce);
 
-  uint64_t to_uint64(const nlohmann::json& j);
   uint64_t to_uint64(const std::string& s);
 } // namespace eevm

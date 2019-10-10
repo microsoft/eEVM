@@ -22,7 +22,7 @@ SimpleGlobalState::StateEntry parseAccount(json::const_iterator& it)
 {
   auto storage = it.value()["storage"];
   auto account = it.value().get<SimpleAccount>();
-  account.set_address(from_hex_str(it.key()));
+  account.set_address(to_uint256(it.key()));
   return {account, storage};
 }
 
@@ -67,8 +67,8 @@ void run_test_case(
     INFO("SUBCASE: " << subcase);
     {
       const auto& j = it.value();
-      Address callee = j["exec"]["address"];
-      Address caller = j["exec"]["caller"];
+      Address callee = to_uint256(j["exec"]["address"]);
+      Address caller = to_uint256(j["exec"]["caller"]);
       const auto c = to_bytes(j["exec"]["code"]);
       const auto inp = to_bytes(j["exec"]["data"]);
       uint64_t value = to_uint64(j["exec"]["value"]);
@@ -94,7 +94,7 @@ void run_test_case(
       SimpleGlobalState gs(b);
       NullLogHandler ignore;
       Transaction tx(
-        j["exec"]["origin"],
+        to_uint256(j["exec"]["origin"]),
         ignore,
         to_uint64(j["exec"]["value"]),
         to_uint64(j["exec"]["gasPrice"]),
@@ -102,7 +102,9 @@ void run_test_case(
 
       // parse accounts
       for (decltype(auto) it = j["pre"].cbegin(); it != j["pre"].cend(); it++)
+      {
         gs.insert(parseAccount(it));
+      }
 
       CHECK(gs.exists(callee));
 
@@ -143,11 +145,15 @@ void run_test_case(
       // is not mentioned when an exception is raised but that does not mean
       // systemState is lost
       if (postAccounts != 0)
+      {
         CHECK(postAccounts == gs.num_accounts());
+      }
 
       // does the test case specify output?
       if (j.find("out") != j.end())
+      {
         CHECK(e.output == to_bytes(j.at("out")));
+      }
 
       // TODO: Calculate hash of RLP of produced log entries, to compare against
       // the value specified in the test case
