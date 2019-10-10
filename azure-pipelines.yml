@@ -10,14 +10,10 @@ pool:
 ## Need to investigate using a custom Docker image
 
 steps:
-- script: |
-   cd /tmp/ && wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz && tar -xf /tmp/boost_1_67_0.tar.gz
-  displayName: Get Boost 1.67
-
 - script: 'mkdir build'
   displayName: Make build dir
 
-- script: 'BOOST_ROOT=/tmp/boost_1_67_0/ cmake ..'
+- script: 'cmake ..'
   displayName: CMake
   workingDirectory: build
 

@@ -17,7 +17,6 @@ So far, the code is not particularly optimized in any dimension. In fact, it is 
 ## Dependencies
 
 * CMake. Minimum version 3.10.
-* Boost. Minimum version 1.60.0. We currently use Boost multi-precision ints, so require Boost to be available on the local machine. This is a header-only dependency - Boost does not need to be installed. We may replace this with another wide int implementation in the future.
 
 ## Build and Test
 
@@ -50,7 +49,7 @@ Open the Visual Studio 2017 developer command prompt. Create .sln and .vcxproj f
 ```cmd
 mkdir build
 cd build
-cmake -DBoost_INCLUDE_DIR=<boost directory> ..
+cmake ..
 msbuild ALL_BUILD.vcxproj
 ```
 
