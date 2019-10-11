@@ -1,0 +1,32 @@
+name: eEVM Github Actions CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Create build directory
+      run: mkdir build
+      
+    - name: CMake
+      run: cmake ..
+      working-directory: ./build
+      
+    - name: Make
+      run: make VERBOSE=1
+      working-directory: ./build
+      
+    - name: Quick tests
+      run: ctest -VV
+      working-directory: ./build
+      
+    - name: Full tests
+      run: time ./eevm_tests -ns -d
+      working-directory: ./build
+      env:
+        TEST_DIR: ../3rdparty/test_cases/
