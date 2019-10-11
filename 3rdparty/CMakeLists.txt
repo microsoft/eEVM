@@ -1,4 +1,6 @@
-cmake_policy(SET CMP0076 NEW)
+if (${CMAKE_VERSION} VERSION_GREATER "3.13")
+  cmake_policy(SET CMP0076 NEW)
+endif()
 
 add_library(intx INTERFACE)
 add_library(intx::intx ALIAS intx)
