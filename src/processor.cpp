@@ -790,9 +790,14 @@ namespace eevm
       const uint512_t y = ctxt->s.pop();
       const auto m = ctxt->s.pop();
       if (!m)
+      {
         ctxt->s.push(0);
+      }
       else
-        ctxt->s.push(intx::narrow_cast<uint256_t>((x + y) % m));
+      {
+        const uint512_t n = (x + y) % m;
+        ctxt->s.push(n.lo);
+      }
     }
 
     void mulmod()
@@ -801,9 +806,14 @@ namespace eevm
       const uint512_t y = ctxt->s.pop();
       const auto m = ctxt->s.pop();
       if (!m)
+      {
         ctxt->s.push(m);
+      }
       else
-        ctxt->s.push(intx::narrow_cast<uint256_t>((x * y) % m));
+      {
+        const uint512_t n = (x * y) % m;
+        ctxt->s.push(n.lo);
+      }
     }
 
     void exp()
