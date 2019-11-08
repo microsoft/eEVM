@@ -24,6 +24,14 @@ namespace eevm
       topics_array.push_back(to_hex_string_fixed(topic, 64));
     }
     j["topics"] = topics_array;
+
+    // Fill in fields to be fields for compliance, so this can be parsed by
+    // standard tools
+    j["logIndex"] = "0x0";
+    j["blockNumber"] = "0x0";
+    j["blockHash"] = "0x0";
+    j["transactionHash"] = "0x0";
+    j["transactionIndex"] = "0x0";
   }
 
   void from_json(const nlohmann::json& j, LogEntry& log)
