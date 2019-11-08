@@ -25,7 +25,7 @@ namespace eevm
     }
     j["topics"] = topics_array;
 
-    // Fill in fields to be fields for compliance, so this can be parsed by
+    // Fill in all specified fields for compliance, so this can be parsed by
     // standard tools
     j["logIndex"] = "0x0";
     j["blockNumber"] = "0x0";
