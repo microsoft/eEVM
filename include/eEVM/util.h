@@ -123,6 +123,12 @@ namespace eevm
     return fmt::format("0x{}", intx::hex(v));
   }
 
+  inline std::string to_hex_string_fixed(
+    const uint256_t& v, size_t min_hex_chars)
+  {
+    return fmt::format("0x{:0>{}}", intx::hex(v), min_hex_chars);
+  }
+
   inline auto address_to_hex_string(const Address& v)
   {
     std::stringstream ss;
