@@ -131,12 +131,7 @@ namespace eevm
 
   inline auto address_to_hex_string(const Address& v)
   {
-    std::stringstream ss;
-    ss << "0x" << std::hex << std::setw(40) << std::setfill('0')
-       << to_hex_string(v).substr(2);
-    auto s = ss.str();
-    std::transform(s.begin(), s.end(), s.begin(), ::tolower);
-    return s;
+    return to_hex_string_fixed(v, 40);
   }
 
   template <typename T>
@@ -168,6 +163,11 @@ namespace eevm
         {
           c = std::toupper(c);
         }
+        else
+        {
+          c = std::tolower(c);
+        }
+        
       }
     }
 
