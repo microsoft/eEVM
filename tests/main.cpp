@@ -99,6 +99,33 @@ TEST_CASE(
 
 TEST_CASE("util" * doctest::test_suite("util"))
 {
+  SUBCASE("to_hex_string")
+  {
+    using namespace intx;
+    REQUIRE(to_hex_string(0) == "0x0");
+    REQUIRE(to_hex_string(1) == "0x1");
+    REQUIRE(to_hex_string(0xa) == "0xa");
+    REQUIRE(to_hex_string(0xff) == "0xff");
+    REQUIRE(
+      to_hex_string(
+        0x1234567890abcdef1a1a2b2b3c3c4d4d5e5e6f6f0011223344556677889900aa_u256) ==
+      "0x1234567890abcdef1a1a2b2b3c3c4d4d5e5e6f6f0011223344556677889900aa");
+
+    REQUIRE(to_hex_string_fixed(0, 4) == "0x0000");
+    REQUIRE(to_hex_string_fixed(1, 4) == "0x0001");
+    REQUIRE(
+      to_hex_string_fixed(0xa, 64) ==
+      "0x000000000000000000000000000000000000000000000000000000000000000a");
+    REQUIRE(
+      to_hex_string_fixed(0xff, 64) ==
+      "0x00000000000000000000000000000000000000000000000000000000000000ff");
+    REQUIRE(
+      to_hex_string_fixed(
+        0x1234567890abcdef1a1a2b2b3c3c4d4d5e5e6f6f0011223344556677889900aa_u256,
+        64) ==
+      "0x1234567890abcdef1a1a2b2b3c3c4d4d5e5e6f6f0011223344556677889900aa");
+  }
+
   SUBCASE("to_bytes")
   {
     REQUIRE(to_bytes("") == vector<uint8_t>{});
