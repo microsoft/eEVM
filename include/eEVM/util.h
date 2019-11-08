@@ -124,7 +124,7 @@ namespace eevm
   }
 
   inline std::string to_hex_string_fixed(
-    const uint256_t& v, size_t min_hex_chars)
+    const uint256_t& v, size_t min_hex_chars = 64)
   {
     return fmt::format("0x{:0>{}}", intx::hex(v), min_hex_chars);
   }
@@ -149,7 +149,7 @@ namespace eevm
 
   inline std::string to_checksum_address(const Address& a)
   {
-    auto s = to_lower_hex_string(a);
+    auto s = address_to_hex_string(a);
 
     // Start at index 2 to skip the "0x" prefix
     const auto h = keccak_256_skip(2, s);
@@ -167,8 +167,7 @@ namespace eevm
         {
           c = std::tolower(c);
         }
-        
-      }
+            }
     }
 
     return s;

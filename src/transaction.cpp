@@ -21,7 +21,7 @@ namespace eevm
     auto topics_array = nlohmann::json::array();
     for (const auto& topic : log.topics)
     {
-      topics_array.push_back(to_hex_string_fixed(topic, 64));
+      topics_array.push_back(to_hex_string_fixed(topic));
     }
     j["topics"] = topics_array;
 
