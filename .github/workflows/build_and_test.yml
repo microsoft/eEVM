@@ -24,6 +24,14 @@ jobs:
     - name: Quick tests
       run: ctest -VV
       working-directory: ./build
+
+    - name: Samples
+      run: |
+        ./hello_world
+        ./sum 0xa 0xb
+        ./erc20 ../samples/erc20/ERC20_combined.json
+        ./disassembler 0x600161123401fd
+      working-directory: ./build
       
     - name: Full tests
       run: time ./eevm_tests -ns -d
