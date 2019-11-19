@@ -38,7 +38,7 @@ std::vector<uint8_t> create_bytecode(const std::string& s)
 int main(int argc, char** argv)
 {
   // Create random addresses for sender and contract
-  std::vector<uint8_t> raw_address(160);
+  std::vector<uint8_t> raw_address(20);
   std::generate(
     raw_address.begin(), raw_address.end(), []() { return rand(); });
   const eevm::Address sender =

@@ -25,6 +25,14 @@ steps:
   displayName: Quick test
   workingDirectory: build
 
+- script: |
+    ./hello_world
+    ./sum 0xa 0xb
+    ./erc20 ../samples/erc20/ERC20_combined.json
+    ./disassembler 0x600161123401fd
+  displayName: Samples
+  workingDirectory: build
+
 - script: 'time TEST_DIR=../3rdparty/test_cases/ ./eevm_tests -ns -d'
   displayName: Full tests
   workingDirectory: build
