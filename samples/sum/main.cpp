@@ -95,7 +95,7 @@ int main(int argc, char** argv)
   }
 
   // Invent a random address to use as sender
-  std::vector<uint8_t> raw_address(160);
+  std::vector<uint8_t> raw_address(20);
   std::generate(
     raw_address.begin(), raw_address.end(), []() { return rand(); });
   const eevm::Address sender =

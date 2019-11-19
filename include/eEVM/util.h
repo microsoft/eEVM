@@ -24,6 +24,10 @@ namespace eevm
     {
       return intx::be::unsafe::load<uint256_t>(begin);
     }
+    else if (size > 32)
+    {
+      throw std::logic_error("Calling from_big_endian with oversized array");
+    }
     else
     {
       // TODO: Find out how common this path is, make it the caller's
@@ -167,7 +171,7 @@ namespace eevm
         {
           c = std::tolower(c);
         }
-            }
+      }
     }
 
     return s;
