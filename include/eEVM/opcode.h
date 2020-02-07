@@ -28,9 +28,9 @@ namespace eevm
     SIGNEXTEND = 0x0b, // Extend length of two’s complement signed integer.
 
     // 10s: Comparison & Bitwise Logic Operations
-    LT     = 0x10, // Less-than comparision
-    GT     = 0x11, // Greater-than comparision
-    SLT    = 0x12, // Signed less-than comparision
+    LT     = 0x10, // Less-than comparison
+    GT     = 0x11, // Greater-than comparison
+    SLT    = 0x12, // Signed less-than comparison
     SGT    = 0x13, // Signed greater-than comparison
     EQ     = 0x14, // Equality comparison
     ISZERO = 0x15, // Simple not operator
@@ -166,7 +166,7 @@ namespace eevm
     RETURN       = 0xf3, // Halt execution returning output data
     DELEGATECALL = 0xf4, // Message-call into this account with an alternative account’s code, but persisting the current values for sender and value.
     // STATICCALL   = 0xfa, // Static message-call into an account. Exactly equivalent to CALL except: The argument µs is replaced with 0.
-    // REVERT       = 0xfd, // Halt execution reverting state changes but returning data and remaining g
+    // REVERT       = 0xfd, // Halt execution reverting state changes but returning data and remaining gas
     // INVALID      = 0xfe, // Designated invalid instruction
     SELFDESTRUCT = 0xff
   };
