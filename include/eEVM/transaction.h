@@ -63,7 +63,7 @@ namespace eevm
     const uint64_t gas_limit;
 
     LogHandler& log_handler;
-    std::vector<Address> destroy_list;
+    std::vector<Address> selfdestruct_list;
 
     Transaction(
       const Address origin,
