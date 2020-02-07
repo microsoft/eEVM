@@ -1,6 +1,6 @@
 name: eEVM Github Actions CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
