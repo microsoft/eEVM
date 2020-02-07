@@ -226,7 +226,7 @@ namespace eevm
         stop();
 
       // clean-up
-      for (const auto& addr : tx.destroy_list)
+      for (const auto& addr : tx.selfdestruct_list)
         gs.remove(addr);
 
       return result;
@@ -613,8 +613,8 @@ namespace eevm
         case Opcode::RETURN:
           return_();
           break;
-        case Opcode::DESTROY:
-          destroy();
+        case Opcode::SELFDESTRUCT:
+          selfdestruct();
           break;
         case Opcode::CREATE:
           create();
@@ -1213,11 +1213,11 @@ namespace eevm
       hh();
     }
 
-    void destroy()
+    void selfdestruct()
     {
       auto recipient = gs.get(pop_addr(ctxt->s));
       ctxt->acc.pay_to(recipient.acc, ctxt->acc.get_balance());
-      tx.destroy_list.push_back(ctxt->acc.get_address());
+      tx.selfdestruct_list.push_back(ctxt->acc.get_address());
       stop();
     }
 
