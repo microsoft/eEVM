@@ -485,8 +485,7 @@ namespace eevm
           {
             throw decode_error(fmt::format(
               "Length of next element should be encoded in {} bytes, but only "
-              "{} "
-              "remain",
+              "{} remain",
               length_of_length,
               size));
           }
