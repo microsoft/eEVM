@@ -20,11 +20,15 @@ const auto large_input_decoded = std::make_tuple(
     66000u),
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
   "tempor incididunt ut labore et dolore magna aliqua"s);
-const auto large_input_encoded = rlp::to_byte_string(
+
+const std::string large_input_encoded_s =
   "\xf8\xa5\xda\x8bHello world\x8dSaluton "
   "Mondo\xcd\xc8\xc1\x01\xc2\x02\x03\xc2\xc1\x04\x83\x01\x01\xd0\xb8zLorem "
   "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-  "tempor incididunt ut labore et dolore magna aliqua");
+  "tempor incididunt ut labore et dolore magna aliqua";
+
+const auto large_input_encoded = std::vector<uint8_t>(
+  large_input_encoded_s.begin(), large_input_encoded_s.end());
 
 TEST_CASE("encode" * doctest::test_suite("rlp"))
 {
