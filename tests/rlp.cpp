@@ -83,6 +83,7 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x1}) == 0x1);
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x7f}) == 0x7f);
   CHECK(rlp::decode_single<size_t>(rlp::ByteString{0x81, 0x80}) == 0x80);
+  CHECK_THROWS(rlp::decode_single<size_t>(rlp::ByteString{0x81, 0x80, 0x00}));
 
   CHECK(rlp::decode<>(rlp::ByteString{0xc0}) == std::make_tuple());
   CHECK(rlp::decode<std::string>(rlp::ByteString{0x80}) == std::make_tuple(""));
@@ -123,6 +124,8 @@ TEST_CASE("decode" * doctest::test_suite("rlp"))
     rlp::decode<std::tuple<std::tuple<size_t>>>(
       rlp::ByteString{0xc2, 0xc1, 0x80}) ==
     std::make_tuple(std::make_tuple(std::make_tuple(0x0))));
+  CHECK_THROWS(rlp::decode<std::tuple<std::tuple<size_t>>>(
+    rlp::ByteString{0xc2, 0xc1, 0x80, 0x00}));
 
   CHECK(
     rlp::decode_single<

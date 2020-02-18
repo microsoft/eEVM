@@ -280,7 +280,7 @@ namespace eevm
 
     // Forward declaration to allow recursive calls.
     template <typename... Ts>
-    std::tuple<Ts...> decode(const uint8_t*&, size_t&);
+    std::tuple<Ts...> decode_impl(const uint8_t*&, size_t&);
 
     inline std::pair<Arity, size_t> decode_length(
       const uint8_t*& data, size_t& size);
@@ -375,7 +375,7 @@ namespace eevm
         std::array<T, N> result;
         for (auto i = 0u; i < N; ++i)
         {
-          result[i] = std::get<0>(decode<T>(data, size));
+          result[i] = std::get<0>(decode_impl<T>(data, size));
         }
 
         size = 0u;
@@ -394,7 +394,7 @@ namespace eevm
         std::vector<T> result;
         while (contained_length > 0)
         {
-          result.push_back(std::get<0>(decode<T>(data, contained_length)));
+          result.push_back(std::get<0>(decode_impl<T>(data, contained_length)));
         }
 
         size = 0u;
@@ -530,15 +530,15 @@ namespace eevm
     inline std::tuple<T, Ts...> decode_tuple(
       const uint8_t*& data, size_t& size, std::tuple<T, Ts...>)
     {
-      const auto first = decode<T>(data, size);
+      const auto first = decode_impl<T>(data, size);
 
       return std::tuple_cat(
         first, decode_tuple<Ts...>(data, size, std::tuple<Ts...>{}));
     }
 
     // Type helper for decoding single item, forwarding to either decode_tuple
-    // (to unwrap the types contained in a tuple) or directly to the main
-    // decode function
+    // (to unwrap the types contained in a tuple) or directly to the top-level
+    // decode_impl function
     template <typename T>
     auto decode_item(const uint8_t*& data, size_t& size)
     {
@@ -548,13 +548,12 @@ namespace eevm
       }
       else
       {
-        return decode<T>(data, size);
+        return decode_impl<T>(data, size);
       }
     }
 
-    // Type helper for decoding single item, forwarding to either decode_tuple
-    // (to unwrap the types contained in a tuple) or directly to the main
-    // decode function
+    // Type helper for decoding multiple items, decoding the first and then
+    // potentially recursing to concatenate the decoded tail
     template <typename T, typename... Ts>
     std::tuple<T, Ts...> decode_multiple(const uint8_t*& data, size_t& size)
     {
@@ -570,10 +569,10 @@ namespace eevm
       }
     }
 
-    // Main decode function. Reads initial length, then either converts a single
-    // item from remaining bytes or forwards to decode_multiple
+    // Main decode_impl function. Reads initial length, then either converts a
+    // single item from remaining bytes or forwards to decode_multiple
     template <typename... Ts>
-    std::tuple<Ts...> decode(const uint8_t*& data, size_t& size)
+    std::tuple<Ts...> decode_impl(const uint8_t*& data, size_t& size)
     {
       auto [arity, contained_length] = decode_length(data, size);
 
@@ -585,6 +584,7 @@ namespace eevm
         }
 
         size -= contained_length;
+
         return std::make_tuple(from_bytes<Ts...>{}(data, contained_length));
       }
 
@@ -608,11 +608,28 @@ namespace eevm
       else
       {
         size -= contained_length;
+
         return decode_multiple<Ts...>(data, contained_length);
       }
     }
 
-    // Helper. Takes ByteString and forwards to contained data+size to main
+    // Core helper. Forwards to decode_impl, ensures entire input has been
+    // consumed
+    template <typename... Ts>
+    std::tuple<Ts...> decode(const uint8_t*& data, size_t& size)
+    {
+      auto res = decode_impl<Ts...>(data, size);
+
+      if (size != 0)
+      {
+        throw decode_error(fmt::format(
+          "Expected to decode entire input, but {} bytes remain", size));
+      }
+
+      return res;
+    }
+
+    // Helper. Takes ByteString and forwards contained data+size to main
     // decode function
     template <typename... Ts>
     std::tuple<Ts...> decode(const ByteString& bytes)
