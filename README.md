@@ -2,6 +2,8 @@
 
 Enclave EVM (eEVM) is an open-source, standalone, embeddable, C++ implementation of the Ethereum Virtual Machine. It was originally built to run within a [TEE](https://en.wikipedia.org/wiki/Trusted_execution_environment) (ie, SGX enclave) on top of the [Open Enclave SDK](https://openenclave.io/sdk/), for use with Microsoft's [Confidential Consortium Framework](https://github.com/Microsoft/CCF).
 
+[![eEVM GitHub Actions CI](https://github.com/microsoft/eEVM/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/microsoft/eEVM/actions/workflows/build_and_test.yml)
+
 ## Description
 
 The main entry point is `eevm::Processor::run()`. You will need to provide `eevm::Processor` with an implementation of `eevm::GlobalState` to handle all interactions with permanent state. The source includes `eevm::SimpleGlobalState` as an example backed by `std::map`, but other instances will likely want an implementation which provides permanent storage - perhaps a wrapper to read/write data from the Ethereum blockchain.
